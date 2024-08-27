@@ -5,6 +5,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+    --color-131921: #131921;
+    --color-3b4149: #3b4149;
+    --color-febd69: #febd69;
+    --color-232f3e: #232f3e;
+    --color-3b4149: #3b4149;
+}
 
 *{
     margin: 0;
@@ -14,4 +21,13 @@
 
 html,body{
     font-family: 'iranYekan';
+}
+
+@layer components {
+    .dropdown:hover > .dropdown-content {
+      @apply block;
+    }
+    .active{
+      @apply text-[var(--color-febd69)] font-extrabold border-b-[var(--color-febd69)] transition-all ease-in-out duration-300;  
+    }
 }
