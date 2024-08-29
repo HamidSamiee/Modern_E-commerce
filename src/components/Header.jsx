@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom"
 import {BsCart4, BsSearch} from 'react-icons/bs'
 import { FaChevronDown, FaRegHeart , FaRegUser, FaRotate } from "react-icons/fa6";
 import { BiCategory } from "react-icons/bi";
+import { toPersianDigits } from "@/utils/toPersianDigits";
 
 
 const Header = () => {
@@ -12,12 +13,12 @@ const Header = () => {
             <div className="grid grid-cols-12">
               <div className="col-span-6 ">
                   <p className="text-white mb-0 ">
-                         ارسال رایگان با خرید بالای 1 میلیون تومان 
+                         ارسال رایگان با خرید بالای  {toPersianDigits(1)} میلیون تومان 
                   </p>
               </div>
               <div className="col-span-6 ">
                   <p className="text-white mb-0 text-end">
-                          شماره تماس : <Link to="tel : 09139734679"> 09139734679</Link>
+                          شماره تماس : <Link to="tel : 09139734679"> {toPersianDigits(0) + toPersianDigits(9139734679)}</Link>
                   </p>
               </div>
             </div>
@@ -70,7 +71,7 @@ const Header = () => {
                     <Link className="">
                         <BsCart4  className="w-8 h-8 z-20 "  />
                         <div className="z-10 absolute  -top-3 right-1 bg-[var(--color-febd69)] py-1 px-2 text-black text-xs font-medium rounded-full ">
-                              0
+                        {toPersianDigits(0)}
                         </div>
                     </Link></div>  
               </div>
@@ -90,7 +91,7 @@ const Header = () => {
                           </span>
                           <FaChevronDown className="w-4 h-4 group-hover:rotate-180 transition-all ease-in-out duration-300"  />
                         </button>
-                        <ul className="dropdown-content w-full absolute hidden pt-1  transition-all ease-in-out duration-500">
+                        <ul className="dropdown-content z-50 w-full absolute hidden pt-1  transition-all ease-in-out duration-500">
                           <li><Link className="rounded-t bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Option 1</Link></li>
                           <li><Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Option 2</Link></li>
                           <li className="dropdown w-full ">
@@ -108,9 +109,12 @@ const Header = () => {
                         </ul>
                       </div>
                  </div>
-                 <div className=" col-span-9 place-content-center ">
-                    <div className="flex items-center gap-20 pr-20 border-r border-r-white">
-                        <NavLink to='/' className={`${(isActive)=>isActive ? "active" : ""} text-sm font-normal py-3 focus:border-b-4 `}>
+                 <div className="col-span-1 my-2 border-r border-r-white">
+
+                 </div>
+                 <div className=" col-span-8 place-content-center ">
+                    <div className="flex items-center gap-20  ">
+                        <NavLink to='/' className={`${(isActive)=>isActive ? "active" : ""} text-sm font-normal py-3 focus:border-b-4 `} >
                               خانه
                         </NavLink>
                         <NavLink to='/shop' className={`${(isActive)=>isActive ? "active" : ""} text-sm font-normal py-3 focus:border-b-4 `}>
