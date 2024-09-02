@@ -11,7 +11,7 @@ export default defineConfig({
       "@layout": "/src/layout",
       "@features": "/src/features",
       "@pages": "/src/pages",
-      "@util": "/src/util",
+      "@utils": "/src/utils",
       "@hooks": "/src/hooks",
       "@assets": "/src/assets",
       "@ui": "/src/ui",

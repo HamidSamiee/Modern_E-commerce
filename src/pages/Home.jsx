@@ -1,33 +1,32 @@
 import { Link } from "react-router-dom"
-import banner1 from "@assets/images/main-banner1.webp"
-import sbanner1 from "@assets/images/small-banner1.webp"
-import sbanner2 from "@assets/images/small-banner2.webp"
-import sbanner3 from "@assets/images/small-banner3.webp"
-import sbanner4 from "@assets/images/small-banner4.webp"
-import gift from "@assets/images/gift.png"
-import discount from "@assets/images/discont.png"
-import service1 from "@assets/images/service1.png"
-import service2 from "@assets/images/service2.png"
-import service3 from "@assets/images/service3.png"
-import service4 from "@assets/images/service4.png"
-import service5 from "@assets/images/service5.png"
-import service6 from "@assets/images/service6.png"
-import service7 from "@assets/images/service7.png"
-import service8 from "@assets/images/service8.png"
-import service9 from "@assets/images/service9.png"
-import service10 from "@assets/images/service10.png"
-
+import {
+      banner1,sbanner1,sbanner2,
+      sbanner3,sbanner4,gift,
+      discount,service1,service2,
+      service3,service4,service5,
+      service6,service7,service8,
+      service9,service10,brand1,
+      brand2,brand3,brand4,brand5,
+      brand6,brand7,brand8,
+      brand9,brand10,brand11,
+} from "@/utils/myimages"
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { MdPayment } from "react-icons/md";
-
 import { BsArrowLeft } from "react-icons/bs"
 import {  BiSupport } from "react-icons/bi"
 import { toPersianDigits } from "@/utils/toPersianDigits"
+import Marquee from "react-fast-marquee";
+import BlogCart from "@/components/BlogCart";
+import {blogs, discountProduct, famousProduct, selectionProduct} from "@/assets/data/data";
+import ProductCart from "@/components/ProductCart";
+import SpecialProduct from "@/components/SpecialProduct";
+import FamousProduct from "@/components/FamousProduct";
 
 const Home = () => {
   return (
     <main>
-      <section className="py-5 ">
+  {/* Hero Section */}
+      <section className="py-5">
         <div className="container xl:max-w-screen-xl">
           <div className="grid grid-cols-12 gap-5 px-5">
             <div className="relative col-span-6 ">
@@ -117,6 +116,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+  {/* khadmat Section */}      
       <section className="py-5 bg-[var(--color-f5f5f7)]">
         <div className="container xl:max-w-screen-xl ">
           <div className="w-full flex items-center justify-between px-5 py-12">
@@ -178,7 +178,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className=" bg-[var(--color-f5f5f7)] pb-5 ">
+  {/* Category Section */} 
+      <section className=" bg-[var(--color-f5f5f7)] py-5 ">
         <div className="container xl:max-w-screen-xl">
           <div className="w-full flex items-center justify-between px-5">
               <div className="bg-white w-full shadow-md p-3 rounded-lg">
@@ -317,7 +318,114 @@ const Home = () => {
               </div> 
           </div>
         </div>  
-      </section>           
+      </section>
+  {/* Featured Section */}
+      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
+        <div className="container xl:max-w-screen-xl">
+          <div className=" px-5 mb-5 font-extrabold text-xl">
+                <h3 className="">   منتخب محصولات </h3>
+          </div>
+          <div className="grid grid-cols-12 gap-5 px-5">
+            {
+              selectionProduct.map((p,i)=><ProductCart key={i} dataSelection={p} />)
+            }
+          </div> 
+        </div>
+      </section>
+  {/* famous Section */}
+      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
+        <div className="container xl:max-w-screen-xl">
+          <div className=" px-5 mb-5 font-extrabold text-xl">
+                <h3 className="">    محصولات محبوب </h3>
+          </div>
+          <div className="famousProduct  grid grid-cols-12 gap-5 px-5">
+            {
+              famousProduct.map((p,i)=><FamousProduct key={i} dataFamous={p} />)
+            }
+          </div> 
+        </div>
+      </section>      
+  {/* Special Section */}      
+      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
+        <div className="container xl:max-w-screen-xl">
+          <div className=" px-5 mb-5 font-extrabold text-xl">
+                <h3 className="">    محصولات ویژه تخفیف و حراج </h3>
+          </div>
+          <div className="grid grid-cols-12 gap-5 px-5">
+            {
+              discountProduct.map((p,i)=><SpecialProduct key={i} dataSpecial={p} />)
+            }
+          </div> 
+        </div>
+      </section>
+  {/* Featured Section */}
+      {/* <section className="bg-[var(--color-f5f5f7)]  py-5 ">
+        <div className="container xl:max-w-screen-xl">
+          <div className=" px-5 mb-5 font-extrabold text-xl">
+                <h3 className="">   محصولات محبوب ما  </h3>
+          </div>
+          <div className="grid grid-cols-12 gap-5 px-5">
+            {
+              selectionProduct.map((p,i)=><ProductCart key={i} dataSelection={p} />)
+            }
+          </div> 
+        </div>
+      </section>             */}
+  {/* Marque Section */}
+      <section className=" bg-[var(--color-f5f5f7)] py-5 ">
+        <div className="container xl:max-w-screen-xl">
+          <div className="bg-white shadow-xl p-4 mx-5 rounded-md my-3 ">
+            <Marquee className="flex items-center justify-center" direction="right" pauseOnHover>
+              <div className="mx-10 w-32">
+                <img src={brand1} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand2} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand3} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand4} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand5} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand6} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand7} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand8} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-24">
+                <img src={brand9} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand10} alt="brand" className="" />
+              </div>
+              <div className="mx-10 w-32">
+                <img src={brand11} alt="brand" className="" />
+              </div>
+            </Marquee>
+          </div>
+        </div>
+      </section> 
+  {/* Blogs Section */}      
+      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
+        <div className="container xl:max-w-screen-xl mb-3">
+          <div className=" px-5 mb-5 font-extrabold text-xl">
+                <h3 className=""> مطالب اخیر سایت</h3>
+          </div>
+          <div className="grid grid-cols-12 gap-5 px-5">
+            {
+              blogs.map((blog,i)=><BlogCart key={i} dataBlog={blog} />)
+            }
+          </div> 
+        </div>
+      </section>
     </main>
   )
 }

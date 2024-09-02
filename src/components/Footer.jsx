@@ -15,7 +15,7 @@ const Footer = () => {
               </div>
               <div className="pl-10 col-span-6 w-full">
                 <div className="relative w-full mx-auto ">
-                    <input className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="ایمیل تان رو وارد کنید" />
+                    <input className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="ایمیل تان را وارد کنید" />
                     <button className="absolute inset-y-0 left-0 flex items-center p-3 text-gray-700 bg-[var(--color-febd69)]   border border-gray-300 rounded-l-md hover:bg-[var(--color-febd69)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                       اشتراک
                     </button>

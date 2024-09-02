@@ -7,7 +7,7 @@
         "@layout/*": ["layout/*"],
         "@features/*": ["features/*"],
         "@pages/*": ["pages/*"],
-        "@util/*": ["util/*"],
+        "@utils/*": ["utils/*"],
         "@hooks/*": ["hooks/*"],
         "@assets/*": ["assets/*"],
         "@ui/*": ["ui/*"],

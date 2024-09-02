@@ -114,7 +114,7 @@ const Header = () => {
                  </div>
                  <div className=" col-span-8 place-content-center ">
                     <div className="flex items-center gap-20  ">
-                        <NavLink to='/' className={`${(isActive)=>isActive ? "active" : ""} text-sm font-normal py-3 focus:border-b-4 `} >
+                        <NavLink to='/' className={`${(isActive)=>isActive ? "active" : ""} text-sm font-normal py-3 focus:border-b-4  `} >
                               خانه
                         </NavLink>
                         <NavLink to='/shop' className={`${(isActive)=>isActive ? "active" : ""} text-sm font-normal py-3 focus:border-b-4 `}>
