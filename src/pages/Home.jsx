@@ -21,10 +21,12 @@ import {blogs, discountProduct, famousProduct, selectionProduct} from "@/assets/
 import ProductCart from "@/components/ProductCart";
 import SpecialProduct from "@/components/SpecialProduct";
 import FamousProduct from "@/components/FamousProduct";
+import Meta from "@/components/Meta";
 
 const Home = () => {
   return (
     <main>
+      <Meta title=" فروشگاه اینترنتی دیجی مارکت " />
   {/* Hero Section */}
       <section className="py-5">
         <div className="container xl:max-w-screen-xl">
@@ -421,7 +423,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-12 gap-5 px-5">
             {
-              blogs.map((blog,i)=><BlogCart key={i} dataBlog={blog} />)
+              blogs.map((blog,i)=><BlogCart key={i} dataBlog={blog} grid="3" />)
             }
           </div> 
         </div>

@@ -65,3 +65,8 @@ export {default as AppleWatch} from "@assets/images/imgBlog/Apple-series-9-alumi
 export {default as LaptopAsus} from "@assets/images/imgBlog/Vivobook 15.webp"
 export {default as XiaomiHedest} from "@assets/images/imgBlog/NIB REDMI BUDS.webp"
 export {default as Iphone13} from "@assets/images/imgBlog/iphon13ch.webp"
+
+export {default as fourLine} from "@assets/images/4line-vertical.jpg"
+export {default as threeLine} from "@assets/images/3line-horizental.jpg"
+export {default as twoLine} from "@assets/images/2line-vertical.jpg"
+export {default as threeLineV} from "@assets/images/3Line.jpg"

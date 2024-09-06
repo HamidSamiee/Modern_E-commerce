@@ -1,4 +1,4 @@
-import Blogs from "@/components/Blogs";
+import Blogs from "@/pages/Blogs";
 import Shop from "@/components/Shop";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
