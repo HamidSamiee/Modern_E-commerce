@@ -1,5 +1,6 @@
 
 import { toPersianDigits } from "@/utils/toPersianDigits";
+import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 
@@ -7,14 +8,14 @@ import { Link } from "react-router-dom";
 const SpecialProduct = (Props) => {
 
     const {dataSpecial}=Props;
-    const {imgA,imgB,brand,title,price,discount,quantity,PriceWithDiscunt} = dataSpecial;
-
+    const {id,imgA,imgB,brand,title,price,discount,quantity,PriceWithDiscunt} = dataSpecial;
+    const [image, setImage] = useState(imgA)
     const ratingChanged = (newRating) => {
         console.log(newRating);
       };
 
   return (
-    <div className='col-span-4 '>
+    <Link to={`/product/${id}`} className='col-span-4 '>
         <div className="p-2.5 rounded-xl bg-white h-[300px] ">
             <div className="w-full h-full flex items-center justify-between gap-5">
                 {/* decription section */}
@@ -67,12 +68,12 @@ const SpecialProduct = (Props) => {
                 </div>
                 {/* image section */}
                 <div className="flex-1 flex flex-col gap-5 justify-center">
-                    <img src={imgA} alt={title} className="w-[205px]" />
+                    <img src={image} alt={title} className="w-[205px]" />
                     <div className="w-full flex items-center justify-center gap-2">
-                         <Link to='' className="w-16 h-auto p-1 border border-[var(--color-ededed)] rounded-md">
+                         <Link to='' onClick={()=>setImage(imgA)} className="w-16 h-auto p-1 border border-[var(--color-ededed)] rounded-md">
                                     <img src={imgA} alt={title} className="" />
                          </Link>
-                         <Link to='' className="w-16 h-auto p-1 border border-[var(--color-ededed)] rounded-md">
+                         <Link to='' onClick={()=>setImage(imgB)} className="w-16 h-auto p-1 border border-[var(--color-ededed)] rounded-md">
                                     <img src={imgB} alt={title} className="" />
                          </Link>
                                 
@@ -80,7 +81,7 @@ const SpecialProduct = (Props) => {
                 </div>
             </div>
         </div>
-    </div>
+    </Link>
   )
 }
 

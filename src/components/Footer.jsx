@@ -95,27 +95,27 @@ const Footer = () => {
                 </h2>
                 <ul className="">
                 <li className="mb-1 py-2">
-                      <Link to='' className="">
+                      <Link to='/privacy-policy' className="">
                           حریم خصوصی
                       </Link>
                     </li>
                     <li className="mb-1 py-2">
-                      <Link to='' className="">
+                      <Link to='/refund-policy' className="">
                              استرداد پول
                       </Link>
                     </li>
                     <li className="mb-1 py-2">
-                      <Link to='' className="">
+                      <Link to='/shipping-policy' className="">
                             سیاست های فروشگاه
                       </Link>
                     </li>
                     <li className="mb-1 py-2">
-                      <Link to='' className="">
+                      <Link to='/term-conditons' className="">
                             قوانین و مقررات فروشگاه
                       </Link>
                     </li>
                     <li className="mb-1 py-2">
-                      <Link to='' className="">
+                      <Link to='/blogs' className="">
                             وبلاگ
                       </Link>
                     </li>

@@ -7,7 +7,7 @@ import cart from "@assets/images/cart.png"
 
 const ProductCart = (Props) => {
     const {dataSelection,grid}=Props;
-    const {imgA,imgB,brand,title,description,price}=dataSelection;
+    const {id,imgA,imgB,brand,title,description,price}=dataSelection;
 
     const location=useLocation();
     
@@ -17,7 +17,7 @@ const ProductCart = (Props) => {
       };
        
   return (
-    <Link to="" className={` ${location.pathname == '/shop' ? `col-span-${grid}` : "col-span-2" } `} >
+    <Link to={`/product/${id}`} className={` ${location.pathname == '/shop' ? `col-span-${grid}` : "col-span-2" } `} >
         <div className={`product_cart  relative bg-white shadow-lg overflow-hidden rounded-lg ${grid == 12 && 'flex px-8'}`}>
             <Link className="absolute top-[2%] right-2 ">
                      <CiHeart className="hover:text-red-500" />

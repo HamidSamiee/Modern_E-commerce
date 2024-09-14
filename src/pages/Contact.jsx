@@ -31,10 +31,10 @@ const Contact = () => {
                             ارتباط با ما
                               </h3>
                               <form  className="flex flex-col gap-5">
-                                <input type="text" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent "  placeholder="نام و نام خانوادگی"/>
-                                <input type="email" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent "  placeholder="آدرس پست الکترونیکی"/>
-                                <input type="tel" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent  text-right"  placeholder="شماره موبایل"/>
-                                <textarea className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent " name="" id="" cols="30" rows="5" placeholder="نظرات">
+                                <input type="text" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] "  placeholder="نام و نام خانوادگی"/>
+                                <input type="email" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] "  placeholder="آدرس پست الکترونیکی"/>
+                                <input type="tel" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)]  text-right"  placeholder="شماره موبایل"/>
+                                <textarea className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] " name="" id="" cols="30" rows="5" placeholder="نظرات">
 
                                 </textarea>
                                 <button className="self-end w-fit px-2 py-1 rounded-full bg-[var(--color-febd69)]">

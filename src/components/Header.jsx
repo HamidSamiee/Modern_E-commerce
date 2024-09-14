@@ -37,14 +37,14 @@ const Header = () => {
               <div className="pl-10 col-span-6 w-full">
                 <div className="relative w-full mx-auto ">
                     <input className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="محصول رو اینجا جستجو کن" />
-                    <button className="absolute inset-y-0 left-0 flex items-center p-3 text-gray-700 bg-[var(--color-febd69)] border border-gray-300 rounded-l-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <button className="absolute inset-y-0 left-0 flex items-center p-3 text-gray-700 bg-[var(--color-febd69)] border border-gray-300 rounded-l-md hover:bg-[var(--color-131921)] hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                       <BsSearch className="font-bold w-6 h-6"/>
                     </button>
                 </div>
               </div>
               <div className="pr-10 col-span-4 w-full flex items-center justify-between gap-2 text-white">
                   <div className="">
-                    <Link className="flex items-center gap-1">
+                    <Link to='/compare-product' className="flex items-center gap-1">
                         <FaRotate className="w-8 h-8 " />
                         <p className="flex flex-col items-center text-sm">
                           مقایسه <span>محصولات</span> 
@@ -52,7 +52,7 @@ const Header = () => {
                     </Link>
                   </div>
                   <div className="">
-                    <Link className="flex items-center gap-1">
+                    <Link to='/wishList' className="flex items-center gap-1">
                         <FaRegHeart  className="w-8 h-8  " />
                         <p className=" text-sm">
                               علاقه مندی ها
@@ -60,7 +60,7 @@ const Header = () => {
                     </Link>
                   </div>
                   <div className="">
-                    <Link className="flex items-center gap-1">
+                    <Link to='/login' className="flex items-center gap-1">
                         <FaRegUser   className="w-8 h-8  " />
                         <p className="flex flex-col items-center text-sm">
                                       <span className="">ورود</span>  ثبت نام  
@@ -68,7 +68,7 @@ const Header = () => {
                     </Link>
                   </div>
                   <div className="relative">
-                    <Link className="">
+                    <Link to='/cart' className="">
                         <BsCart4  className="w-8 h-8 z-20 "  />
                         <div className="z-10 absolute  -top-3 right-1 bg-[var(--color-febd69)] py-1 px-2 text-black text-xs font-medium rounded-full ">
                         {toPersianDigits(0)}

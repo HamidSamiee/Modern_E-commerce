@@ -17,7 +17,7 @@ import {  BiSupport } from "react-icons/bi"
 import { toPersianDigits } from "@/utils/toPersianDigits"
 import Marquee from "react-fast-marquee";
 import BlogCart from "@/components/BlogCart";
-import {blogs, discountProduct, famousProduct, selectionProduct} from "@/assets/data/data";
+import {blogs, famousProduct, selectionProduct} from "@/assets/data/data";
 import ProductCart from "@/components/ProductCart";
 import SpecialProduct from "@/components/SpecialProduct";
 import FamousProduct from "@/components/FamousProduct";
@@ -35,7 +35,7 @@ const Home = () => {
                 <div className="w-full h-full">
                     <img src={banner1} alt="" className=" w-full h-full rounded-md " />
                 </div>
-                <div className=" absolute top-[20%] border-l border-l-[var(--color-ededed)] left-[10%] font-extrabold flex flex-col gap-5">
+                <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
                   <h4 className="text-6xl text-center">
                       Samsung 
                   </h4>
@@ -329,7 +329,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-12 gap-5 px-5">
             {
-              selectionProduct.map((p,i)=><ProductCart key={i} dataSelection={p} />)
+              selectionProduct.slice(0,6).map((p,i)=><ProductCart key={i} dataSelection={p} />)
             }
           </div> 
         </div>
@@ -355,7 +355,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-12 gap-5 px-5">
             {
-              discountProduct.map((p,i)=><SpecialProduct key={i} dataSpecial={p} />)
+              selectionProduct.slice(6,12).map((p,i)=><SpecialProduct key={i} dataSpecial={p} />)
             }
           </div> 
         </div>

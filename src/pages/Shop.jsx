@@ -1,12 +1,12 @@
 import { BsSortDown } from "react-icons/bs";
-import BreadCrumb from "./BreadCrumb"
-import Meta from "./Meta"
+import BreadCrumb from "../components/BreadCrumb"
+import Meta from "../components/Meta"
 import {hp,AirPodsPro,fourLine,threeLine,twoLine, threeLineV} from "@/utils/myimages";
 import ReactStars from "react-rating-stars-component";
 import Select from "react-select";
 import { useState } from "react";
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import ProductCart from "./ProductCart";
+import ProductCart from "../components/ProductCart";
 import { selectionProduct } from "@/assets/data/data";
 
 
