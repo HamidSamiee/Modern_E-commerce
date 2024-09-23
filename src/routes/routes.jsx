@@ -16,6 +16,7 @@ import RefundPolicy from "@/pages/RefundPolicy";
 import ShippingPolicy from "@/pages/ShippingPolicy";
 import TermAndConditons from "@/pages/TermAndConditons";
 import SingleProduct from "@/pages/SingleProduct";
+import Checkout from "@/pages/Checkout";
 
 
 const routes=[
@@ -28,6 +29,7 @@ const routes=[
     {path:"login" ,element:<Login />},
     {path:"signUp" ,element:<SignUp />},
     {path:"cart" ,element:<Cart />},
+    {path:"checkout" ,element:<Checkout />},
     {path:"wishList" ,element:<WishList />},
     {path:"forget-password" ,element:<ForgetPassword />},
     {path:"reset-password" ,element:<ResetPassword />},

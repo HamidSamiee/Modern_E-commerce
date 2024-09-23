@@ -22,167 +22,163 @@ import ProductCart from "@/components/ProductCart";
 import SpecialProduct from "@/components/SpecialProduct";
 import FamousProduct from "@/components/FamousProduct";
 import Meta from "@/components/Meta";
+import Container from "@/components/Container";
 
 const Home = () => {
   return (
     <main>
       <Meta title=" فروشگاه اینترنتی دیجی مارکت " />
   {/* Hero Section */}
-      <section className="py-5">
-        <div className="container xl:max-w-screen-xl">
+      <Container class1="py-5">
           <div className="grid grid-cols-12 gap-5 px-5">
-            <div className="relative col-span-6 ">
-                <div className="w-full h-full">
-                    <img src={banner1} alt="" className=" w-full h-full rounded-md " />
-                </div>
-                <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
-                  <h4 className="text-6xl text-center">
-                      Samsung 
-                  </h4>
-                  <h5 className="text-3xl text-center mb-10 ">
-                    Galexy S24 Ultra
-                  </h5>
-                  <Link className="flex items-center gap-2 mx-20 text-center text-xl bg-[var(--color-febd69)] rounded-full px-2 py-1 animate-pulse" >
-                          خرید کنید  <BsArrowLeft  className="bg-white rounded-full font-medium"/> 
-                  </Link>
-                </div>
-            </div>
-            <div className="col-span-6 ">
-                <div className="grid grid-cols-12 gap-5 w-full h-full">
-                    <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                        <div className="">
-                            <img src={sbanner1} alt="" className=" rounded-md shadow-lg " />
-                        </div>
-                        <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
+              <div className="relative col-span-6 ">
+                  <div className="w-full h-full">
+                      <img src={banner1} alt="" className=" w-full h-full rounded-md " />
+                  </div>
+                  <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
+                    <h4 className="text-6xl text-center">
+                        Samsung 
+                    </h4>
+                    <h5 className="text-3xl text-center mb-10 ">
+                      Galexy S24 Ultra
+                    </h5>
+                    <Link className="flex items-center gap-2 mx-20 text-center text-xl bg-[var(--color-febd69)] rounded-full px-2 py-1 animate-pulse" >
+                            خرید کنید  <BsArrowLeft  className="bg-white rounded-full font-medium"/> 
+                    </Link>
+                  </div>
+              </div>
+              <div className="col-span-6 ">
+                  <div className="grid grid-cols-12 gap-5 w-full h-full">
+                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                          <div className="">
+                              <img src={sbanner1} alt="" className=" rounded-md shadow-lg " />
+                          </div>
+                          <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
+                            <h4 className=" text-center text-rose-800">
+                                بهترین قیمت ها 
+                            </h4>
+                            <p className=" text-center ">
+                              لپ تاپ های 
+                            </p>
+                            <p className="text-center text-lg">
+                              ASUS
+                            </p>
+                          </div>
+                      </div>
+                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                          <div className="">
+                              <img src={sbanner2} alt="" className=" rounded-md shadow-lg" />
+                          </div>
+                          <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
+                            <h4 className=" text-center text-rose-800">
+                                محصول جدید
+                            </h4>
+                            <p className=" text-center ">
+                              تبلت {toPersianDigits(11)} اینچی اپل
+                            </p>
+                            <p className="text-center text-lg">
+                              iPad Air 2024 M2
+                            </p>
+                          </div>
+                      </div>
+                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                          <div className="">
+                              <img src={sbanner3} alt="" className=" rounded-md shadow-lg" />
+                          </div>
+                          <div className=" absolute top-[20%] left-[7%] font-extrabold flex flex-col gap-5">
+                            <h4 className=" text-center text-rose-800">
+                                تجربه ای خاص و دلپذیر
+                            </h4>
+                            <p className=" text-center ">
+                              هدفون بلوتوثی اپل 
+                            </p>
+                            <p className="text-center text-lg">
+                              AirPods Max
+                            </p>
+                          </div>
+                      </div>
+                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                          <div className="">
+                              <img src={sbanner4} alt="" className=" rounded-md shadow-lg" />
+                          </div>
+                          <div className=" absolute top-[20%] left-[7%] font-extrabold flex flex-col gap-5">
                           <h4 className=" text-center text-rose-800">
-                              بهترین قیمت ها 
-                          </h4>
-                          <p className=" text-center ">
-                             لپ تاپ های 
-                          </p>
-                          <p className="text-center text-lg">
-                            ASUS
-                          </p>
-                        </div>
-                    </div>
-                    <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                        <div className="">
-                            <img src={sbanner2} alt="" className=" rounded-md shadow-lg" />
-                        </div>
-                        <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
-                          <h4 className=" text-center text-rose-800">
-                              محصول جدید
-                          </h4>
-                          <p className=" text-center ">
-                             تبلت {toPersianDigits(11)} اینچی اپل
-                          </p>
-                          <p className="text-center text-lg">
-                            iPad Air 2024 M2
-                          </p>
-                        </div>
-                    </div>
-                    <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                        <div className="">
-                            <img src={sbanner3} alt="" className=" rounded-md shadow-lg" />
-                        </div>
-                        <div className=" absolute top-[20%] left-[7%] font-extrabold flex flex-col gap-5">
-                          <h4 className=" text-center text-rose-800">
-                              تجربه ای خاص و دلپذیر
-                          </h4>
-                          <p className=" text-center ">
-                             هدفون بلوتوثی اپل 
-                          </p>
-                          <p className="text-center text-lg">
-                             AirPods Max
-                          </p>
-                        </div>
-                    </div>
-                    <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                        <div className="">
-                            <img src={sbanner4} alt="" className=" rounded-md shadow-lg" />
-                        </div>
-                        <div className=" absolute top-[20%] left-[7%] font-extrabold flex flex-col gap-5">
-                         <h4 className=" text-center text-rose-800">
-                              %{toPersianDigits(15)} تخفیف
-                          </h4>
-                          <p className=" text-center ">
-                            ساعت هوشمند اپل
-                          </p>
-                          <p className="text-center text-lg">
-                             Series 7
-                          </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                %{toPersianDigits(15)} تخفیف
+                            </h4>
+                            <p className=" text-center ">
+                              ساعت هوشمند اپل
+                            </p>
+                            <p className="text-center text-lg">
+                              Series 7
+                            </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-      </section>
-  {/* khadmat Section */}      
-      <section className="py-5 bg-[var(--color-f5f5f7)]">
-        <div className="container xl:max-w-screen-xl ">
+      </Container>
+  {/* khadmat Section */} 
+      <Container class1="py-5 bg-[var(--color-f5f5f7)]">
           <div className="w-full flex items-center justify-between px-5 py-12">
-              <div className="flex items-center gap-5">
-                <LiaShippingFastSolid className="w-14 h-14" />
-                <div className="flex flex-col gap-3">
-                  <h6 className="font-bold text-xl text-nowrap">
-                      ارسال رایگان
-                  </h6>
-                  <p className="text-nowrap text-sm">
-                         سفارش بالای {toPersianDigits(1)} میلیون 
-                  </p>
+                <div className="flex items-center gap-5">
+                  <LiaShippingFastSolid className="w-14 h-14" />
+                  <div className="flex flex-col gap-3">
+                    <h6 className="font-bold text-xl text-nowrap">
+                        ارسال رایگان
+                    </h6>
+                    <p className="text-nowrap text-sm">
+                          سفارش بالای {toPersianDigits(1)} میلیون 
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <img src={gift} alt="" className="w-12 h-12" />
-                <div className="flex flex-col gap-3">
-                  <h6 className="font-bold text-xl text-nowrap">
-                    تخفیف شگفت انگیز 
-                  </h6>
-                  <p className="text-nowrap text-sm">
-                            تا {toPersianDigits(25)}% تخفیف بگیرید
-                  </p>
+                <div className="flex items-center gap-3">
+                  <img src={gift} alt="" className="w-12 h-12" />
+                  <div className="flex flex-col gap-3">
+                    <h6 className="font-bold text-xl text-nowrap">
+                      تخفیف شگفت انگیز 
+                    </h6>
+                    <p className="text-nowrap text-sm">
+                              تا {toPersianDigits(25)}% تخفیف بگیرید
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <BiSupport className="w-12 h-12" />
-                <div className="flex flex-col gap-3">
-                  <h6 className="font-bold text-xl text-nowrap">
-                      {toPersianDigits(24)} / {toPersianDigits(7)}  
-                  </h6>
-                  <p className="text-nowrap text-sm">
-                          کارشناس آنلاین
-                  </p>
+                <div className="flex items-center gap-3">
+                  <BiSupport className="w-12 h-12" />
+                  <div className="flex flex-col gap-3">
+                    <h6 className="font-bold text-xl text-nowrap">
+                        {toPersianDigits(24)} / {toPersianDigits(7)}  
+                    </h6>
+                    <p className="text-nowrap text-sm">
+                            کارشناس آنلاین
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <img src={discount} alt=""  className="w-12 h-12" />
-                <div className="flex flex-col gap-3">
-                  <h6 className="font-bold text-xl text-nowrap">
-                     قیمت مناسب
-                  </h6>
-                  <p className="text-nowrap text-sm">
-                      قیمت کارخانه
-                  </p>
+                <div className="flex items-center gap-3">
+                  <img src={discount} alt=""  className="w-12 h-12" />
+                  <div className="flex flex-col gap-3">
+                    <h6 className="font-bold text-xl text-nowrap">
+                      قیمت مناسب
+                    </h6>
+                    <p className="text-nowrap text-sm">
+                        قیمت کارخانه
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <MdPayment className="w-12 h-12" />
-                <div className="flex flex-col gap-3">
-                  <h6 className="font-bold text-xl text-nowrap">
-                      پرداخت امن
-                  </h6>
-                  <p className="text-nowrap text-sm">
-                  {toPersianDigits(100)}% ایمن
-                  </p>
+                <div className="flex items-center gap-3">
+                  <MdPayment className="w-12 h-12" />
+                  <div className="flex flex-col gap-3">
+                    <h6 className="font-bold text-xl text-nowrap">
+                        پرداخت امن
+                    </h6>
+                    <p className="text-nowrap text-sm">
+                    {toPersianDigits(100)}% ایمن
+                    </p>
+                  </div>
                 </div>
-              </div>
           </div>
-        </div>
-      </section>
-  {/* Category Section */} 
-      <section className=" bg-[var(--color-f5f5f7)] py-5 ">
-        <div className="container xl:max-w-screen-xl">
+      </Container>
+  {/* Category Section */}
+      <Container class1="bg-[var(--color-f5f5f7)] py-5">
           <div className="w-full flex items-center justify-between px-5">
               <div className="bg-white w-full shadow-md p-3 rounded-lg">
                 <div className="flex items-center flex-wrap">
@@ -319,11 +315,9 @@ const Home = () => {
                 </div>
               </div> 
           </div>
-        </div>  
-      </section>
+      </Container>
   {/* Featured Section */}
-      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
-        <div className="container xl:max-w-screen-xl">
+      <Container class1="bg-[var(--color-f5f5f7)]  py-5">
           <div className=" px-5 mb-5 font-extrabold text-xl">
                 <h3 className="">   منتخب محصولات </h3>
           </div>
@@ -331,12 +325,10 @@ const Home = () => {
             {
               selectionProduct.slice(0,6).map((p,i)=><ProductCart key={i} dataSelection={p} />)
             }
-          </div> 
-        </div>
-      </section>
+          </div>
+      </Container>
   {/* famous Section */}
-      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
-        <div className="container xl:max-w-screen-xl">
+      <Container class1="bg-[var(--color-f5f5f7)]  py-5">
           <div className=" px-5 mb-5 font-extrabold text-xl">
                 <h3 className="">    محصولات محبوب </h3>
           </div>
@@ -344,12 +336,10 @@ const Home = () => {
             {
               famousProduct.map((p,i)=><FamousProduct key={i} dataFamous={p} />)
             }
-          </div> 
-        </div>
-      </section>      
-  {/* Special Section */}      
-      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
-        <div className="container xl:max-w-screen-xl">
+          </div>
+      </Container>            
+  {/* Special Section */}
+      <Container class1="bg-[var(--color-f5f5f7)]  py-5">
           <div className=" px-5 mb-5 font-extrabold text-xl">
                 <h3 className="">    محصولات ویژه تخفیف و حراج </h3>
           </div>
@@ -357,25 +347,10 @@ const Home = () => {
             {
               selectionProduct.slice(6,12).map((p,i)=><SpecialProduct key={i} dataSpecial={p} />)
             }
-          </div> 
-        </div>
-      </section>
-  {/* Featured Section */}
-      {/* <section className="bg-[var(--color-f5f5f7)]  py-5 ">
-        <div className="container xl:max-w-screen-xl">
-          <div className=" px-5 mb-5 font-extrabold text-xl">
-                <h3 className="">   محصولات محبوب ما  </h3>
           </div>
-          <div className="grid grid-cols-12 gap-5 px-5">
-            {
-              selectionProduct.map((p,i)=><ProductCart key={i} dataSelection={p} />)
-            }
-          </div> 
-        </div>
-      </section>             */}
-  {/* Marque Section */}
-      <section className=" bg-[var(--color-f5f5f7)] py-5 ">
-        <div className="container xl:max-w-screen-xl">
+      </Container>
+  {/* Marquee Section */}
+      <Container class1="bg-[var(--color-f5f5f7)] py-5">
           <div className="bg-white shadow-xl p-4 mx-5 rounded-md my-3 ">
             <Marquee className="flex items-center justify-center" direction="right" pauseOnHover>
               <div className="mx-10 w-32">
@@ -413,11 +388,9 @@ const Home = () => {
               </div>
             </Marquee>
           </div>
-        </div>
-      </section> 
-  {/* Blogs Section */}      
-      <section className="bg-[var(--color-f5f5f7)]  py-5 ">
-        <div className="container xl:max-w-screen-xl mb-3">
+      </Container>
+  {/* Blogs Section */}
+      <Container class1="bg-[var(--color-f5f5f7)]  py-5" >
           <div className=" px-5 mb-5 font-extrabold text-xl">
                 <h3 className=""> مطالب اخیر سایت</h3>
           </div>
@@ -426,8 +399,7 @@ const Home = () => {
               blogs.map((blog,i)=><BlogCart key={i} dataBlog={blog} grid="3" />)
             }
           </div> 
-        </div>
-      </section>
+      </Container>     
     </main>
   )
 }

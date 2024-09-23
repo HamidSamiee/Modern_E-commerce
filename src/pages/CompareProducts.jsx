@@ -1,5 +1,6 @@
 import { compareProduct} from '@/assets/data/data'
 import BreadCrumb from '@/components/BreadCrumb'
+import Container from '@/components/Container'
 import Meta from '@/components/Meta'
 import { IoClose } from 'react-icons/io5'
 
@@ -11,10 +12,9 @@ const CompareProducts = () => {
   return (
     <>
        <Meta title=" مقایسه محصولات " /> 
-       <BreadCrumb title=" مقایسه محصولات" /> 
-       <div className="py-5 bg-[var(--color-f5f5f7)]">
-            <div className="container xl:max-w-screen-xl">
-                <div className="grid grid-cols-12 gap-5">
+       <BreadCrumb title=" مقایسه محصولات" />
+       <Container class1="py-5 bg-[var(--color-f5f5f7)]">
+            <div className="grid grid-cols-12 gap-5">
                     {
                         compareProduct.slice(0,4).map(({imgA,brand,title,price,quantity,type,color,size},i)=>{
                             return(
@@ -55,9 +55,8 @@ const CompareProducts = () => {
                             )
                         })
                     }
-                </div>
             </div>
-       </div> 
+       </Container>  
     </>
   )
 }

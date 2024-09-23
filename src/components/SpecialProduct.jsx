@@ -1,5 +1,5 @@
 
-import { toPersianDigits } from "@/utils/toPersianDigits";
+import { toPersianDigits, toPersianDigitsWithComma } from "@/utils/toPersianDigits";
 import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
@@ -37,11 +37,11 @@ const SpecialProduct = (Props) => {
                     </div>
                     <div className="w-full text-left text-sm flex flex-col justify-center mb-1">
                         <div className="self-end flex items-center gap-1">
-                            <strike className="text-red-500 font-light"> {PriceWithDiscunt}</strike>
+                            <strike className="text-red-500 font-light"> {toPersianDigitsWithComma(PriceWithDiscunt)}</strike>
                             <span className="px-2 py-0.5 pt-1 rounded-full bg-red-500 text-white font-bold ">% {discount} </span>
                         </div>
                         <p className=" ">
-                            {price} تومان
+                            {toPersianDigitsWithComma(price)} تومان
                         </p>
                     </div>
                     <div className="flex items-center justify-between mb-1">

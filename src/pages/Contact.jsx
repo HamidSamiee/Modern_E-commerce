@@ -1,4 +1,6 @@
 import BreadCrumb from "@/components/BreadCrumb"
+import Container from "@/components/Container"
+import Input from "@/components/Input"
 import Meta from "@/components/Meta"
 import { toPersianDigits } from "@/utils/toPersianDigits"
 import {AiOutlineHome, AiOutlineMail} from "react-icons/ai"
@@ -10,9 +12,8 @@ const Contact = () => {
     <>
       <Meta title=" تماس با ما " /> 
       <BreadCrumb title=" تماس با ما " />
-      <div className="py-5 bg-[var(--color-f5f5f7)]">
-            <div className="container xl:max-w-screen-xl">
-                <div className="grid grid-cols-12 gap-5">
+      <Container class1="py-5 bg-[var(--color-f5f5f7)]">
+          <div className="grid grid-cols-12 gap-5">
                   {/* google map */}
                   <div className="col-span-12">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1674.1772759001317!2d50.121425649613364!3d32.941647430526054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1725621790615!5m2!1sen!2s"
@@ -30,10 +31,10 @@ const Contact = () => {
                               <h3 className="font-bold text-2xl leading-9 text-right mb-4">
                             ارتباط با ما
                               </h3>
-                              <form  className="flex flex-col gap-5">
-                                <input type="text" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] "  placeholder="نام و نام خانوادگی"/>
-                                <input type="email" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] "  placeholder="آدرس پست الکترونیکی"/>
-                                <input type="tel" className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)]  text-right"  placeholder="شماره موبایل"/>
+                              <form  className="flex flex-col gap-3">
+                                <Input name="firstName_LastName" type="text" className="p-1 bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] "  placeholder="نام و نام خانوادگی"/>
+                                <Input name="email" type="email" className="p-1 bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] "  placeholder="آدرس پست الکترونیکی"/>
+                                <Input name="phoneNumber" type="tel" className="p-1 bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)]  text-right"  placeholder="شماره موبایل"/>
                                 <textarea className="bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] " name="" id="" cols="30" rows="5" placeholder="نظرات">
 
                                 </textarea>
@@ -86,9 +87,8 @@ const Contact = () => {
                           </div>
                       </div>
                   </div>
-                </div>
-            </div>
-       </div>  
+          </div>
+      </Container> 
     </>
   )
 }

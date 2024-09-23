@@ -2,16 +2,16 @@ import { blogs } from "@/assets/data/data"
 import BreadCrumb from "../components/BreadCrumb"
 import Meta from "../components/Meta"
 import BlogCart from "@/components/BlogCart"
+import Container from "@/components/Container"
 
 
 const Blogs = () => {
   return (
     <>
        <Meta title=" وبلاگ اخبار فناوری" /> 
-       <BreadCrumb title="مطالب وبلاگ" /> 
-       <div className="py-5 bg-[var(--color-f5f5f7)]">
-            <div className="container xl:max-w-screen-xl">
-                <div className="grid grid-cols-12 gap-5">
+       <BreadCrumb title="مطالب وبلاگ" />
+       <Container class1="py-5 bg-[var(--color-f5f5f7)]">
+            <div className="grid grid-cols-12 gap-5">
                     <div className="col-span-3">
                             <div className=" bg-white rounded-lg mb-3 p-4">
                                 <h3 className="text-[var(--color-1c1c1b)] font-semibold text-base pb-4 border-b border-[var(--color-ededed)] mb-5">دسته بندی محصولات</h3>
@@ -32,9 +32,8 @@ const Blogs = () => {
                         }
                       </div>
                     </div>
-                </div>
             </div>
-       </div>     
+       </Container>     
     </>
   )
 }

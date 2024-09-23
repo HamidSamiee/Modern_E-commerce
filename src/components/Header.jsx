@@ -3,9 +3,11 @@ import {BsCart4, BsSearch} from 'react-icons/bs'
 import { FaChevronDown, FaRegHeart , FaRegUser, FaRotate } from "react-icons/fa6";
 import { BiCategory } from "react-icons/bi";
 import { toPersianDigits } from "@/utils/toPersianDigits";
+import { useSelector } from "react-redux";
 
 
 const Header = () => {
+  const {cart}=useSelector(state=>state.cart)
   return (
     <>
       <header className="bg-[var(--color-131921)] border-b border-solid border-[var(--color-3b4149)] py-3">
@@ -71,7 +73,7 @@ const Header = () => {
                     <Link to='/cart' className="">
                         <BsCart4  className="w-8 h-8 z-20 "  />
                         <div className="z-10 absolute  -top-3 right-1 bg-[var(--color-febd69)] py-1 px-2 text-black text-xs font-medium rounded-full ">
-                        {toPersianDigits(0)}
+                        {toPersianDigits(cart.length)}
                         </div>
                     </Link></div>  
               </div>

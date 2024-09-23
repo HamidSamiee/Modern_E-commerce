@@ -4,6 +4,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import compare from "@assets/images/comparing.png"
 import cart from "@assets/images/cart.png"
+import { toPersianDigitsWithComma } from "@/utils/toPersianDigits";
 
 const ProductCart = (Props) => {
     const {dataSelection,grid}=Props;
@@ -42,7 +43,7 @@ const ProductCart = (Props) => {
                             activeColor="#ffd700"
                         /> 
                         <p className={` ${grid == 12 ? 'block' : 'hidden'} text-xs text-justify mt-2 text-gray-400 line-clamp-2`}>{description}</p> 
-                        <p className="text-base  text-nowrap">{price} تومان</p>
+                        <p className="text-base  text-nowrap">{toPersianDigitsWithComma(price)} تومان</p>
 
                 </div>
             </div>
