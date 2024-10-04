@@ -31,7 +31,7 @@ const Home = () => {
   {/* Hero Section */}
       <Container class1="py-5">
           <div className="grid grid-cols-12 gap-5 px-5">
-              <div className="relative col-span-6 ">
+              <div className="animate__animated animate__zoomIn relative col-span-6 ">
                   <div className="w-full h-full">
                       <img src={banner1} alt="" className=" w-full h-full rounded-md " />
                   </div>

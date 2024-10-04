@@ -1,8 +1,8 @@
 
 import { toPersianDigits, toPersianDigitsWithComma } from "@/utils/toPersianDigits";
 import { useState } from "react";
-import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
+import StarRating from "./StarRating";
 
 
 const SpecialProduct = (Props) => {
@@ -10,30 +10,18 @@ const SpecialProduct = (Props) => {
     const {dataSpecial}=Props;
     const {id,imgA,imgB,brand,title,price,discount,quantity,PriceWithDiscunt} = dataSpecial;
     const [image, setImage] = useState(imgA)
-    const ratingChanged = (newRating) => {
-        console.log(newRating);
-      };
+  
 
   return (
-    <Link to={`/product/${id}`} className='col-span-4 '>
+    <section  className='col-span-4 '>
         <div className="p-2.5 rounded-xl bg-white h-[300px] ">
             <div className="w-full h-full flex items-center justify-between gap-5">
                 {/* decription section */}
                 <div className="flex-1 flex flex-col gap-1 p-4">
                     <h6 className="text-xs text-[var(--color-bf4800)] mb-1">{brand} </h6>
-                    <h5 className="font-extrabold text-[var(--color-131921)] text-base line-clamp-2">{title}</h5>
+                    <Link to={`/product/${id}`} className="font-extrabold text-[var(--color-131921)] text-base line-clamp-2">{title}</Link>
                     <div className="self-end ">
-                        <ReactStars
-                            classNames=""
-                            count={5}
-                            onChange={ratingChanged}
-                            size={20}
-                            isHalf={true}
-                            emptyIcon={<i className="far fa-star"></i>}
-                            halfIcon={<i className="fa fa-star-half-alt"></i>}
-                            fullIcon={<i className="fa fa-star"></i>}
-                            activeColor="#ffd700"
-                        />    
+                        <StarRating />    
                     </div>
                     <div className="w-full text-left text-sm flex flex-col justify-center mb-1">
                         <div className="self-end flex items-center gap-1">
@@ -81,7 +69,7 @@ const SpecialProduct = (Props) => {
                 </div>
             </div>
         </div>
-    </Link>
+    </section>
   )
 }
 

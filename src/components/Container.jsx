@@ -1,7 +1,7 @@
 
 
 const Container = (Props) => {
-    console.log(Props)
+    // console.log(Props)
   return (
     <section className={Props.class1}>
         <div className="container xl:max-w-screen-xl ">

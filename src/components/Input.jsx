@@ -1,7 +1,7 @@
 
 const Input = (Props) => {
 
-    const {name,type,className,placeholder,class2}=Props;
+    const {name,type,className,placeholder,value,onChange,onBlur,class2}=Props;
 
   return (
     <div className={class2}>
@@ -10,6 +10,9 @@ const Input = (Props) => {
             type={type}
             className={className}
             placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
         />
     </div>
 

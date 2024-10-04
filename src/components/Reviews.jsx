@@ -1,13 +1,9 @@
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import ReactStars from "react-rating-stars-component";
+import StarRating from "./StarRating";
 
 const Reviews = (Props) => {
     
     const {ordereddProduct,setOrdereddProduct}=Props;
-
-    const ratingChanged = (newRating) => {
-        console.log(newRating);
-      };
 
   return (
     <section  className="">
@@ -20,13 +16,7 @@ const Reviews = (Props) => {
                                         </h4>
                                         <div  className="w-full flex items-center justify-between ">
                                             <div className="flex items-center gap-2">
-                                                <ReactStars
-                                                    count={5}
-                                                    value={4}
-                                                    size={20}
-                                                    edit={false}
-                                                    activeColor="#ffd700"
-                                                /> 
+                                                <StarRating /> 
                                                 <p className="text-xs text-[var(--color-777777)]">
                                                     ( {toPersianDigits(2)} نظر )
                                                 </p>
@@ -41,17 +31,7 @@ const Reviews = (Props) => {
                                              ثبت نظرات
                                             </h4>
                                             <div className=" w-full flex flex-col  ">
-                                                <ReactStars
-                                                        count={5}
-                                                        onChange={ratingChanged}
-                                                        size={20}
-                                                        isHalf={true}
-                                                        emptyIcon={<i className="far fa-star"></i>}
-                                                        halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                                        fullIcon={<i className="fa fa-star"></i>}
-                                                        activeColor="#ffd700"
-                                                        
-                                                />
+                                                 <StarRating />
                                             </div>        
                                             <form  className="w-full flex flex-col items-center gap-5">
                                                 <textarea className=" w-full bg-[var(--color-f5f5f7)] border-none rounded-lg border-transparent focus:ring-[var(--color-febd69)] " name="" id="" cols="30" rows="3" placeholder="نظرات">
@@ -69,13 +49,7 @@ const Reviews = (Props) => {
                                                 نوید 
                                                 </h6>
                                                 <div className="flex  ">
-                                                    <ReactStars
-                                                            count={5}
-                                                            value={4}
-                                                            size={20}
-                                                            edit={false}
-                                                            activeColor="#ffd700"
-                                                    />
+                                                  <StarRating />
                                                 </div>
                                           </div>
                                           <p className="mt-3 text-sm text-[var(--color-777777)">
@@ -88,13 +62,7 @@ const Reviews = (Props) => {
                                                 محسن 
                                                 </h6>
                                                 <div className="flex  ">
-                                                    <ReactStars
-                                                            count={5}
-                                                            value={4}
-                                                            size={20}
-                                                            edit={false}
-                                                            activeColor="#ffd700"
-                                                    />
+                                                    <StarRating />
                                                 </div>
                                           </div>
                                           <p className="mt-3 text-sm text-[var(--color-777777)">

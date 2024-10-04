@@ -2,47 +2,15 @@ import { BsSortDown } from "react-icons/bs";
 import BreadCrumb from "../components/BreadCrumb"
 import Meta from "../components/Meta"
 import {hp,AirPodsPro,fourLine,threeLine,twoLine, threeLineV} from "@/utils/myimages";
-import ReactStars from "react-rating-stars-component";
 import Select from "react-select";
 import { useState } from "react";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import ProductCart from "../components/ProductCart";
 import { selectionProduct } from "@/assets/data/data";
 import Container from "@/components/Container";
+import StarRating from "@/components/StarRating";
 
 
-const customStyles = {
-    control: (base, state) => ({
-      ...base,
-      background: "#ffffff",
-      // match with the menu
-      borderRadius: state.isFocused ? 6 : 6,
-      // Overwrittes the different states of border
-      borderColor: state.isFocused ? "#000000" : "#000000",
-      // Removes weird border around container
-      boxShadow: state.isFocused ? null : null,
-      
-      "&:hover": {
-        // Overwrittes the different states of border
-        borderColor: state.isFocused ? "#000000" : "",
-        background: "#ededed",
-      }
-    }),
-    menu: base => ({
-      ...base,
-      // override border radius to match the box
-      borderRadius: 6,
-      // kill the gap
-      marginTop: 0,
-      
-    }),
-    menuList: base => ({
-      ...base,
-      // kill the white space on first and last option
-      padding: 0,
-      
-    })
-  };
 
 const Shop = () => {
 
@@ -50,13 +18,11 @@ const Shop = () => {
     const [grid, setGrid] = useState(4)
 
 
-    const handleChange = (select) => {
-        setSelect(select)
+    const handleChange = (e) => {
+        setSelect(e.target.value)
       };
 
-    const ratingChanged = (newRating) => {
-        console.log(newRating);
-      };
+
 
   return (
     <>
@@ -174,17 +140,7 @@ const Shop = () => {
                                     <div className="w-2/3 flex flex-col">
                                         <h5 className="font-bold text-sm text-balance">لپ تاپ اچ پی 16.1 اینچی مدل OMEN 16</h5>
                                         <div className="self-end ">
-                                            <ReactStars
-                                                classNames=""
-                                                count={5}
-                                                onChange={ratingChanged}
-                                                size={20}
-                                                isHalf={true}
-                                                emptyIcon={<i className="far fa-star"></i>}
-                                                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                                fullIcon={<i className="fa fa-star"></i>}
-                                                activeColor="#ffd700"
-                                            />    
+                                            <StarRating />    
                                         </div>
                                         <b className="self-end text-xs">۶۲,۰۰۰,۰۰۰ تومان</b>
                                     </div>
@@ -196,17 +152,7 @@ const Shop = () => {
                                     <div className="w-2/3 flex flex-col ">
                                         <h5 className="font-bold text-sm text-balance">هندزفری بلوتوثی مدل AirPods Pro 2nd</h5>
                                         <div className="self-end ">
-                                            <ReactStars
-                                                classNames=""
-                                                count={5}
-                                                onChange={ratingChanged}
-                                                size={20}
-                                                isHalf={true}
-                                                emptyIcon={<i className="far fa-star"></i>}
-                                                halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                                fullIcon={<i className="fa fa-star"></i>}
-                                                activeColor="#ffd700"
-                                            />    
+                                           <StarRating />    
                                         </div>
                                         <b className="self-end text-xs">۳,۰۰۰,۰۰۰ تومان</b>
                                     </div>
@@ -221,21 +167,20 @@ const Shop = () => {
                 <div className="col-span-9 ">
                     <div className="bg-white p-2 mb-5 rounded-lg flex items-center  justify-between">
                         <div className="flex items-center  gap-2">
-                            <BsSortDown className="w-6 h-6" />
-                            <p className="">
+                            <BsSortDown className="w-14 h-w-14" />
+                            <p className="text-nowrap">
                                 مرتب سازی :
                             </p>
-                            <Select
-                                styles={customStyles}
-                                value={select}
-                                onChange={handleChange}
-                                options={[
-                                    { value: 'Best-Selling', label: 'پرفروش‌ ترین‌' },
-                                    { value: 'TheLatest', label: 'جدیدترین' },
-                                    { value: 'TheCheapest', label: 'ارزان‌ترین' },
-                                    { value: 'mostExpensive', label: 'گران‌ترین' },
-                                ]}
-                            />
+                            <select 
+                             className="select select-bordered select-sm w-full max-w-xs"
+                             value={select}
+                             onChange={handleChange}
+                            >
+                                <option value='Best-Selling'>پرفروش‌ ترین‌ </option>
+                                <option value='TheLatest'>جدیدترین</option>
+                                <option value='TheCheapest'>ارزان‌ترین</option>
+                                <option value='mostExpensive'>گران‌ترین</option>
+                            </select>
                         </div>
                         <div className="flex items-center gap-1 ">
                                     <p className="text-xs"> {toPersianDigits(22)} محصول</p>

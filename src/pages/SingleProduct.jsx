@@ -5,14 +5,15 @@ import ProductCart from "@/components/ProductCart"
 import { Link, useParams } from "react-router-dom"
 import {  useRef, useState } from "react"
 import { toPersianDigits, toPersianDigitsWithComma } from "@/utils/toPersianDigits"
-import { MagnifierContainer, MagnifierPreview, MagnifierZoom } from "react-image-magnifiers"
+// import { MagnifierContainer, MagnifierPreview, MagnifierZoom } from "react-image-magnifiers"
 import { FiMinus, FiPlus } from "react-icons/fi"
 import { FaCodeCompare, FaRegHeart } from "react-icons/fa6"
 import Tabs from "@/components/Tabs/Tabs"
-import ReactStars from "react-rating-stars-component";
 import { useDispatch } from "react-redux"
 import { addToCart } from "@/features/CartSlice/CartSlice"
 import Container from "@/components/Container"
+import StarRating from "@/components/StarRating"
+import ImageMagnifier from "@/components/ImageMagnifier"
 
 const SingleProduct = () => {
 
@@ -25,7 +26,7 @@ const SingleProduct = () => {
         color:"",
         quantity:1,
     })
-console.log(addedProduct)
+// console.log(addedProduct)
 
     const {productId}=useParams();
     const product= selectionProduct.filter(p=>p.id == productId) ;
@@ -57,13 +58,7 @@ console.log(addedProduct)
                             
                             <div className="w-full flex items-center justify-between ">
                                                 <div className="flex items-center gap-0.5">
-                                                    <ReactStars
-                                                        count={1}
-                                                        value={1}
-                                                        size={15}
-                                                        edit={false}
-                                                        activeColor="#ffd700"
-                                                    /> 
+                                                    <StarRating /> 
                                                     <p className="text-xs text-[var(--color-777777)]">
                                                     {toPersianDigits(4)} (امتیاز  {toPersianDigits(2)} خریدار   ،   {toPersianDigits(2)} دیدگاه )
                                                     </p>
@@ -151,7 +146,7 @@ console.log(addedProduct)
                                         <button onClick={()=>setAddedProduct((prev)=>({...prev,quantity:addedProduct.quantity+1}))} className="cursor-pointer px-1 border-l">
                                             <FiPlus />
                                         </button>
-                                        <input  type="text"  value={toPersianDigits(addedProduct.quantity)}  min={1} className="w-10 py-0 text-center text-[13px] mb-0 text-[var(--color-777777)] border-none "/>
+                                        <input  type="text" readOnly value={toPersianDigits(addedProduct.quantity)}  min={1} className="w-10 py-0 text-center text-[13px] mb-0 text-[var(--color-777777)] border-none "/>
                                         <button onClick={()=>{if(addedProduct.quantity > 1)setAddedProduct((prev)=>({...prev,quantity:addedProduct.quantity-1}))}} disabled={addedProduct.quantity == 1} className={`${addedProduct.quantity == 1 ? 'cursor-not-allowed' : 'cursor-pointer'} px-1 border-r`}>
                                             <FiMinus className={`${addedProduct.quantity == 1 && 'opacity-20'}`}/>
                                         </button>
@@ -207,12 +202,7 @@ console.log(addedProduct)
                                     <span className="p-2 absolute top-4 left-12 rotate-45  bg-white"></span>
                                 </div>
                             }
-                            <MagnifierContainer className="relative flex justify-center" >
-                                <div className="w-[70%] h-auto ">
-                                    <MagnifierPreview  imageSrc={image}/>
-                                    <MagnifierZoom  transitionSpeed={1}  style={{ height: "250px",width: "100%" ,position:"absolute" , top: "0", right: "-350px"}} imageSrc={image}/>
-                                </div>
-                            </MagnifierContainer>
+                              <ImageMagnifier src={image} alt="تصویر " />
                         </div>
                         <div className=" w-full flex items-center justify-center gap-5">
                             <div  onClick={()=>setImage(imgA)} className="p-5 border border-[var(--color-1c1c1b)] object-cover w-1/4 h-1/4">
