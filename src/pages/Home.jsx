@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import {
-      banner1,sbanner1,sbanner2,
+      sbanner1,sbanner2,
       sbanner3,sbanner4,gift,
       discount,service1,service2,
       service3,service4,service5,
@@ -23,17 +23,61 @@ import SpecialProduct from "@/components/SpecialProduct";
 import FamousProduct from "@/components/FamousProduct";
 import Meta from "@/components/Meta";
 import Container from "@/components/Container";
+import gsap from "gsap";
+
+import { useRef } from "react";
+import {useGSAP} from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP,ScrollTrigger);
+``
 
 const Home = () => {
+
+  const container=useRef();
+
+  useGSAP(() => {
+    // gsap code here...
+    gsap.fromTo(
+      ".hero1",
+      { opacity: 0, x:500  ,y:200 }, // حالت اولیه
+      {
+        opacity: 1,
+        x: 0,
+        y:0,
+        scrollTrigger: {
+          trigger: ".hero1",
+          start: "top bottom", // شروع انیمیشن
+          end: "top center", // پایان انیمیشن
+          toggleActions: "play none none reverse", // رفتار انیمیشن
+        },
+      }
+    );
+    gsap.fromTo(
+      ".hero2",
+      { opacity: 0, x:-500 ,y:200 }, // حالت اولیه
+      {
+        opacity: 1,
+        x: 0,
+        y:0,
+        scrollTrigger: {
+          trigger: ".hero2",
+          start: "top bottom", // شروع انیمیشن
+          end: "top center", // پایان انیمیشن
+          toggleActions: "play none none reverse", // رفتار انیمیشن
+        },
+      }
+    );
+  }, { scope: container });
+
   return (
-    <main>
+    <main ref={container}>
       <Meta title=" فروشگاه اینترنتی دیجی مارکت " />
   {/* Hero Section */}
       <Container class1="py-5">
           <div className="grid grid-cols-12 gap-5 px-5">
-              <div className="animate__animated animate__zoomIn relative col-span-6 ">
-                  <div className="w-full h-full">
-                      <img src={banner1} alt="" className=" w-full h-full rounded-md " />
+              <div className="hero1 relative col-span-6 ">
+                  <div className="main-hero w-full h-full rounded-md ">
                   </div>
                   <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
                     <h4 className="text-6xl text-center">
@@ -43,13 +87,13 @@ const Home = () => {
                       Galexy S24 Ultra
                     </h5>
                     <Link className="flex items-center gap-2 mx-20 text-center text-xl bg-[var(--color-febd69)] rounded-full px-2 py-1 animate-pulse" >
-                            خرید کنید  <BsArrowLeft  className="bg-white rounded-full font-medium"/> 
+                            خرید کنید <BsArrowLeft  className="bg-white rounded-full font-medium"/> 
                     </Link>
                   </div>
               </div>
-              <div className="col-span-6 ">
-                  <div className="grid grid-cols-12 gap-5 w-full h-full">
-                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+              <div className="hero2 col-span-6 ">
+                  <div className=" grid grid-cols-12 gap-5 w-full h-full">
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
                           <div className="">
                               <img src={sbanner1} alt="" className=" rounded-md shadow-lg " />
                           </div>
@@ -65,7 +109,7 @@ const Home = () => {
                             </p>
                           </div>
                       </div>
-                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
                           <div className="">
                               <img src={sbanner2} alt="" className=" rounded-md shadow-lg" />
                           </div>
@@ -81,7 +125,7 @@ const Home = () => {
                             </p>
                           </div>
                       </div>
-                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
                           <div className="">
                               <img src={sbanner3} alt="" className=" rounded-md shadow-lg" />
                           </div>
@@ -97,7 +141,7 @@ const Home = () => {
                             </p>
                           </div>
                       </div>
-                      <div className="relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
                           <div className="">
                               <img src={sbanner4} alt="" className=" rounded-md shadow-lg" />
                           </div>

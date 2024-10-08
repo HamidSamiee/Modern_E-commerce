@@ -73,4 +73,12 @@ html,body{
     .magnifier {
       @apply absolute w-[150px] h-[150px] border-2 border-black rounded-full pointer-events-none bg-no-repeat bg-center z-10;
     }
+    .main-hero{
+      background-size: 100% 100%;
+      animation: slider 20s ease-in infinite;
+    }
+    @keyframes slider {
+      0%{background-image:url(./assets/images/main-banner1.webp) ;}
+      100%{background-image:url(./assets/images/main-banner2.webp) ;}
+    }
 }

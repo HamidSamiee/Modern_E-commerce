@@ -4,7 +4,7 @@ import Input from "@/components/Input"
 import Meta from "@/components/Meta"
 import { loginUser } from "@/features/userSlice/userSlice"
 import { useFormik } from "formik"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import * as Yup from "yup"
 
@@ -19,7 +19,8 @@ const Login = () => {
 
   const dispatch=useDispatch();
   const navigate=useNavigate();
-
+  const {user}=useSelector(state =>state.auth)
+console.log(user)
   const formik = useFormik({
     initialValues:{
           email:'',
@@ -28,7 +29,11 @@ const Login = () => {
     validationSchema:loginSchema,
     onSubmit:values=>{
       dispatch(loginUser(values))
-      navigate("/");
+      if(user?.role == "Admin"){
+        navigate("/admin");
+      }else{
+        navigate("/");
+      } 
     },
   })
 
