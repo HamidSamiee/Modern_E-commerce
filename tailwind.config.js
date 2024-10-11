@@ -12,6 +12,9 @@ export default {
     container: {
       center: true,
     },
+    fontFamily:{
+      sans:['iranYekan']
+    },
     extend: {},
   },
   plugins: [

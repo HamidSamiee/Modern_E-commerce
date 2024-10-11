@@ -20,7 +20,7 @@ const Login = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
   const {user}=useSelector(state =>state.auth)
-console.log(user)
+console.log(user.role)
   const formik = useFormik({
     initialValues:{
           email:'',
@@ -29,7 +29,7 @@ console.log(user)
     validationSchema:loginSchema,
     onSubmit:values=>{
       dispatch(loginUser(values))
-      if(user?.role == "Admin"){
+      if(user.role == "Admin"){
         navigate("/admin");
       }else{
         navigate("/");
