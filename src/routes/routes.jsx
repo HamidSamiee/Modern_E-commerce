@@ -17,7 +17,8 @@ import ShippingPolicy from "@/pages/ShippingPolicy";
 import TermAndConditons from "@/pages/TermAndConditons";
 import SingleProduct from "@/pages/SingleProduct";
 import Checkout from "@/pages/Checkout";
-import Dashboard from "@/pages/admin/Dashboard";
+import Enquiries from "@/components/Enquiries";
+import AdminRouter from "@/pages/admin/AdminRouter";
 // import LoginAdmin from "@/pages/admin/Login";
 // import ForgetPasswordAdmin from "@/pages/admin/ForgetPassword";
 // import ResetPasswordAdmin from "@/pages/admin/ResetPassword";
@@ -26,7 +27,7 @@ import Dashboard from "@/pages/admin/Dashboard";
 const routes=[
     {path:"about" ,element:<About />},
     {path:"contact" ,element:<Contact />},
-    {path:"admin" ,element:<Dashboard />},
+    {path:"admin" ,element:<AdminRouter />},
     {path:"shop" ,element:<Shop />},
     {path:"blogs" ,element:<Blogs />},
     {path:"product/:productId" ,element:<SingleProduct />},
@@ -46,7 +47,7 @@ const routes=[
     {path:"*" ,element:<NotFound />},
 ]
 export const dashboardRoutes=[
-    {path:"admin" ,element:<Dashboard />},
+    {path:"/enquiries" ,element:<Enquiries />},
     // {path:"login" ,element:<LoginAdmin />},
     // {path:"forget-password" ,element:<ForgetPasswordAdmin />},
     // {path:"reset-password" ,element:<ResetPasswordAdmin />},

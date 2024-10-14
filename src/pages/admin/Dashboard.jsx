@@ -2,56 +2,119 @@ import { BarChart, Bar, Rectangle, XAxis,
   YAxis, CartesianGrid, Tooltip, Legend,
    ResponsiveContainer } from 'recharts';
 import { BsArrowDownRight} from 'react-icons/bs';
+import { Table } from "antd";
 
 const data = [
   {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
+    name: 'فروردین',
+    درآمد: 4000,
     amt: 2400,
   },
   {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
+    name: 'اردیبهشت',
+    درآمد: 3000,
     amt: 2210,
   },
   {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
+    name: 'خرداد',
+    درآمد: 2000,
     amt: 2290,
   },
   {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
+    name: 'تیر',
+    درآمد: 2780,
     amt: 2000,
   },
   {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
+    name: 'مرداد',
+    درآمد: 1890,
     amt: 2181,
   },
   {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
+    name: 'شهریور',
+    درآمد: 2390,
     amt: 2500,
   },
   {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
+    name: 'مهر',
+    درآمد: 3490,
     amt: 2100,
+  },{
+    name: 'آبان',
+    درآمد: 3490,
+    amt: 2100,
+  },
+  {
+    name: 'آذر',
+    درآمد: 3490,
+    amt: 2100,
+  },
+  {
+    name: 'دی ',
+    درآمد: 3490,
+    amt: 2100,
+  },
+  {
+    name: 'بهمن',
+    درآمد: 3490,
+    amt: 2100,
+  },
+  {
+    name: 'اسفند',
+    درآمد: 3490,
+    amt: 2100,
+  },
+];
+
+const columns = [
+  {
+    title: 'شماره سفارش',
+    dataIndex: 'key',
+  },  
+  {
+    title: 'نام',
+    dataIndex: 'name',
+  },
+  {
+    title: 'محصول',
+    dataIndex: 'product',
+  },
+  {
+    title: 'وضعیت',
+    dataIndex: 'status',
+  },
+];
+const dataTable = [
+  {
+    key: '1',
+    name: 'John Brown',
+    product: 32,
+    status: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    product: 42,
+    status: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    product: 32,
+    status: 'Sydney No. 1 Lake Park',
+  },
+  {
+    key: '4',
+    name: 'Jim Red',
+    product: 32,
+    status: 'London No. 2 Lake Park',
   },
 ];
 
 const Dashboard = () => {
 return (
-  <div className=''>
-  <h3 className="mb-5 font-extrabold text-4xl font-sans">داشبورد</h3>
+  <div className='font-sans h-full overflow-y-scroll'>
+  <h3 className="mb-5 font-extrabold text-4xl ">داشبورد</h3>
   <div className="flex items-center justify-between gap-10">
     <div className="flex flex-grow items-center justify-between bg-white p-3 rounded-xl">
       <div className="space-y-2">
@@ -94,27 +157,38 @@ return (
     </div>
   </div>
   <div className="">
-    <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="pv" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-          <Bar dataKey="uv" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-        </BarChart>
-    </ResponsiveContainer>
+    <h3 className="text-xl font-bold mt-4 mb-2">آمار درآمد</h3>
+    <div className=""  style={{ width: '100%', height: 400  }}>
+        <ResponsiveContainer  >
+          <BarChart
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" reversed={true}/>
+            <YAxis  />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="درآمد" fill="#ffd333" activeBar={<Rectangle fill="gold" stroke="purple" />} />
+          </BarChart>
+        </ResponsiveContainer>
+    </div>
+    
+  </div>
+  <div className="mt-4">
+      <h3 className="text-xl font-bold mb-2">سفارشات اخیر</h3>    
+      <Table
+        columns={columns}
+        dataSource={dataTable}
+        showSorterTooltip={{
+          target: 'sorter-icon',
+        }}
+      />
   </div>
   </div>
   )

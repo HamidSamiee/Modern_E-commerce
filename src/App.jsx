@@ -1,10 +1,10 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import Layout from "@layout/Layout"
 import Home from "@pages/Home"
-import routes, { dashboardRoutes } from "@routes/routes"
+import routes from "@routes/routes"
 import 'animate.css';
-import DashboardLayout from "./layout/DashboardLayout";
-import Dashboard from "./pages/admin/Dashboard";
+
+import AdminRouter from "./pages/admin/AdminRouter";
 
 
 function App() {
@@ -16,14 +16,9 @@ function App() {
     <>
       <Routes>
           {
-            location.pathname ==="/admin"
+            location.pathname.includes('/admin')
              ?
-                <Route path="/admin" element={<DashboardLayout />} >
-                    <Route index element={<Dashboard />} />
-                    {
-                      dashboardRoutes.map( (route,i)=> <Route key={i} {...route} /> )
-                    }
-                </Route> 
+                <Route path="/admin/*" element={<AdminRouter />} />
             :
                 <Route path="/" element={<Layout />} >
                     <Route index element={<Home />} />
