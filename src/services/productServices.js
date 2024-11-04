@@ -34,13 +34,15 @@ const deleteProduct = async(id)=>{
     }  
 }
 
-const addToWashlist = async(washlistData)=>{
+const addToWishlist = async(prodId)=>{
     
-    const response = await http.put('washlist',washlistData);
+    const response = await http.put('product/wishlist',{prodId});
     if (response.data) {
         return response.data
     }  
 }
+
+
 
 const ratingProduct = async(ratingData)=>{
     
@@ -50,4 +52,4 @@ const ratingProduct = async(ratingData)=>{
     }  
 }
 
-export const productServices={getProducts,getProductById,updateProduct,deleteProduct,addToWashlist,ratingProduct}
+export const productServices={getProducts,getProductById,updateProduct,deleteProduct,addToWishlist,ratingProduct}

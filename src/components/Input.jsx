@@ -1,11 +1,12 @@
 
 const Input = (Props) => {
 
-    const {name,type,className,placeholder,value,onChange,onBlur,class2}=Props;
+    const {name,id,type,className,placeholder,value,onChange,onBlur,class2}=Props;
 
   return (
     <div className={class2}>
         <input 
+            id={id}
             name={name}
             type={type}
             className={className}

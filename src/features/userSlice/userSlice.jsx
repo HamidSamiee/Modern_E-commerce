@@ -2,13 +2,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authRegister } from "@/services/userServices";
 import { toast } from "react-toastify";
 
+const userInfo=JSON.parse(localStorage.getItem("user"));
+const getUserFromLocalStorage = localStorage.getItem("user") ?
+ userInfo : null ;
+
 export const registerUser = createAsyncThunk(
     "auth/register",
     async(userData,thunkAPI)=>{
     try {
         return await authRegister.register(userData)
     } catch (error) {
-        return thunkAPI.rejectWithValue(error)
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(errorMessage);
+        return thunkAPI.rejectWithValue({ error: errorMessage });
+        
     }
 })
 
@@ -18,15 +25,47 @@ export const loginUser = createAsyncThunk(
     try {
         return await authRegister.login(userData)
     } catch (error) {
+        const errorMessage = error.response?.data?.message || error.message; 
+        return thunkAPI.rejectWithValue({ error: errorMessage });
+    }
+})
+
+export const getUserProductWishlist = createAsyncThunk(
+    "user/wishlist",
+    async(thunkAPI)=>{
+    try {
+        return await authRegister.getUserWishlist()
+    } catch (error) {
         return thunkAPI.rejectWithValue(error)
     }
 })
 
+export const getAllUsers = createAsyncThunk(
+    "user/all-users",
+    async(thunkAPI)=>{
+    try {
+        return await authRegister.getUsers()
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const getOrders = createAsyncThunk(
+    "order/all-orders",
+    async(thunkAPI)=>{
+    try {
+        return await authRegister.getOrders()
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
 
 export const authSlice=createSlice({
     name:'auth',
     initialState:{
-        user:"",
+        user:getUserFromLocalStorage || '',
+        customers:[],
+        orders:[],
         isError:false,
         isSuccess:false,
         isLoading:false,
@@ -35,6 +74,7 @@ export const authSlice=createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
+        // register user
         .addCase(registerUser.pending,(state)=>{
             state.isLoading=true;
         }).addCase(registerUser.fulfilled,(state,action)=>{
@@ -49,11 +89,12 @@ export const authSlice=createSlice({
             state.isLoading=false;
             state.isError=true;
             state.isSuccess=false;
-            state.message=action.error;
-            if (state.isError === true ) {
-                toast.error(action.error)
+            state.message = action.payload.error;
+            if (state.isError) {
+                toast.error(action.payload.error)
             }
         })
+        // login user
         .addCase(loginUser.pending,(state)=>{
             state.isLoading=true;
         }).addCase(loginUser.fulfilled,(state,action)=>{
@@ -69,10 +110,52 @@ export const authSlice=createSlice({
             state.isLoading=false;
             state.isError=true;
             state.isSuccess=false;
-            state.message=action.error;
-            if (state.isError === true ) {
-                toast.error(action.error)
+            state.message=action.payload.error;
+            if (state.isError) {
+                toast.error(action.payload.error)
             }
+        })
+        // get user wishlist
+        .addCase(getUserProductWishlist.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(getUserProductWishlist.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.wishList=action.payload;
+        }).addCase(getUserProductWishlist.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.error;
+        })
+        // get all users
+        .addCase(getAllUsers.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(getAllUsers.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.customers=action.payload;
+        }).addCase(getAllUsers.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.error;
+        })
+        // get orders
+        .addCase(getOrders.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(getOrders.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.orders=action.payload;
+        }).addCase(getOrders.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.error;
         })
     }   
 })

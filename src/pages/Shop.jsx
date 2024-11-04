@@ -2,13 +2,14 @@ import { BsSortDown } from "react-icons/bs";
 import BreadCrumb from "../components/BreadCrumb"
 import Meta from "../components/Meta"
 import {hp,AirPodsPro,fourLine,threeLine,twoLine, threeLineV} from "@/utils/myimages";
-import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toPersianDigits } from "@/utils/toPersianDigits";
 import ProductCart from "../components/ProductCart";
 import { selectionProduct } from "@/assets/data/data";
 import Container from "@/components/Container";
 import StarRating from "@/components/StarRating";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "@/features/ProductsSlice/productSlice";
 
 
 
@@ -22,6 +23,21 @@ const Shop = () => {
         setSelect(e.target.value)
       };
 
+    const productState = useSelector(state=>state?.product?.product)
+    const dispatch = useDispatch();
+
+    console.log(productState)
+    
+    useEffect(() => {
+      
+    const getProducts=()=>{
+        dispatch(getAllProducts())
+    }
+    
+    getProducts();
+      
+    }, [dispatch])
+    
 
 
   return (

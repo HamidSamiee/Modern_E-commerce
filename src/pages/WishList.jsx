@@ -3,9 +3,13 @@ import BreadCrumb from '@/components/BreadCrumb'
 import Container from '@/components/Container'
 import Meta from '@/components/Meta'
 import { IoClose } from 'react-icons/io5'
+import { useSelector } from 'react-redux'
 
 
 const WishList = () => {
+
+    const userWishlist=useSelector(state=>state.auth.wishList.wishList)
+console.log(userWishlist)
   return (
     <>
        <Meta title=" لیست علاقه مندی ها  " /> 

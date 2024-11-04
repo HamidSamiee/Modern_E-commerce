@@ -11,11 +11,22 @@ export const getAllProducts = createAsyncThunk(
     }
 })
 
+export const addToWishList = createAsyncThunk(
+    "product/wishlist",
+    async(prodId,thunkAPI)=>{
+    try {
+        return await productServices.addToWishlist(prodId)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+
 
 export const productSlice=createSlice({
     name:'product',
     initialState:{
-        product:"",
+        products:[],
         isError:false,
         isSuccess:false,
         isLoading:false,
@@ -24,14 +35,30 @@ export const productSlice=createSlice({
     reducers:{},
     extraReducers:(builder)=>{
         builder
+        // get All products
         .addCase(getAllProducts.pending,(state)=>{
             state.isLoading=true;
         }).addCase(getAllProducts.fulfilled,(state,action)=>{
             state.isLoading=false;
             state.isError=false;
             state.isSuccess=true;
-            state.product=action.payload;
+            state.products=action.payload;
         }).addCase(getAllProducts.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.error;
+        })
+        // add to Wishlist
+        .addCase(addToWishList.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(addToWishList.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.addToWishList=action.payload;
+            state.message="محصول به لیست علاقه مندی ها اضافه شد";
+        }).addCase(addToWishList.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;
             state.isSuccess=false;

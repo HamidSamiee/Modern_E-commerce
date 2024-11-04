@@ -19,6 +19,22 @@ import SingleProduct from "@/pages/SingleProduct";
 import Checkout from "@/pages/Checkout";
 import Enquiries from "@/components/Enquiries";
 import AdminRouter from "@/pages/admin/AdminRouter";
+import Dashboard from "@/pages/admin/Dashboard";
+import BlogList from "@/pages/admin/BlogList";
+import BlogCatgorylist from "@/pages/admin/BlogCatgorylist";
+import Orders from "@/pages/admin/Orders";
+import Customers from "@/pages/admin/Customers";
+import ColorList from "@/pages/admin/ColorList";
+import CategoryList from "@/pages/admin/CategoryList";
+import BrandList from "@/pages/admin/BrandList";
+import ProductList from "@/pages/admin/ProductList";
+import AddBlog from "@/pages/admin/AddBlog";
+import AddBlogCategory from "@/pages/admin/AddBlogCategory";
+import AddColor from "@/pages/admin/AddColor";
+import AddCategory from "@/pages/admin/AddCategory";
+import AddBrand from "@/pages/admin/AddBrand";
+import AddProduct from "@/pages/admin/AddProduct";
+import Profile from "@/pages/Profile";
 // import LoginAdmin from "@/pages/admin/Login";
 // import ForgetPasswordAdmin from "@/pages/admin/ForgetPassword";
 // import ResetPasswordAdmin from "@/pages/admin/ResetPassword";
@@ -28,6 +44,7 @@ const routes=[
     {path:"about" ,element:<About />},
     {path:"contact" ,element:<Contact />},
     {path:"admin" ,element:<AdminRouter />},
+    {path:"profile" ,element:<Profile />},
     {path:"shop" ,element:<Shop />},
     {path:"blogs" ,element:<Blogs />},
     {path:"product/:productId" ,element:<SingleProduct />},
@@ -48,6 +65,21 @@ const routes=[
 ]
 export const dashboardRoutes=[
     {path:"/enquiries" ,element:<Enquiries />},
+    {path:"/dashboard" ,element:<Dashboard />},
+    {path:"/blog-list" ,element:<BlogList />},
+    {path:"/blog-category-list" ,element:<BlogCatgorylist />},
+    {path:"/orders" ,element:<Orders />},
+    {path:"/customers" ,element:<Customers />},
+    {path:"/color-list" ,element:<ColorList />},
+    {path:"/category-list" ,element:<CategoryList />},
+    {path:"/brand-list" ,element:<BrandList />},
+    {path:"/product-list" ,element:<ProductList />},
+    {path:"/add-blog" ,element:<AddBlog />},
+    {path:"/add-blog-category" ,element:<AddBlogCategory />},
+    {path:"/add-color" ,element:<AddColor />},
+    {path:"/add-category" ,element:<AddCategory />},
+    {path:"/add-brand" ,element:<AddBrand />},
+    {path:"/add-product" ,element:<AddProduct />},
     // {path:"login" ,element:<LoginAdmin />},
     // {path:"forget-password" ,element:<ForgetPasswordAdmin />},
     // {path:"reset-password" ,element:<ResetPasswordAdmin />},

@@ -53,9 +53,10 @@ const Enquiries = () => {
        <Table
         columns={columns}
         dataSource={dataTable}
-        showSorterTooltip={{
-          target: 'sorter-icon',
-        }}
+        // showSorterTooltip={{
+        //   target: 'sorter-icon',
+          
+        // }}
       />
     </div>
   )

@@ -13,13 +13,14 @@ import { IoIosNotifications} from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import pic from "@assets/images/pro.jpg"
 import { toPersianDigits } from '@/utils/toPersianDigits';
+import { ToastContainer } from 'react-toastify';
 
 
 const DashboardLayout = () => {
 
     const navigate=useNavigate();
     const {user}=useSelector(state =>state.auth)   
-  console.log(user.firstname)
+  // console.log(user.firstname)
     const [collapsed, setCollapsed] = useState(false);
     const {
       token: { colorBgContainer, borderRadiusLG },
@@ -27,8 +28,8 @@ const DashboardLayout = () => {
     
     return (
       <Layout className='h-screen'>
-        <Sider trigger={null} collapsible collapsed={collapsed} className=' w-[250px] max-w-[250px] min-w-[250px]'
-          style={{position:"relative"}}
+        <Sider trigger={null} collapsible collapsed={collapsed} className='w-[250px] max-w-[250px] min-w-[250px]'
+          style={{position:"relative" }}
         >
           <div className="bg-[#fdd333] m-0 h-16 flex justify-center items-center" >
                 <h5 className=' text-white text-xl py-2 font-extrabold font-sans'>
@@ -37,9 +38,15 @@ const DashboardLayout = () => {
                 </h5>
           </div>  
           <Menu
+            style={{
+              maxHeight:'calc(100vh - 64px)',
+              overflowY:"scroll",
+              scrollBehavior:"smooth",
+              scrollbarWidth:"none"
+            }}
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={['dashboard']}
+            defaultSelectedKeys={['/admin/dashboard']}
             onClick={({ key }) => {
               if (key == "signout") {
                 console.log("signout")
@@ -49,7 +56,7 @@ const DashboardLayout = () => {
             }}
             items={[
               {
-                key: "dashboard",
+                key: "/admin/dashboard",
                 icon: <AiOutlineDashboard className="text-lg" />,
                 label: "داشبورد",
               },
@@ -64,42 +71,42 @@ const DashboardLayout = () => {
                 label: "کاتالوگ",
                 children: [
                   {
-                    key: "product",
+                    key: "add-product",
                     icon: <AiOutlineShoppingCart className="text-lg" />,
                     label: "افزودن محصول",
                   },
                   {
-                    key: "list-product",
+                    key: "product-list",
                     icon: <AiOutlineShoppingCart className="text-lg" />,
                     label: "لیست محصولات",
                   },
                   {
-                    key: "brand",
+                    key: "add-brand",
                     icon: <SiBrandfolder className="text-lg" />,
                     label: " افزودن برند",
                   },
                   {
-                    key: "list-brand",
+                    key: "brand-list",
                     icon: <SiBrandfolder className="text-lg" />,
                     label: "لیست برند ها",
                   },
                   {
-                    key: "category",
+                    key: "add-category",
                     icon: <BiCategoryAlt className="text-lg" />,
                     label: "افزودن دسته بندی",
                   },
                   {
-                    key: "list-category",
+                    key: "category-list",
                     icon: <BiCategoryAlt className="text-lg" />,
                     label: "لیست دسته بندی ها",
                   },
                   {
-                    key: "color",
+                    key: "add-color",
                     icon: <AiOutlineBgColors className="text-lg" />,
                     label: "افزودن رنگ",
                   },
                   {
-                    key: "list-color",
+                    key: "color-list",
                     icon: <AiOutlineBgColors className="text-lg" />,
                     label: "لیست رنگ ها",
                   },
@@ -133,7 +140,7 @@ const DashboardLayout = () => {
                 label: "بلاگ ها",
                 children: [
                   {
-                    key: "blog",
+                    key: "add-blog",
                     icon: <ImBlog className="text-lg" />,
                     label: "افزودن بلاگ",
                   },
@@ -143,7 +150,7 @@ const DashboardLayout = () => {
                     label: "لیست بلاگ ها",
                   },
                   {
-                    key: "blog-category",
+                    key: "add-blog-category",
                     icon: <ImBlog className="text-lg" />,
                     label: "افزودن دسته بندی بلاگ ها",
                   },
@@ -178,47 +185,60 @@ const DashboardLayout = () => {
               }}
             />
       </Sider>
-        <Layout>
-          <Header
-            className='flex items-center justify-between'
-            style={{
-              padding: 0,
-              background: colorBgContainer,
-            }}
-          >
-           
-            <div className=" pl-5 ">
-              <div className='flex items-center gap-5 px-10'>
-                <div className="rounded-full overflow-hidden border border-[#fdd333]">
-                  <img src={pic} alt="" className="w-10 h-10" />
-                </div>
-                <div className=" flex flex-col items-start justify-center h-16 ">
-                  <h5 className='font-sans text-base'>{user.firstname} {user.lastname}</h5>
-                  <p className='font-sans text-base'>{user.email}</p>
-                </div>
-                <div className='relative'>
-                  <IoIosNotifications className='w-6 h-6'/>
-                  <span className="w-4 h-4 absolute -right-1 -top-1 p-1 rounded-full bg-red-500 badge text-white text-sm">
-                    {toPersianDigits(3)}
-                  </span>
-                </div>
+      <Layout>
+        <Header
+          className='flex items-center justify-between'
+          style={{
+            padding: 0,
+            background: colorBgContainer,
+          }}
+        >
+          
+          <div className=" pl-5 ">
+            <div className='flex items-center gap-5 px-10'>
+              <div className="rounded-full overflow-hidden border border-[#fdd333]">
+                <img src={pic} alt="" className="w-10 h-10" />
+              </div>
+              <div className=" flex flex-col items-start justify-center h-16 ">
+                <h5 className='font-sans text-base'>{user.firstname} {user.lastname}</h5>
+                <p className='font-sans text-base'>{user.email}</p>
+              </div>
+              <div className='relative'>
+                <IoIosNotifications className='w-6 h-6'/>
+                <span className="w-4 h-4 absolute -right-1 -top-1 p-1 rounded-full bg-red-500 badge text-white text-sm">
+                  {toPersianDigits(3)}
+                </span>
               </div>
             </div>
-          </Header>
-          <Content
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              minHeight: 280,
-              // background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
+          </div>
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+            // background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
+        
+            <Outlet />
           
-              <Outlet />
-            
-          </Content>
-        </Layout>
+        </Content>
+      </Layout>
+      <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={true}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition: Bounce
+      />
       </Layout>
   )
 }

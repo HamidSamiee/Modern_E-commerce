@@ -20,7 +20,7 @@ const Login = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
   const {user}=useSelector(state =>state.auth)
-console.log(user.role)
+// console.log(user.role)
   const formik = useFormik({
     initialValues:{
           email:'',

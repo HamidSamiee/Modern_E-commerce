@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const {cart}=useSelector(state=>state.cart)
+  const {user}=useSelector(state=>state.auth)
   return (
     <>
       <header className="bg-[var(--color-131921)] border-b border-solid border-[var(--color-3b4149)] py-3">
@@ -62,10 +63,14 @@ const Header = () => {
                     </Link>
                   </div>
                   <div className="">
-                    <Link to='/login' className="flex items-center gap-1">
+                    <Link to={`${user ? "/profile":"/login"}`} className="flex items-center gap-1">
                         <FaRegUser   className="w-8 h-8  " />
                         <p className="flex flex-col items-center text-sm">
-                                      <span className="">ورود</span>  ثبت نام  
+                                      {
+                                        user ? "":<>
+                                          <span className="">ورود</span>  ثبت نام 
+                                        </>
+                                      } 
                         </p>
                     </Link>
                   </div>

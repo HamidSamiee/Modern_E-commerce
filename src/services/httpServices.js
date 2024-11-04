@@ -3,8 +3,16 @@
 import axios from "axios";
 const baseURL='http://localhost:5000/api';
 
+const getTokenFromLocalStorage = localStorage.getItem("user") ?
+JSON.parse(localStorage.getItem("user")) : null ;
+
+
 const app = axios.create({
     baseURL: baseURL,
+    headers:{
+        Authorization : `Bearer ${ getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""}`,
+    },
+    accept: "application/json",
     // withCredentials: true,
 })
 
