@@ -10,6 +10,15 @@ const getProducts = async()=>{
     }  
 }
 
+const createProduct = async(product)=>{
+    
+    const response = await http.post(`product`, product);
+    console.log(response.data)
+    if (response.data) {
+        return response.data
+    }  
+}
+
 const getProductById = async(id)=>{
     
     const response = await http.get(`product/${id}`);
@@ -52,4 +61,4 @@ const ratingProduct = async(ratingData)=>{
     }  
 }
 
-export const productServices={getProducts,getProductById,updateProduct,deleteProduct,addToWishlist,ratingProduct}
+export const productServices={getProducts,createProduct,getProductById,updateProduct,deleteProduct,addToWishlist,ratingProduct}

@@ -1,20 +1,25 @@
 import Input from "@/components/Input"
+import { createProductsCategory } from "@/features/pCategorySlice/pCategorySlice"
 import { useFormik } from "formik"
+import { useDispatch } from "react-redux"
 import * as Yup from "yup"
 
 const AddcategorySchema =Yup.object({
-  category:Yup.string().required("ورود عنوان  دسته بندی محصول  الزامی است"),
+  title:Yup.string().required("ورود عنوان  دسته بندی محصول  الزامی است"),
 })
 
 const AddCategory = () => {
 
+  const dispatch=useDispatch();
+
   const formik = useFormik({
     initialValues:{
-      category:'',
+      title:'',
     },
     validationSchema:AddcategorySchema,
     onSubmit:values=>{
-      console.log(values)
+      // console.log(values)
+      dispatch(createProductsCategory(values))
     },
   })
 
@@ -25,10 +30,10 @@ const AddCategory = () => {
             <div className="space-y-2">
                 <label>عنوان  دسته بندی محصول</label>
                 <Input 
-                  value={formik.values.category}
-                  onChange={formik.handleChange('')}
-                  onBlur={formik.handleBlur('category')}
-                  name="category"
+                  value={formik.values.title}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  name="title"
                   type="text"
                   className="w-full p-1 bg-white border rounded-lg border-secondary-900  focus:ring-secondary-900"
                   placeholder="عنوان  دسته بندی محصول"
@@ -36,7 +41,7 @@ const AddCategory = () => {
                 />
                 <div className="text-rose-500 text-xs">
                   {
-                    formik.touched.category && formik.errors.category
+                    formik.touched.title && formik.errors.title
                   }
                 </div>
             </div>

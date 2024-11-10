@@ -107,6 +107,29 @@ html,body{
     .ant-menu-title-content{
       font-size: 16px;
     }
+    .ant-font{
+      font-family: 'iranYekan' ;
+    }  
+    .spinner {
+    
+      width: 60px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 8px solid rgb(var(--color-primary-900));
+      border-right-color: rgb(var(--color-primary-200));
+      animation: rotate 1s infinite linear;
+    }
+  
+    .spinner-mini {
+      margin: 0;
+      width: 20px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid rgb(var(--color-primary-200));
+      border-right-color: transparent;
+      animation: rotate 1s infinite linear;
+    }
+    
     @keyframes slider {
       0%{background-image:url(./assets/images/main-banner1.webp) ;}
       100%{background-image:url(./assets/images/main-banner2.webp) ;}

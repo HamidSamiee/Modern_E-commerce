@@ -1,21 +1,27 @@
 import Input from "@/components/Input"
+import { createColor } from "@/features/ColorSlice/colorSlice"
 import { useFormik } from "formik"
+import { useDispatch } from "react-redux"
 import * as Yup from "yup"
 
 const AddcolorSchema =Yup.object({
-  color:Yup.string().required("رنگ را وارد کنید"),
+  title:Yup.string().required("رنگ را وارد کنید"),
 })
 
 
 const AddColor = () => {
 
+  const dispatch=useDispatch();
+
   const formik = useFormik({
     initialValues:{
-      color:'',
+      title:'',
     },
     validationSchema:AddcolorSchema,
     onSubmit:values=>{
       console.log(values)
+      dispatch(createColor(values));
+      formik.resetForm();
     },
   })
 
@@ -26,18 +32,18 @@ const AddColor = () => {
          <div className="space-y-2">
              <label> انتخاب رنگ</label>
              <Input 
-               value={formik.values.color}
-               onChange={formik.handleChange('')}
-               onBlur={formik.handleBlur('color')}
-               name="color"
-               type="color"
+               value={formik.values.title}
+               onChange={formik.handleChange}
+               onBlur={formik.handleBlur}
+               name="title"
+               type="text"
                className="w-full p-1 bg-white border rounded-lg border-secondary-900  focus:ring-secondary-900"
                
                class2="w-full"
              />
              <div className="text-rose-500 text-xs">
                {
-                 formik.touched.color && formik.errors.color
+                 formik.touched.title && formik.errors.title
                }
              </div>
          </div>

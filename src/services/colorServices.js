@@ -8,4 +8,12 @@ const getColors = async()=>{
     }  
 }
 
-export const colorServices={getColors}
+const createColors = async(color)=>{
+    
+    const response = await http.post('color/',color);
+    if (response.data) {
+        return response.data
+    }  
+}
+
+export const colorServices={getColors,createColors}

@@ -1,10 +1,10 @@
-import { getColors } from "@/features/ColorSlice/colorSlice";
 import Spinner from "@/ui/Spinner";
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import { Table } from "antd";
+import { Table } from "antd"
 import { useEffect } from "react";
-import { FaEdit ,FaTrashAlt} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import './styles.css';
+import { getProductsCategory } from "@/features/pCategorySlice/pCategorySlice";
 
 
 const columns = [
@@ -13,41 +13,32 @@ const columns = [
     dataIndex: 'key',
   },  
   {
-    title: ' نام رنگ',
+    title: ' نام دسته بندی محصولات',
     dataIndex: 'name',
-  },
-  {
-    title: ' اقدامات ',
-    dataIndex: 'action',
   },
 ];
 
 
-
-const ColorList = () => {
+const CategoryList = () => {
 
   const dispatch=useDispatch();
 
   useEffect(() => {
     
-  dispatch(getColors());
+  dispatch(getProductsCategory());
     
   }, [dispatch])
   
-  const {colors}=useSelector((state)=>state.color);
+  const {pCategories}=useSelector((state)=>state.pCategory);
 
   const dataTable =[] ;
-  
-  colors.map((color,index)=>{
+
+  pCategories.map((pCategory,index)=>
     dataTable.push({
       key: `${toPersianDigits(index + 1)}`,
-      name: `${color.title}`,
-      action: <div className="flex gap-2">
-        <button className=""><FaEdit className="" /></button>
-        <button className=""><FaTrashAlt className="text-rose-500 cursor-pointer" /></button>
-      </div>
+      name: `${pCategory.title}`,
     })
-  })
+  )
 
   const paginationConfig={
     prevIcon: '<',
@@ -72,9 +63,9 @@ const ColorList = () => {
         scrollbarWidth:"none"
       }}
     >
-              <h3 className="text-xl font-bold mb-8">لیست رنگ ها  </h3>    
+              <h3 className="text-xl font-bold mb-8">لیست دسته بندی محصولات</h3>    
               {
-                colors ?
+                pCategories ?
                 <>
                   <Table
                     className="ant-font border-2 border-black/50 rounded-lg"
@@ -95,4 +86,4 @@ const ColorList = () => {
   )
 }
 
-export default ColorList
+export default CategoryList

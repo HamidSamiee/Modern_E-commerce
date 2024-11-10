@@ -1,10 +1,10 @@
-import { getColors } from "@/features/ColorSlice/colorSlice";
+import { getAllbrands } from "@/features/BrandSlice/brandSlice";
 import Spinner from "@/ui/Spinner";
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import { Table } from "antd";
+import { Table } from "antd"
 import { useEffect } from "react";
-import { FaEdit ,FaTrashAlt} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import './styles.css';
 
 
 const columns = [
@@ -13,41 +13,32 @@ const columns = [
     dataIndex: 'key',
   },  
   {
-    title: ' نام رنگ',
+    title: ' نام برند',
     dataIndex: 'name',
-  },
-  {
-    title: ' اقدامات ',
-    dataIndex: 'action',
   },
 ];
 
 
-
-const ColorList = () => {
+const BrandList = () => {
 
   const dispatch=useDispatch();
 
   useEffect(() => {
     
-  dispatch(getColors());
+  dispatch(getAllbrands());
     
   }, [dispatch])
   
-  const {colors}=useSelector((state)=>state.color);
+  const {brands}=useSelector((state)=>state.brand);
 
   const dataTable =[] ;
-  
-  colors.map((color,index)=>{
+
+  brands.map((brand,index)=>
     dataTable.push({
       key: `${toPersianDigits(index + 1)}`,
-      name: `${color.title}`,
-      action: <div className="flex gap-2">
-        <button className=""><FaEdit className="" /></button>
-        <button className=""><FaTrashAlt className="text-rose-500 cursor-pointer" /></button>
-      </div>
+      name: `${brand.title}`,
     })
-  })
+  )
 
   const paginationConfig={
     prevIcon: '<',
@@ -64,7 +55,7 @@ const ColorList = () => {
   };
 
   return (
-    <div className="my-3 font-sans w-3/4 "
+    <div className="my-3 font-sans  w-3/4 "
       style={{
         maxHeight:'calc(100vh - 150px)',
         overflowY:"scroll",
@@ -72,9 +63,9 @@ const ColorList = () => {
         scrollbarWidth:"none"
       }}
     >
-              <h3 className="text-xl font-bold mb-8">لیست رنگ ها  </h3>    
+              <h3 className="text-xl font-bold mb-8"> لیست برند ها</h3>    
               {
-                colors ?
+                brands ?
                 <>
                   <Table
                     className="ant-font border-2 border-black/50 rounded-lg"
@@ -95,4 +86,4 @@ const ColorList = () => {
   )
 }
 
-export default ColorList
+export default BrandList

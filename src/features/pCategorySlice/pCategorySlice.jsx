@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { pCategoryServices } from "@/services/pCategoryServices";
+import { toast } from "react-toastify";
 
 export const getProductsCategory = createAsyncThunk(
     "productCategory/get-categories",
@@ -11,7 +12,15 @@ export const getProductsCategory = createAsyncThunk(
     }
 })
 
-
+export const createProductsCategory = createAsyncThunk(
+    "productCategory/add-category",
+    async(pCategory,thunkAPI)=>{
+    try {
+        return await pCategoryServices.createProductCategoreis(pCategory)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
 
 
 
@@ -41,7 +50,23 @@ export const pCategorySlice=createSlice({
             state.isSuccess=false;
             state.message=action.error;
         })
-        
+        // create products Category
+        .addCase(createProductsCategory.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(createProductsCategory.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.pCategories=action.payload;
+            if (state.isSuccess === true) {
+                toast.info(" دسته بندی محصول با موفقیت اضافه شد")
+            }
+        }).addCase(createProductsCategory.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.error;
+        })
     }   
 })
 

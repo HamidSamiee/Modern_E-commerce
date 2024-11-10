@@ -27,6 +27,7 @@ const Editor = (Props) => {
         ['clean'] ] }
       }
       className='bg-white'
+      style={{direction:'rtl'}}
     />  
   );  
 };  

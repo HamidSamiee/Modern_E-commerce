@@ -1,7 +1,7 @@
 
 const Input = (Props) => {
 
-    const {name,id,type,className,placeholder,value,onChange,onBlur,class2}=Props;
+    const {name,id,type,className,placeholder,value,onChange,onBlur,onInput,pattern,class2}=Props;
 
   return (
     <div className={class2}>
@@ -14,6 +14,8 @@ const Input = (Props) => {
             value={value}
             onChange={onChange}
             onBlur={onBlur}
+            onInput={onInput}
+            pattern={pattern}
         />
     </div>
 
