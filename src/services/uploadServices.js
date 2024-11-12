@@ -11,4 +11,12 @@ const uploadImage = async(image)=>{
     }  
 }
 
-export const uploadServices={uploadImage}
+const deleteImage = async(id)=>{
+    
+    const response = await http.delete(`/delete-img/${id}`);
+    if (response.data) {
+        return response.data
+    }  
+}
+
+export const uploadServices={uploadImage,deleteImage}

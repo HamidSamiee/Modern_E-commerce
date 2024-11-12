@@ -5,31 +5,32 @@ import Input from '@/components/Input';
 import Uploader from '@/components/Uploader';
 import Editor from "@/components/Editor";
 import { useDispatch , useSelector } from "react-redux";
-import { Fragment, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { getAllbrands } from "@/features/BrandSlice/brandSlice";
 import Spinner from "@/ui/Spinner";
 import { getProductsCategory } from "@/features/pCategorySlice/pCategorySlice";
 import { getColors } from "@/features/ColorSlice/colorSlice";
-import { removeCommasAndPersianDigits, toPersianDigits, toPersianDigitsWithComma2 } from "@/utils/toPersianDigits";
+import { removeCommasAndPersianDigits, toPersianDigitsWithComma2 } from "@/utils/toPersianDigits";
 import 'react-widgets/styles.css'; 
 import { Multiselect } from "react-widgets";
 import { createProducts } from "@/features/ProductsSlice/productSlice";
 
 const AddProductSchema =Yup.object({
-  productTitle:Yup.string().required("ورود عنوان محصول  الزامی است"),
-  productDescription:Yup.string().required("ورود توضیحات محصول  الزامی است"),
-  productCategory:Yup.string().required('ورود  دسته بندی الزامیست'),
-  productBrand:Yup.string().required('ورود  برند الزامیست'),
-  productColor:Yup.array().min(1,'حداقل یک رنگ رو وارد کنید').required('ورود  رنگ  الزامیست'),
-  productPrice:Yup.string().required('ورود قیمت محصول الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
+  title:Yup.string().required("ورود عنوان محصول  الزامی است"),
+  description:Yup.string().required("ورود توضیحات محصول  الزامی است"),
+  category:Yup.string().required('ورود  دسته بندی الزامیست'),
+  brand:Yup.string().required('ورود  برند الزامیست'),
+  color:Yup.array().min(1,'حداقل یک رنگ رو وارد کنید').required('ورود  رنگ  الزامیست'),
+  tags:Yup.array().required('ورود  تگ الزامیست'),
+  price:Yup.string().required('ورود قیمت محصول الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
     const cleanNumber=removeCommasAndPersianDigits(value);
     return !isNaN(Number(cleanNumber));
   }),
-  productQuantity:Yup.string().required('ورود  تعداد  الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
+  quantity:Yup.string().required('ورود  تعداد  الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
     const cleanNumber=removeCommasAndPersianDigits(value);
     return !isNaN(Number(cleanNumber));
   }),
-  images:Yup.mixed().required('  بارگذاری تصویر الزامیست'),
+  images:Yup.array().min(1,'حداقل یک عکس رو وارد کنید').required('  بارگذاری تصویر الزامیست'),
 })
 
 
@@ -37,30 +38,41 @@ const AddProductSchema =Yup.object({
 const AddProduct = () => {
 
   const [displayValue, setDisplayValue] = useState('');
-  console.log(displayValue)
+
   const dispatch=useDispatch();
 
   const {brands}=useSelector((state)=>state.brand);
   const {pCategories}=useSelector((state)=>state.pCategory);
   const {colors}=useSelector((state)=>state.color);
+  const {imgs}=useSelector((state)=>state.upload);
   
   const dbColor =[];
   colors.map((color)=>{
-    dbColor.push(color.title)
+    dbColor.push({
+      label:color.title,
+      value:color._id,
+    })
   })
- 
-console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
 
+  const dbImg =[];
+  imgs.map((image)=>{
+    dbImg.push({
+      public_id:image.public_id,
+      url:image.url,
+    })
+  })
+  // console.log(dbImg)
   const formik = useFormik({
     initialValues:{
-      productTitle:'',
-      productDescription:'',
-      productCategory:'',
-      productBrand:'',
-      productColor:[],
-      productPrice:'',
-      productQuantity:'',
-      images:null,
+      title:'',
+      description:'',
+      category:'',
+      brand:'',
+      color:[],
+      tags:[],
+      price:'',
+      quantity:'',
+      images:dbImg || [],
     },
     validationSchema:AddProductSchema,
     onSubmit:async (values)=>{
@@ -76,23 +88,23 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
 
   const handleInput=(e)=>{
     const value = e.target.value.replace(/[^0-9۰-۹]/g, '');
-    formik.setFieldValue('productPrice',value);
+    formik.setFieldValue('price',value);
     setDisplayValue(value);
   }
 
   const handleBlur=()=>{
-    const value = toPersianDigitsWithComma2(formik.values.productPrice);
-    if (formik.values.productPrice) {
+    const value = toPersianDigitsWithComma2(formik.values.price);
+    if (formik.values.price) {
       setDisplayValue(value);
     }
   }
 
   const handleFocus=()=>{
-    if (formik.values.productPrice) {
-            setDisplayValue(formik.values.productPrice);
+    if (formik.values.price) {
+            setDisplayValue(formik.values.price);
     }
   }
-  // handles end for productPrice  
+  // handles end for price  
 
     useEffect(() => {
     
@@ -117,11 +129,11 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
             <div className="space-y-2">
                 <label>عنوان محصول</label>
                 <Input 
-                  value={formik.values.productTitle}
+                  value={formik.values.title}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  id="productTitle"
-                  name="productTitle"
+                  id="title"
+                  name="title"
                   type="text"
                   className="w-full p-1 bg-white border rounded-lg border-secondary-900  focus:ring-secondary-900"
                   placeholder="عنوان محصول"
@@ -129,21 +141,21 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                 />
                 <div className="text-rose-500 text-xs">
                   {
-                    formik.touched.productTitle && formik.errors.productTitle
+                    formik.touched.title && formik.errors.title
                   }
                 </div>
             </div>
             <div className="flex flex-col gap-2 ">
                 <label> توضیحات محصول</label>
                 <Editor 
-                  name="productDescription" 
+                  name="description" 
                   formik={formik}
                   
                 />
             </div>
             <div className="text-rose-500 text-xs">
                   {
-                    formik.touched.productDescription && formik.errors.productDescription
+                    formik.touched.description && formik.errors.description
                   }
             </div>
             <div className="grid grid-cols-12 gap-5 ">
@@ -151,16 +163,16 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                       <label> دسته بندی محصول</label>
                       <select 
                         className="select select-bordered select-sm w-full max-w-xs" 
-                        name="productCategory"
-                        value={formik.values.productCategory}
+                        name="category"
+                        value={formik.values.category}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       >
                         <option value='0'>انتخاب دسته بندی محصول</option>
                         {
                           pCategories ?
-                          pCategories.map((pCategory,index)=>{
-                            return <option key={pCategory._id} value={index + 1}>{pCategory.title}</option>
+                          pCategories.map((pCategory)=>{
+                            return <option key={pCategory._id} value={pCategory._id}>{pCategory.title}</option>
                           })
                           :
                           <Spinner />
@@ -168,7 +180,7 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                       </select>
                       <div className="text-rose-500 text-xs">
                         {
-                          formik.touched.productCategory && formik.errors.productCategory
+                          formik.touched.category && formik.errors.category
                         }
                       </div>
                   </div>
@@ -176,16 +188,16 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                       <label> برند  محصول</label>
                       <select 
                         className="select select-bordered select-sm w-full max-w-xs" 
-                        name="productBrand"
-                        value={formik.values.productBrand}
+                        name="brand"
+                        value={formik.values.brand}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                       >
                         <option value='0'>انتخاب برند محصول</option>
                         {
                           brands ?
-                          brands.map((brand,index)=>{
-                            return <option key={brand._id} value={index + 1}>{brand.title}</option>
+                          brands.map((brand)=>{
+                            return <option key={brand._id} value={brand._id}>{brand.title}</option>
                           })
                           :
                           <Spinner />
@@ -193,15 +205,15 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                       </select>
                       <div className="text-rose-500 text-xs">
                         {
-                          formik.touched.productBrand && formik.errors.productBrand
+                          formik.touched.brand && formik.errors.brand
                         }
                       </div>
                   </div>
                   <div className="col-span-12 md:col-span-6  space-y-2">
                       <label>قیمت محصول</label>
                       <input
-                        id="productPrice"
-                        name="productPrice" 
+                        id="price"
+                        name="price" 
                         type="text"
                         value={displayValue}
                         onChange={handleInput}
@@ -212,17 +224,17 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                       />
                       <div className="text-rose-500 text-xs">
                         {
-                          formik.touched.productPrice && formik.errors.productPrice
+                          formik.touched.price && formik.errors.price
                         }
                       </div>
                   </div>
                   <div className="col-span-12 md:col-span-6  space-y-2">
                       <label>تعداد محصول</label>
                       <Input 
-                        value={toPersianDigits(formik.values.productQuantity)}
+                        value={formik.values.quantity}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        name="productQuantity"
+                        name="quantity"
                         type="text"
                         className="w-full p-1 bg-white border rounded-lg border-secondary-900  focus:ring-secondary-900"
                         placeholder="تعداد محصول"
@@ -230,24 +242,40 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                       />
                       <div className="text-rose-500 text-xs">
                         {
-                          formik.touched.productQuantity && formik.errors.productQuantity
+                          formik.touched.quantity && formik.errors.quantity
                         }
                       </div>
                   </div>
             </div>
-            <div className="col-span-12 md:col-span-6  flex flex-col gap-1 ">    
-                      <label> رنگ محصول</label>
+            <div className="col-span-12 md:col-span-6  flex flex-col gap-2 ">    
+                      <label> تگ ها </label>
                       <Multiselect
                         className="rounded-xl z-50 scale-y-75 w-full"
-                        name="productColor"
-                        id="productColor"
-                        data={dbColor} 
-                        value={formik.values.productColor} 
-                        onChange={(value) => formik.setFieldValue('productColor', value)}
+                        name="tags"
+                        id="tags"
+                        data={["موبایل", "تبلت",'هدفون','هندزفری','هدست',"ساعت هوشمند"," مچ بند هوشمند"," بلندگو", " اسپیکر","دوربین دیجیتال", "دوربین عکاسی","لپ‌‌ تاپ", "کامپیوتر"]} 
+                        value={formik.values.tags} 
+                        onChange={(value) => formik.setFieldValue('tags', value)}
                       />
                       <div className="text-rose-500 text-xs">
                         {
-                          formik.touched.productColor && formik.errors.productColor
+                          formik.touched.tags && formik.errors.tags
+                        }
+                      </div>
+            </div>
+            <div className="col-span-12 md:col-span-6  flex flex-col gap-1 ">    
+                      <label> رنگ محصول</label>
+                      <Multiselect
+                        className="rounded-xl z-40 scale-y-75 w-full"
+                        name="color"
+                        id="color"
+                        data={dbColor.map(color=>color.label)} 
+                        value={formik.values.color} 
+                        onChange={(value) => formik.setFieldValue('color', value)}
+                      />
+                      <div className="text-rose-500 text-xs">
+                        {
+                          formik.touched.color && formik.errors.color
                         }
                       </div>
             </div>
@@ -262,6 +290,7 @@ console.log(colors.map((color)=><Fragment key={color._id}>{color}</Fragment>))
                       }
                 </div>
             </div> 
+            
             <button type="submit"  className={`self-end px-4 py-1 w-fit bg-[var(--color-febd69)] text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white rounded-xl`}>
               افزودن محصول
             </button>

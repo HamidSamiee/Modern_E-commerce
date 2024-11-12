@@ -1,4 +1,4 @@
-import { uploadImages } from '@/features/uploadSlice/uploadSlice';
+import { deleteImages, uploadImages } from '@/features/uploadSlice/uploadSlice';
 import { UploadOutlined } from '@ant-design/icons';
 import { Upload ,Button} from 'antd';
 import { useDispatch } from 'react-redux';
@@ -13,11 +13,16 @@ const Uploader = (Props) => {
     <Upload 
       listType='picture'  
       beforeUpload={(file)=>{
-        formik.setFieldValue('images',file);
-        dispatch(uploadImages(file));
+        formik.setFieldValue('images',[...formik.values.images,file]);
+        dispatch(uploadImages([...formik.values.images,file]));
         return false;
       }}
-      onRemove={()=>formik.setFieldValue('images',null)}
+      onRemove={(file)=>{
+        const newImages = formik.values.images.filter((img) => img.uid !== file.uid);
+        formik.setFieldValue('images',newImages);
+        dispatch(deleteImages(file));
+      }}
+     
     >
     <Button icon={<UploadOutlined />}>
       بارگذاری تصویر

@@ -44,7 +44,7 @@ export const brandSlice=createSlice({
             state.isError=false;
             state.isSuccess=true;
             state.brands=action.payload;
-            console.log(action.payload)
+            // console.log(action.payload)
         }).addCase(getAllbrands.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;
