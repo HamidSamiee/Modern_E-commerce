@@ -19,7 +19,7 @@ export const uploadImages = createAsyncThunk(
 })
 
 export const deleteImages = createAsyncThunk(
-    "upload/delete-image",
+    "delete/image",
     async(id,thunkAPI)=>{
     try {
         return await uploadServices.deleteImage(id)
@@ -61,7 +61,7 @@ export const uploadSlice=createSlice({
             state.isLoading=false;
             state.isError=false;
             state.isSuccess=true;
-            state.imgs=action.payload;
+            state.imgs=state.imgs.filter(img => img.public_id !== action.meta.arg);
         }).addCase(deleteImages.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;

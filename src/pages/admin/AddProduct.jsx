@@ -53,7 +53,7 @@ const AddProduct = () => {
       value:color._id,
     })
   })
-
+console.log(imgs)
   const dbImg =[];
   imgs.map((image)=>{
     dbImg.push({

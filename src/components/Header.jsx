@@ -99,20 +99,20 @@ const Header = () => {
                           <FaChevronDown className="w-4 h-4 group-hover:rotate-180 transition-all ease-in-out duration-300"  />
                         </button>
                         <ul className="dropdown-content z-50 w-full absolute hidden pt-1  transition-all ease-in-out duration-500">
-                          <li><Link className="rounded-t bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Option 1</Link></li>
-                          <li><Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Option 2</Link></li>
+                          <li><Link className="rounded-t bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">موبایل</Link></li>
+                          <li><Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">هدفون</Link></li>
                           <li className="dropdown w-full ">
                                 <Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 whitespace-no-wrap flex items-center justify-between" to="#">
-                                  <span className="">Option 3 ?</span>
+                                  <span className="">لپ تاپ</span>
                                   <FaChevronDown className="w-4 h-4 group-hover:rotate-90 "  />
                                 </Link>
                                 
                                 <ul className="dropdown-content absolute -translate-x-full left-0 hidden  pl-5 -mt-10 ">
-                                    <li><Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Option 3-1</Link></li>
-                                      <li><Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Option 3-2</Link></li>
+                                    <li><Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Asus</Link></li>
+                                      <li><Link className="bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Msi</Link></li>
                                 </ul>
                           </li>
-                          <li><Link className="rounded-b bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">Option 4</Link></li>
+                          <li><Link className="rounded-b bg-[var(--color-232f3e)]  hover:text-[var(--color-febd69)] py-2 px-4 block whitespace-no-wrap" to="#">ساعت مچی</Link></li>
                         </ul>
                       </div>
                  </div>
