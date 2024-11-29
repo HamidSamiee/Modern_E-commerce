@@ -1,11 +1,12 @@
-import { deleteColor, getColors } from "@/features/ColorSlice/colorSlice";
 import Spinner from "@/ui/Spinner";
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import { Table } from "antd";
+import { Table } from "antd"
 import { forwardRef, useEffect, useRef, useState } from "react";
-import { FaEdit ,FaTrashAlt} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import UpdateColor from "./UpdateColor";
+import './styles.css';
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { deleteBlogCategory, getBlogCategories } from "@/features/bCategorySlice/bCategorySlice";
+import UpdateBlogCategory from "../UpdateBlogCategory";
 
 
 const columns = [
@@ -14,7 +15,7 @@ const columns = [
     dataIndex: 'key',
   },  
   {
-    title: ' نام رنگ',
+    title: ' نام دسته بندی محصولات',
     dataIndex: 'name',
   },
   {
@@ -29,22 +30,21 @@ const ModalInput = forwardRef((props, ref) => (
 ));
 ModalInput.displayName = 'ModalInput';
 
-
-
-const ColorList = () => {
+const BlogCategoryList = () => {
 
   const dispatch=useDispatch();
-  const [selectedColorId, setSelectedColorId] = useState(null);
+  const [selectedBlogCategoryId, setSelectedBlogCategoryId] = useState(null);
   const modalRef = useRef(null);
 
   useEffect(() => {
-  dispatch(getColors());
+  dispatch(getBlogCategories());
   }, [dispatch])
   
-  const {colors}=useSelector((state)=>state.color);
+  const {bCategories}=useSelector((state)=>state.bCategory);
 
-  const handleOpenModal = (colorId) => {
-    setSelectedColorId(colorId);
+  const handleOpenModal = (blogCategoryId) => {
+    // console.log(productCategoryId)
+    setSelectedBlogCategoryId(blogCategoryId);
     if (modalRef.current) {
       modalRef.current.checked = true;
     }
@@ -54,27 +54,29 @@ const ColorList = () => {
     if (modalRef.current) {
       modalRef.current.checked = false;
     }
-    setSelectedColorId(null);
+    setSelectedBlogCategoryId(null);
   };
 
   const dataTable =[] ;
-  
-  colors.map((color,index)=>{
+
+  Array.isArray(bCategories) ?
+  bCategories.map((bCategory,index)=>
     dataTable.push({
       key: `${toPersianDigits(index + 1)}`,
-      name: `${color.title}`,
+      name: `${bCategory.title}`,
       action: (
         <div className="flex items-center justify-center gap-5">
-          <label className="btn bg-white" onClick={() => handleOpenModal(color._id)}>
-            <div className="tooltip tooltip-bottom" data-tip="ویرایش"><FaEdit className="" /></div>
+          <label className="btn bg-white">
+            <div className="tooltip tooltip-bottom" data-tip="ویرایش" onClick={()=>handleOpenModal(bCategory._id)}><FaEdit className="" /></div>
           </label>
-          <button onClick={() => dispatch(deleteColor(color._id))} className="btn bg-white">
-            <div className="tooltip tooltip-bottom" data-tip="حذف"><FaTrashAlt className="text-rose-500 cursor-pointer" /></div>
+          <button className="btn bg-white">
+            <div className="tooltip tooltip-bottom" data-tip="حذف" onClick={()=>dispatch(deleteBlogCategory(bCategory._id))}><FaTrashAlt className="text-rose-500 cursor-pointer" /></div>
           </button>
         </div>
       )
     })
-  })
+  ) :
+  [] ;
 
   const paginationConfig={
     prevIcon: '<',
@@ -100,9 +102,9 @@ const ColorList = () => {
             scrollbarWidth:"none"
           }}
         >
-              <h3 className="text-xl font-bold mb-8">لیست رنگ ها  </h3>    
+              <h3 className="text-xl font-bold mb-8">لیست دسته بندی محصولات</h3>    
               {
-                colors ?
+                bCategories ?
                 <>
                   <Table
                     className="ant-font border-2 border-black/50 rounded-lg"
@@ -121,21 +123,21 @@ const ColorList = () => {
               }
         </div>
         {/* Modal part */}
-      <ModalInput ref={modalRef} />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <button 
-            className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2 z-50" 
-            onClick={handleCloseModal}
-          >
-            ✕
-          </button>     
-          {selectedColorId && <UpdateColor handleCloseModal={handleCloseModal} colorId={selectedColorId} />}
+        <ModalInput ref={modalRef} />
+        <div className="modal modal-bottom sm:modal-middle">
+          <div className="modal-box">
+            <button 
+              className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2 z-50" 
+              onClick={handleCloseModal}
+            >
+              ✕
+            </button>     
+            {selectedBlogCategoryId && <UpdateBlogCategory handleCloseModal={handleCloseModal} bCategoryId={selectedBlogCategoryId} />}
+          </div>
+          <label className="modal-backdrop" onClick={handleCloseModal}>Close</label>
         </div>
-        <label className="modal-backdrop" onClick={handleCloseModal}>Close</label>
-      </div>
     </>
   )
 }
 
-export default ColorList
+export default BlogCategoryList

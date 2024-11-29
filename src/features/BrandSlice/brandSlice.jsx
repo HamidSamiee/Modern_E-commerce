@@ -12,6 +12,16 @@ export const getAllbrands = createAsyncThunk(
     }
 })
 
+export const getBrand = createAsyncThunk(
+    "brands/get-brand",
+    async(id,thunkAPI)=>{
+    try {
+        return await brandServices.getBrand(id)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
 export const addBrand = createAsyncThunk(
     "brand/create-brand",
     async(brandTitle,thunkAPI)=>{
@@ -22,6 +32,25 @@ export const addBrand = createAsyncThunk(
     }
 })
 
+export const updateBrand = createAsyncThunk(
+    "brands/update-brand",
+    async({id,data},thunkAPI)=>{
+    try {
+        return await brandServices.updateBrand(id,data)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const deleteBrand = createAsyncThunk(
+    "brands/delete-brand",
+    async(id,thunkAPI)=>{
+    try {
+        return await brandServices.deleteBrand(id)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
 
 
 export const brandSlice=createSlice({
@@ -71,6 +100,60 @@ export const brandSlice=createSlice({
             if (state.isError === true) {
                 toast.error(state.message?.response?.data?.message)
             }
+        })
+        // get brand
+        .addCase(getBrand.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(getBrand.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.brand= state.brands.filter(brand => brand._id === action.payload._id);
+            // console.log(action.payload)
+        }).addCase(getBrand.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.error;
+        })
+        // delete brand
+        .addCase(deleteBrand.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(deleteBrand.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            console.log(action.payload)
+            state.brands = state.brands.filter(brand => brand._id !== action.payload._id);
+            if (state.isSuccess === true) {
+                toast.info("برند با موفقیت حذف شد")
+            }
+            state.message = "برند با موفقیت حذف شد";
+        }).addCase(deleteBrand.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.error;
+        })
+        // update brand
+        .addCase(updateBrand.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(updateBrand.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.brands = state.brands.map((brand) =>
+                brand._id === action.payload._id ? action.payload : brand 
+           );
+           if (state.isSuccess === true) {
+               toast.info("محصول با موفقیت آپدیت شد")
+           }
+            // console.log(action.payload)
+        }).addCase(updateBrand.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.error;
         })
     }   
 })

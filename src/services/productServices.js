@@ -30,13 +30,14 @@ const getProductById = async(id)=>{
 const updateProduct = async(id,userData)=>{
     
     const response = await http.put(`product/${id}`,userData);
+    console.log(response)
     if (response.data) {
         return response.data
     }  
 }
 
 const deleteProduct = async(id)=>{
-    
+    console.log(id,'😎')
     const response = await http.delete(`product/${id}`);
     if (response.data) {
         return response.data

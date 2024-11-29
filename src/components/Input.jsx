@@ -1,5 +1,6 @@
+import React from "react";
 
-const Input = (Props) => {
+const Input =React.memo((Props) => {
 
     const {name,id,type,className,placeholder,value,onChange,onBlur,onInput,pattern,class2}=Props;
 
@@ -18,8 +19,10 @@ const Input = (Props) => {
             pattern={pattern}
         />
     </div>
-
   )
-}
+
+})
+
+Input.displayName = "Input";
 
 export default Input

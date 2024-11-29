@@ -2,17 +2,19 @@
 import * as Yup from "yup"
 import { useFormik } from 'formik';
 import Input from '@/components/Input';
-import Uploader from '@/components/Uploader';
+// import Uploader from '@/components/Uploader';
 import Editor from "@/components/Editor";
 import { useDispatch , useSelector } from "react-redux";
-import {  useCallback, useEffect, useMemo, useState } from "react";
+import {  useEffect, useMemo, useState } from "react";
 import { getAllbrands } from "@/features/BrandSlice/brandSlice";
 import Spinner from "@/ui/Spinner";
 import { getProductsCategory } from "@/features/pCategorySlice/pCategorySlice";
 import { getColors } from "@/features/ColorSlice/colorSlice";
 import { removeCommasAndPersianDigits, toPersianDigitsWithComma2 } from "@/utils/toPersianDigits";
-import Select from "react-select";
-import { createProducts } from "@/features/ProductsSlice/productSlice";
+import 'react-widgets/styles.css'; 
+import { Multiselect } from "react-widgets";
+import { getProductById, updateProduct } from "@/features/ProductsSlice/productSlice";
+import UploaderUpdate from "@/components/UploaderUpdate";
 
 const AddProductSchema =Yup.object({
   title:Yup.string().required("ورود عنوان محصول  الزامی است"),
@@ -35,7 +37,10 @@ const AddProductSchema =Yup.object({
 
 
 
-const AddProduct = () => {
+const UpdateProduct = (Props) => {
+
+  const {productId}=Props;
+  // console.log(productId);
 
   const [displayValue, setDisplayValue] = useState('');
 
@@ -46,70 +51,99 @@ const AddProduct = () => {
   const {colors}=useSelector((state)=>state.color);
   const {imgs}=useSelector((state)=>state.upload);
   
-  // const dbColor =[];
-  // colors.map((color)=>{
-  //   dbColor.push({
-  //     label:color.title,
-  //     value:color.title,
-  //   })
-  // })
-  const dbColor = useMemo(() => {
-    return colors.map((color) => ({
-      label: color.title,
-      value: color.title,
-    }));
-  }, [colors]);
-// console.log(imgs)
-  // const dbImg =[];
-  // imgs.map((image)=>{
-  //   dbImg.push({
+  useEffect(() => {
+    
+    dispatch(getAllbrands());
+    dispatch(getProductsCategory());
+    dispatch(getColors());
+    dispatch(getProductById(productId));
+
+    }, [productId])
+
+    const {products}=useSelector((state)=>state.product);
+    const product = useMemo(() => {
+      return products.filter((product) => product._id === productId) || null;
+    }, [products, productId]);
+        // console.log(product[0].description)
+    // console.log(product[0]?.images)
+
+  const dbColor =[];
+  colors.map((color)=>{
+    dbColor.push({
+      label:color.title,
+      value:color._id,
+    })
+  })
+
+  // const dbimg = product[0]?.images || [];
+
+  const [images, setImages] = useState([]);
+
+  //  imgs.map((image)=>{
+  //   dbimg.push({
   //     public_id:image.public_id,
   //     url:image.url,
   //   })
   // })
-  const dbImg = useMemo(() => 
-    imgs.map((image) => ({
-      public_id: image.public_id,
-      url: image.url,
-    })), [imgs]);
-  // console.log(dbImg)
-  const formik = useFormik({
-    initialValues:{
-      title:'',
-      description:'',
-      category:'',
-      brand:'',
-      color:[],
-      tags:[],
-      details:{},
-      price:'',
-      quantity:'',
-      images:dbImg || [],
-    },
-    validationSchema:AddProductSchema,
-    onSubmit:(values)=>{
+//  console.log(dbimg)
 
-      console.log(values);
+useEffect(() => {
+  if (product[0]?.images) {
+    setImages(product[0].images);
+    // فقط مقدار فیلد تصاویر را به‌روزرسانی کنید
+    formik.setFieldValue('images', product[0].images);
+  } else {
+    setImages([]); // پاکسازی تصاویر
+    formik.setFieldValue('images', []); 
+  }
+}, [product]);
+
+const initialValues = useMemo(() => ({
+  title: product[0]?.title || '',
+  description: product[0]?.description || '',
+  category: product[0]?.category || '',
+  brand: product[0]?.brand || '',
+  color: product[0]?.color || [],
+  tags: product[0]?.tags || [],
+  details: JSON.stringify(product[0]?.details || {}),
+  price: product[0]?.price || '',
+  quantity: product[0]?.quantity || '',
+  images: images || [],
+}), [product, images]);
+
+const formik = useFormik({
+    // enableReinitialize: true, 
+    initialValues,
+    validationSchema:AddProductSchema,
+    onSubmit:async (values)=>{
+      console.log(productId,values);
+
       try { 
         values.details = JSON.parse(values.details); 
+        dispatch(updateProduct({ id: productId, data: values }));
       } catch (error) {
          console.error('Invalid JSON format for details:', error); 
          alert('فرمت JSON معتبر نیست');
          return; 
       };
-      dispatch(createProducts(values));
-      formik.resetForm({ 
-        values: {
-          ...formik.initialValues,
-          images: [], // مقدار تصاویر را خالی کنید
-        }
-      });
     },
   })
 
+ // اضافه کردن تصویر جدید 
+ useEffect(() => {
+  if (imgs.length > 0) {
+    const updatedImages = [...images, ...imgs.map(img => ({
+      public_id: img.public_id,
+      url: img.url,
+    }))];
+
+    setImages(updatedImages); // به‌روزرسانی حافظه محلی تصاویر
+    formik.setFieldValue('images', updatedImages); // همگام‌سازی با فرم
+  }
+}, [imgs]);
+
 
   useEffect(() => {
-
      setDisplayValue(formik.values.price);
       // همگام‌سازی مقدار نمایش داده شده با مقدار formik 
   }, [formik.values.price]);
@@ -117,40 +151,32 @@ const AddProduct = () => {
 
   // handels foe product price
 
-  const handleInput=useCallback((e)=>{
-    const value = e.target.value.replace(/[^0-9۰-۹]/g, '');
-    formik.setFieldValue('price',value);
-    setDisplayValue(value);
-  },[formik] )
-  
+  const handleInput=(e) => {
+    const rawValue = e.target.value.replace(/[^0-9]/g, ''); // فقط اعداد
+    const formattedValue = toPersianDigitsWithComma2(rawValue); // تبدیل به فرمت مناسب
+    formik.setFieldValue('price', rawValue); // مقدار خام برای فرم
+    setDisplayValue(formattedValue); // نمایش مقدار فرمت‌شده
+  };
 
-  const handleBlur=useCallback( ()=>{
-      const value = toPersianDigitsWithComma2(formik.values.price);
-      if (formik.values.price) {
-        setDisplayValue(value);
-      }
-    }, [formik.values.price])
-  
+  const handleBlur=()=>{
+    const value = toPersianDigitsWithComma2(formik.values.price);
+    if (formik.values.price) {
+      setDisplayValue(value);
+    }
+  }
 
-  const handleFocus=useCallback(()=>{
+  const handleFocus=()=>{
     if (formik.values.price) {
             setDisplayValue(formik.values.price);
     }
-  },[formik.values.price])
-  
+  }
   // handles end for price  
 
-    useEffect(() => {
     
-      dispatch(getAllbrands());
-      dispatch(getProductsCategory());
-      dispatch(getColors());
-  
-      }, [dispatch])
 
 
   return (
-    <div className="w-full font-sans flex flex-col items-center gap-5"
+    <div className="relative w-full font-sans flex flex-col items-center gap-5"
         style={{
           maxHeight:'calc(100vh - 150px)',
           overflowY:"scroll",
@@ -158,8 +184,8 @@ const AddProduct = () => {
           scrollbarWidth:"none"
         }}
     >
-        <h3 className="mb-5 font-extrabold text-4xl ">افزودن محصول</h3>
-        <form onSubmit={formik.handleSubmit}  className="w-1/2 flex flex-col gap-5">
+        <h3 className="w-full fixed bg-white shadow-md pb-5 pr-10 font-extrabold text-2xl z-40 ">ویرایش محصول</h3>
+        <form onSubmit={formik.handleSubmit}  className="mt-16 w-full flex flex-col gap-5">
             <div className="space-y-2">
                 <label>عنوان محصول</label>
                 <Input 
@@ -222,8 +248,8 @@ const AddProduct = () => {
                         <option value='0'>انتخاب دسته بندی محصول</option>
                         {
                           pCategories ?
-                          pCategories.map((pCategory)=>{
-                            return <option key={pCategory._id} value={pCategory._id}>{pCategory.title}</option>
+                          pCategories.map((pCategory,index)=>{
+                            return <option key={index} value={pCategory._id}>{pCategory.title}</option>
                           })
                           :
                           <Spinner />
@@ -247,8 +273,8 @@ const AddProduct = () => {
                         <option value='0'>انتخاب برند محصول</option>
                         {
                           brands ?
-                          brands.map((brand)=>{
-                            return <option key={brand._id} value={brand._id}>{brand.title}</option>
+                          brands.map((brand,index)=>{
+                            return <option key={index} value={brand._id}>{brand.title}</option>
                           })
                           :
                           <Spinner />
@@ -300,19 +326,14 @@ const AddProduct = () => {
             </div>
             <div className="col-span-12 md:col-span-6  flex flex-col gap-2 ">    
                       <label> تگ ها </label>
-                      <Select
-                        className="rounded-xl z-50 scale-y-75 w-full"
+                      <Multiselect
+                        className="rounded-xl z-30 scale-y-75 w-full"
                         name="tags"
                         id="tags"
-                        options={[ { value: 'موبایل', label: 'موبایل' }, { value: 'تبلت', label: 'تبلت' }, { value: 'هدفون', label: 'هدفون' }, { value: 'هندزفری', label: 'هندزفری' }, { value: 'هدست', label: 'هدست' }, { value: 'ساعت هوشمند', label: 'ساعت هوشمند' }, { value: 'مچ بند هوشمند', label: 'مچ بند هوشمند' }, { value: 'بلندگو', label: 'بلندگو' }, { value: 'اسپیکر', label: 'اسپیکر' }, { value: 'دوربین دیجیتال', label: 'دوربین دیجیتال' }, { value: 'دوربین عکاسی', label: 'دوربین عکاسی' }, { value: 'لپ‌‌ تاپ', label: 'لپ‌‌ تاپ' }, { value: 'کامپیوتر', label: 'کامپیوتر' }, ]}
-                        isMulti
-                        value={formik.values.tags.map(tag => ({ value: tag, label: tag }))}
-                        onChange={(selectedOptions) => {
-                          const values = selectedOptions ? selectedOptions.map(option => option.value) : [];
-                          formik.setFieldValue('tags', values);
-                        }}
+                        data={["موبایل", "تبلت",'هدفون','هندزفری','هدست',"ساعت هوشمند"," مچ بند هوشمند"," بلندگو", " اسپیکر","دوربین دیجیتال", "دوربین عکاسی","لپ‌‌ تاپ", "کامپیوتر"]} 
+                        value={formik.values.tags} 
+                        onChange={(value) => formik.setFieldValue('tags', value)}
                       />
-
                       <div className="text-rose-500 text-xs">
                         {
                           formik.touched.tags && formik.errors.tags
@@ -321,29 +342,27 @@ const AddProduct = () => {
             </div>
             <div className="col-span-12 md:col-span-6  flex flex-col gap-1 ">    
                       <label> رنگ محصول</label>
-                      <Select
-                        className="rounded-xl z-40 scale-y-75 w-full"
+                      <Multiselect
+                        className="rounded-xl z-20 scale-y-75 w-full"
                         name="color"
                         id="color"
-                        options={dbColor}
-                        isMulti
-                        value={formik.values.color.map(color => ({ value: color, label: color }))}
-                        onChange={(selectedOptions) => {
-                          const values = selectedOptions ? selectedOptions.map(option => option.value) : [];
-                          formik.setFieldValue('color', values);
-                        }}
+                        data={dbColor.map(color=>color.label)} 
+                        value={formik.values.color} 
+                        onChange={(value) => formik.setFieldValue('color', value)}
                       />
-
                       <div className="text-rose-500 text-xs">
                         {
                           formik.touched.color && formik.errors.color
                         }
                       </div>
             </div>
-            <div className=" flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2 ">
                 <label> تصویر محصول</label>
-                <Uploader 
+                <UploaderUpdate 
                   formik={formik}
+                  initialImages={images}
+                  productId={productId}
+                  setImages={setImages}
                 />
                 <div className="text-rose-500 text-xs">
                       {
@@ -352,8 +371,8 @@ const AddProduct = () => {
                 </div>
             </div> 
             
-            <button type="submit"  className={` self-end px-4 py-1 w-fit bg-[var(--color-febd69)] text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white rounded-xl`}>
-              افزودن محصول
+            <button type="submit"  className={`self-end px-4 py-1 w-fit bg-[var(--color-febd69)] text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white rounded-xl`}>
+               اعمال تغییرات
             </button>
           
         </form>
@@ -362,4 +381,4 @@ const AddProduct = () => {
   )
 }
 
-export default AddProduct
+export default UpdateProduct

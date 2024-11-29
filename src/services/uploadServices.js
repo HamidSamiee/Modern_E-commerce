@@ -11,12 +11,21 @@ const uploadImage = async(image)=>{
     }  
 }
 
-const deleteImage = async(id)=>{
+const deleteImage = async(productId,id)=>{
     
-    const response = await http.delete(`/delete-img/${id}`);
+    const response = await http.delete(`upload/delete-img/${productId}/${id}`);
+    console.log(response.data)
     if (response.data) {
         return response.data
     }  
 }
 
-export const uploadServices={uploadImage,deleteImage}
+const cloudinaryDeleteImage = async(id)=>{
+    
+    const response = await http.delete(`upload/delete-img/${id}`);
+    console.log(response.data)
+    if (response.data) {
+        return response.data
+    }  
+}
+export const uploadServices={uploadImage,deleteImage,cloudinaryDeleteImage}

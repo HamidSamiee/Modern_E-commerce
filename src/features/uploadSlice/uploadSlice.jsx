@@ -17,12 +17,23 @@ export const uploadImages = createAsyncThunk(
         return thunkAPI.rejectWithValue(error)
     }
 })
+    
 
 export const deleteImages = createAsyncThunk(
     "delete/image",
+    async({productId,id},thunkAPI)=>{
+    try {
+        return await uploadServices.deleteImage(productId,id)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const cloudinaryDeleteImage = createAsyncThunk(
+    "delete/cloudinaryDeleteImage",
     async(id,thunkAPI)=>{
     try {
-        return await uploadServices.deleteImage(id)
+        return await uploadServices.cloudinaryDeleteImage(id)
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
     }
@@ -37,7 +48,11 @@ export const uploadSlice=createSlice({
         isLoading:false,
         message:"",
     },
-    reducers:{},
+    reducers: {
+         resetUploadImages: (state) => {
+             state.imgs = [];
+         },
+    },
     extraReducers:(builder)=>{
         builder
         // upload images
@@ -61,8 +76,26 @@ export const uploadSlice=createSlice({
             state.isLoading=false;
             state.isError=false;
             state.isSuccess=true;
+            console.log(action.payload)
             state.imgs=state.imgs.filter(img => img.public_id !== action.meta.arg);
+            state.message='Deleted';
         }).addCase(deleteImages.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.error;
+        })
+        // cloudinary Delete Image
+        .addCase(cloudinaryDeleteImage.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(cloudinaryDeleteImage.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            console.log(action.payload)
+            state.imgs=state.imgs.filter(img => img.public_id !== action.meta.arg);
+            state.message='Deleted';
+        }).addCase(cloudinaryDeleteImage.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;
             state.isSuccess=false;
@@ -71,5 +104,5 @@ export const uploadSlice=createSlice({
     }   
 })
 
-
+export const { resetUploadImages } = uploadSlice.actions;
 export default uploadSlice.reducer
