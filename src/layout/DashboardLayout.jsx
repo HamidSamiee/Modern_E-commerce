@@ -28,7 +28,7 @@ const DashboardLayout = () => {
     
     return (
       <Layout className='h-screen'>
-        <Sider trigger={null} collapsible collapsed={collapsed} className='w-[250px] max-w-[250px] min-w-[250px]'
+        <Sider trigger={null} collapsible collapsed={collapsed} width={230} className=''
           style={{position:"relative" }}
         >
           <div className="bg-[#fdd333] m-0 h-16 flex justify-center items-center" >
@@ -164,7 +164,7 @@ const DashboardLayout = () => {
               {
                 key: "enquiries",
                 icon: <FaClipboardList className="text-lg" />,
-                label: "پرسش و پاسخ",
+                label: <div className="">  پشتیبانی و خدمات مشتریان </div>,
               },
             ]}
           />
@@ -184,61 +184,61 @@ const DashboardLayout = () => {
                 left: "-7px"
               }}
             />
-      </Sider>
-      <Layout>
-        <Header
-          className='flex items-center justify-between'
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        >
-          
-          <div className=" pl-5 ">
-            <div className='flex items-center gap-5 px-10'>
-              <div className="rounded-full overflow-hidden border border-[#fdd333]">
-                <img src={pic} alt="" className="w-10 h-10" />
-              </div>
-              <div className=" flex flex-col items-start justify-center h-16 ">
-                <h5 className='font-sans text-base'>{user.firstname} {user.lastname}</h5>
-                <p className='font-sans text-base'>{user.email}</p>
-              </div>
-              <div className='relative'>
-                <IoIosNotifications className='w-6 h-6'/>
-                <span className="w-4 h-4 absolute -right-1 -top-1 p-1 rounded-full bg-red-500 badge text-white text-sm">
-                  {toPersianDigits(3)}
-                </span>
+        </Sider>
+        <Layout>
+          <Header
+            className='flex items-center justify-between'
+            style={{
+              padding: 0,
+              background: colorBgContainer,
+            }}
+          >
+            
+            <div className=" pl-5 ">
+              <div className='flex items-center gap-5 px-10'>
+                <div className="rounded-full overflow-hidden border border-[#fdd333]">
+                  <img src={pic} alt="" className="w-10 h-10" />
+                </div>
+                <div className=" flex flex-col items-start justify-center h-16 ">
+                  <h5 className='font-sans text-base'>{user.firstname} {user.lastname}</h5>
+                  <p className='font-sans text-base'>{user.email}</p>
+                </div>
+                <div className='relative'>
+                  <IoIosNotifications className='w-6 h-6'/>
+                  <span className="w-4 h-4 absolute -right-1 -top-1 p-1 rounded-full bg-red-500 badge text-white text-sm">
+                    {toPersianDigits(3)}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            // background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
-        >
-        
-            <Outlet />
+          </Header>
+          <Content
+            style={{
+              margin: '24px 16px',
+              padding: 24,
+              minHeight: 280,
+              // background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
           
-        </Content>
-      </Layout>
-      <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={true}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          transition: Bounce
-      />
+              <Outlet />
+            
+          </Content>
+        </Layout>
+        <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={true}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition: Bounce
+        />
       </Layout>
   )
 }

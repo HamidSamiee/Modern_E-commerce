@@ -63,7 +63,7 @@ const UpdateProduct = (Props) => {
     const {products}=useSelector((state)=>state.product);
     const product = useMemo(() => {
       return products.filter((product) => product._id === productId) || null;
-    }, [products, productId]);
+    }, [ productId]);
         // console.log(product[0].description)
     // console.log(product[0]?.images)
 
@@ -112,7 +112,7 @@ const initialValues = useMemo(() => ({
 }), [product, images]);
 
 const formik = useFormik({
-    // enableReinitialize: true, 
+    enableReinitialize: true, 
     initialValues,
     validationSchema:AddProductSchema,
     onSubmit:async (values)=>{

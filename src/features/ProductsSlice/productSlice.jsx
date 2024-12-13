@@ -99,7 +99,7 @@ export const productSlice=createSlice({
             state.isSuccess=true;
             state.products=action.payload;
             if (state.isSuccess === true) {
-                toast.info("محصول با موفقیت اضافه شد")
+                toast.success("محصول با موفقیت اضافه شد")
             }
         }).addCase(createProducts.rejected,(state,action)=>{
             state.isLoading=false;
@@ -132,7 +132,7 @@ export const productSlice=createSlice({
             // console.log(action.payload)
             state.products = state.products.filter(product => product._id !== action.payload._id);
             if (state.isSuccess === true) {
-                toast.info("محصول با موفقیت حذف شد")
+                toast.success("محصول با موفقیت حذف شد")
             }
             state.message="محصول با موفقیت حذف شد";
         }).addCase(deleteProduct.rejected,(state,action)=>{
@@ -169,7 +169,7 @@ export const productSlice=createSlice({
                  product._id === action.payload._id ? action.payload : product 
             );
             if (state.isSuccess === true) {
-                toast.info("محصول با موفقیت آپدیت شد")
+                toast.success("محصول با موفقیت آپدیت شد")
             }
         }).addCase(updateProduct.rejected,(state,action)=>{
             state.isLoading=false;

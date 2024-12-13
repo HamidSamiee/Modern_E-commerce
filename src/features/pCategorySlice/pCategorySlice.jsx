@@ -89,7 +89,7 @@ export const pCategorySlice=createSlice({
             state.isSuccess=true;
             state.pCategories=action.payload;
             if (state.isSuccess === true) {
-                toast.info(" دسته بندی محصول با موفقیت اضافه شد")
+                toast.success(" دسته بندی محصول با موفقیت اضافه شد")
             }
         }).addCase(createProductsCategory.rejected,(state,action)=>{
             state.isLoading=false;
@@ -121,7 +121,7 @@ export const pCategorySlice=createSlice({
             state.pCategories = state.pCategories.map((pCategory)=>
                 pCategory._id === action.payload._id ? action.payload : pCategory );
             if (state.isSuccess === true) {
-                toast.info("دسته بندی محصول با موفقیت آپدیت شد")
+                toast.success("دسته بندی محصول با موفقیت آپدیت شد")
             }
         }).addCase(updateProCategory.rejected,(state,action)=>{
             state.isLoading=false;
@@ -138,7 +138,7 @@ export const pCategorySlice=createSlice({
             state.isSuccess=true;
             state.pCategories=state.pCategories.filter(pCategory=>pCategory._id !==action.payload._id );
             if (state.isSuccess === true) {
-                toast.info("دسته بندی محصول با موفقیت حذف شد")
+                toast.success("دسته بندی محصول با موفقیت حذف شد")
             }
         }).addCase(deleteProCategory.rejected,(state,action)=>{
             state.isLoading=false;

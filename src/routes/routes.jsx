@@ -17,10 +17,10 @@ import ShippingPolicy from "@/pages/ShippingPolicy";
 import TermAndConditons from "@/pages/TermAndConditons";
 import SingleProduct from "@/pages/SingleProduct";
 import Checkout from "@/pages/Checkout";
-import Enquiries from "@/components/Enquiries";
+import Enquiries from "@/pages/admin/Enquiries";
 import AdminRouter from "@/pages/admin/AdminRouter";
 import Dashboard from "@/pages/admin/Dashboard";
-import BlogList from "@/pages/admin/BlogList";
+import BlogList from "@/pages/admin/blogList/BlogList";
 import BlogCatgorylist from "@/pages/admin/blogCategoryList/BlogCatgorylist";
 import Orders from "@/pages/admin/Orders";
 import Customers from "@/pages/admin/Customers";
@@ -35,6 +35,8 @@ import AddCategory from "@/pages/admin/AddCategory";
 import AddBrand from "@/pages/admin/AddBrand";
 import AddProduct from "@/pages/admin/AddProduct";
 import Profile from "@/pages/Profile";
+import AddCoupon from "@/pages/admin/AddCoupon";
+import CouponList from "@/pages/admin/couponList/CouponList";
 // import LoginAdmin from "@/pages/admin/Login";
 // import ForgetPasswordAdmin from "@/pages/admin/ForgetPassword";
 // import ResetPasswordAdmin from "@/pages/admin/ResetPassword";
@@ -74,6 +76,8 @@ export const dashboardRoutes=[
     {path:"/category-list" ,element:<CategoryList />},
     {path:"/brand-list" ,element:<BrandList />},
     {path:"/product-list" ,element:<ProductList />},
+    {path:"/coupon" ,element:<AddCoupon />},
+    {path:"/coupon-list" ,element:<CouponList/>},
     {path:"/add-blog" ,element:<AddBlog />},
     {path:"/add-blog-category" ,element:<AddBlogCategory />},
     {path:"/add-color" ,element:<AddColor />},

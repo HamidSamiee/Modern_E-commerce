@@ -15,7 +15,11 @@ export default {
     fontFamily:{
       sans:['iranYekan']
     },
-    extend: {},
+    extend: {
+      screens:{
+        'sm-custom':{'max':'470px'},
+      }
+    },
   },
   plugins: [
     formsPlugin({strategy:"class"}),

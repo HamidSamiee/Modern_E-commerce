@@ -11,9 +11,9 @@ const BlogCart = (Props) => {
             <div className="">
                 <img src={img} alt={title} className="" />
             </div>
-            <div className="flex flex-col gap-2  p-4">
+            <div className="flex flex-col gap-2 p-4">
                 <p className="text-xs text-gray-400">{date} </p>
-                <h5 className={`${grid == 6 ? "h-14" : ""} font-extrabold text-lg mb-2 line-clamp-2`}>{title}</h5>
+                <h5 className={`${grid == 6 ? "h-14" : ""} font-extrabold leading-8 text-base md:text-lg mb-2 line-clamp-2`}>{title}</h5>
                 <p className="text-base line-clamp-4 mb-2">{description.short}</p>
                 <Link to={`/blog/${id}`} className="self-end px-2 py-1 rounded-full font-bold bg-[var(--color-febd69)]">
                     ادامه مطلب

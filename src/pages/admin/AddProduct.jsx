@@ -46,6 +46,7 @@ const AddProduct = () => {
   const {colors}=useSelector((state)=>state.color);
   const {imgs}=useSelector((state)=>state.upload);
   
+  // console.log(imgs)
   // const dbColor =[];
   // colors.map((color)=>{
   //   dbColor.push({
@@ -60,18 +61,18 @@ const AddProduct = () => {
     }));
   }, [colors]);
 // console.log(imgs)
-  // const dbImg =[];
-  // imgs.map((image)=>{
-  //   dbImg.push({
-  //     public_id:image.public_id,
-  //     url:image.url,
-  //   })
-  // })
-  const dbImg = useMemo(() => 
-    imgs.map((image) => ({
-      public_id: image.public_id,
-      url: image.url,
-    })), [imgs]);
+  const dbImg =[];
+  imgs.map((image)=>{
+    dbImg.push({
+      public_id:image.public_id,
+      url:image.url,
+    })
+  })
+  // const dbImg = useMemo(() => 
+  //   imgs.map((image) => ({
+  //     public_id: image.public_id,
+  //     url: image.url,
+  //   })), [imgs]);
   // console.log(dbImg)
   const formik = useFormik({
     initialValues:{

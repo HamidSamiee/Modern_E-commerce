@@ -83,7 +83,7 @@ export const authSlice=createSlice({
             state.isSuccess=true;
             state.createdUser=action.payload;
             if (state.isSuccess === true) {
-                toast.info("ثبت نام شما با موفقیت انجام شد")
+                toast.success("ثبت نام شما با موفقیت انجام شد")
             }
         }).addCase(registerUser.rejected,(state,action)=>{
             state.isLoading=false;

@@ -12,6 +12,7 @@ export const uploadImages = createAsyncThunk(
             formData.append('images',data[i]);
             
         }
+        
         return await uploadServices.uploadImage(formData)
     } catch (error) {
         return thunkAPI.rejectWithValue(error)

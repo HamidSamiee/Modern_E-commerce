@@ -1,5 +1,5 @@
 import Spinner from "@/ui/Spinner";
-import { toPersianDigits } from "@/utils/toPersianDigits";
+import { toPersianDigits, toPersianDigitsWithComma } from "@/utils/toPersianDigits";
 import { Table } from "antd";
 import { useEffect, useState, useRef, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,8 @@ import './styles.css';
 import { deleteProduct, getAllProducts } from "@/features/ProductsSlice/productSlice";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import UpdateProduct from "../UpdateProduct";
+import { getAllbrands } from "@/features/BrandSlice/brandSlice";
+import { getProductsCategory } from "@/features/pCategorySlice/pCategorySlice";
 
 const columns = [
   {
@@ -17,7 +19,27 @@ const columns = [
   {
     title: 'نام محصول',
     dataIndex: 'name',
-    width: 500,
+    width: 200,
+  },
+  {
+    title: 'برند',
+    dataIndex: 'brand',
+    width: 10,
+  },
+  {
+    title: 'دسته بندی ',
+    dataIndex: 'category',
+    width: 20,
+  },
+  {
+    title: 'رنگ',
+    dataIndex: 'color',
+    width: 20,
+  },
+  {
+    title: 'قیمت',
+    dataIndex: 'price',
+    width: 20,
   },
   {
     title: 'عملیات',
@@ -40,10 +62,14 @@ const ProductList = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
+    dispatch(getAllbrands())
+    dispatch(getProductsCategory())
   }, [dispatch]);
 
   const { products } = useSelector((state) => state.product);
-
+  const {brands}=useSelector((state)=>state.brand);
+  const {pCategories}=useSelector((state)=>state.pCategory);
+  
   const handleOpenModal = (productId) => {
     setSelectedProductId(productId);
     if (modalRef.current) {
@@ -57,15 +83,24 @@ const ProductList = () => {
     }
   };
 
+  const handleDeleteProduct = async (productId) => {
+    await dispatch(deleteProduct(productId));
+    dispatch(getAllProducts());
+  };
+
   const dataTable = products.map((product, index) => ({
     key: `${toPersianDigits(index + 1)}`,
     name: <div className="flex items-center text-justify">{product.title}</div>,
+    brand: <div className="flex items-center text-justify">{brands.filter(brand =>brand._id === product.brand)[0]?.title}</div>,
+    category: <div className="flex items-center text-nowrap">{pCategories.filter(pCategory =>pCategory._id === product.category)[0]?.title}</div>,
+    color: <div className="w-20 flex  flex-wrap items-center gap-1 ">{product.color.map((color , index)=><div key={index} className={`px-0.5 border border-gray-400 rounded-md } `} >{color}</div>)}</div>,
+    price: <div className="flex items-center text-justify">{toPersianDigitsWithComma(product.price)}</div>,
     action: (
       <div className="flex items-center justify-center gap-5">
         <label className="btn bg-white" onClick={() => handleOpenModal(product._id)}>
           <div className="tooltip tooltip-bottom" data-tip="ویرایش"><FaEdit className="" /></div>
         </label>
-        <button onClick={() => dispatch(deleteProduct(product._id))} className="btn bg-white">
+        <button onClick={() => handleDeleteProduct(product._id)} className="btn bg-white">
           <div className="tooltip tooltip-bottom" data-tip="حذف"><FaTrashAlt className="text-rose-500 cursor-pointer" /></div>
         </button>
       </div>
@@ -88,7 +123,7 @@ const ProductList = () => {
 
   return (
     <>
-      <div className="my-3 font-sans w-3/4"
+      <div className="my-3 font-sans w-full"
         style={{
           maxHeight: 'calc(100vh - 150px)',
           overflowY: "scroll",

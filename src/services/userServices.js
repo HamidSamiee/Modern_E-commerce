@@ -32,6 +32,7 @@ const getUserWishlist = async()=>{
 
 const getUsers = async()=>{
     const response = await http.get('user/all-users');
+    console.log(response.data)
     if (response.data) {
         return response.data
     }  
@@ -39,7 +40,7 @@ const getUsers = async()=>{
 
 const getOrders = async()=>{
     
-    const response = await http.get('user/get-orders');
+    const response = await http.get('user/getallorders');
     if (response.data) {
         return response.data
     }  

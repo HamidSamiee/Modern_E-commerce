@@ -120,7 +120,7 @@ export const bCategorySlice=createSlice({
             state.isSuccess=true;
             state.bCategories=state.bCategories.filter(bCategory =>bCategory._id !== action.payload._id);
             if (state.isSuccess) {
-                toast.info("دسته بندی بلاگ با موفقیت حذف شد")
+                toast.success("دسته بندی بلاگ با موفقیت حذف شد")
             }
         }).addCase(deleteBlogCategory.rejected,(state,action)=>{
             state.isLoading=false;
@@ -139,7 +139,7 @@ export const bCategorySlice=createSlice({
                 bCategory._id === action.payload._id ? action.payload : bCategory
             );
             if (state.isSuccess) {
-                toast.info("دسته بندی بلاگ با موفقیت آپدیت شد")
+                toast.success("دسته بندی بلاگ با موفقیت آپدیت شد")
             }
         }).addCase(updateBlogCategory.rejected,(state,action)=>{
             state.isLoading=false;

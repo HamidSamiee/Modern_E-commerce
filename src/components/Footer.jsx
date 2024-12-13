@@ -9,11 +9,11 @@ const Footer = () => {
     <footer className="bg-[var(--color-232f3e)] py-4">
         <section className="container xl:max-w-screen-xl">
             <div className="grid grid-cols-12 place-items-center text-white py-4">
-              <div className="col-span-5 flex items-center gap-x-4">
-                  <BsSend className="w-10 h-10 text-[var(--color-febd69)]" />
-                  <h2 className="text-2xl font-extrabold">عضویت در خبرنامه</h2>
+              <div className="col-span-12  md:col-span-5 flex items-center gap-x-4">
+                  <BsSend className="w-6 h-6  md:w-10 md:h-10 text-[var(--color-febd69)]" />
+                  <h2 className="text-xl md:text-2xl font-extrabold">عضویت در خبرنامه</h2>
               </div>
-              <div className="pl-10 col-span-6 w-full">
+              <div className="px-5 mt-2 md:mt-0 md:pl-10 col-span-12 md:col-span-6 w-full">
                 <div className="relative w-full mx-auto ">
                     <input className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="ایمیل تان را وارد کنید" />
                     <button className="absolute inset-y-0 left-0 flex items-center p-3 text-gray-700 bg-[var(--color-febd69)]   border border-gray-300 rounded-l-md hover:bg-[var(--color-febd69)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
@@ -24,19 +24,19 @@ const Footer = () => {
             </div>
         </section>
     </footer>
-    <footer className="bg-[var(--color-232f3e)] py-4 border-t border-t-[var(--color-3b4149)]">
+    <footer className=" px-5 bg-[var(--color-232f3e)] py-4 border-t border-t-[var(--color-3b4149)]">
         <section className="container xl:max-w-screen-xl">
-            <div className="grid grid-cols-12 gap-10 text-white">
-            <div className="col-span-3">
-                <h2 className="mb-4 font-extrabold text-xl">
+            <div className="grid grid-cols-12 gap-4 sm:gap-10 text-white justify-center">
+              <div className="hidden md:block md:col-span-3">
+                <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                       اپلیکیشن ما
                 </h2>
                 <ul className="mb-4">
 
                 </ul>
               </div>
-              <div className="col-span-2">
-                <h2 className="mb-4 font-extrabold text-xl">
+              <div className="col-span-6 sm:col-span-4 md:col-span-2">
+                <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                       دسترسی سریع
                 </h2>
                 <ul className="">
@@ -67,8 +67,8 @@ const Footer = () => {
                     </li>
                 </ul>
               </div>
-              <div className="col-span-2">
-                <h2 className="mb-4 font-extrabold text-xl">
+              <div className="col-span-6 sm:col-span-4 md:col-span-2">
+                <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                       اکانت
                 </h2>
                 <ul className="">
@@ -89,8 +89,8 @@ const Footer = () => {
                     </li>
                 </ul>
               </div>
-              <div className="col-span-2">
-                <h2 className="mb-4 font-extrabold text-xl">
+              <div className="col-span-6 sm:col-span-4 md:col-span-2">
+                <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                      اطلاعات   
                 </h2>
                 <ul className="">
@@ -121,8 +121,8 @@ const Footer = () => {
                     </li>
                 </ul>
               </div>
-              <div className="col-span-3">
-                <h2 className="mb-4 font-extrabold text-xl"> 
+              <div className=" col-span-12 sm-custom:place-self-center  md:col-span-3 ">
+                <h2 className=" mb-4 font-extrabold text-lg md:text-xl"> 
                         تماس با ما                
                 </h2>
                 <div className="mb-1 py-2 space-y-3">
@@ -131,7 +131,7 @@ const Footer = () => {
                     <br />
                     <span className="font-bold">فروشگاه اینترنتی دیجی مارکت</span>
                   </address>
-                  <div className="flex items-center justify-between">
+                  <div className="flex  items-center justify-between">
                       <span className=""> کد پستی :</span>
                       <span className=""> {toPersianDigits(1111111111)}</span>
                   </div>
@@ -152,7 +152,8 @@ const Footer = () => {
                       </span>
                   </div>
                 </div>
-                <div className="flex items-center flex-row-reverse gap-10 text-2xl mt-3">
+{/* شبکه های اجتماعی  */}
+                <div className="flex items-center justify-center flex-row-reverse gap-10 text-2xl mt-3">
                     <Link className="">
                         <BsLinkedin />
                     </Link>
@@ -165,7 +166,7 @@ const Footer = () => {
                     <Link className="">
                         <BsYoutube />
                     </Link>
-                  </div>
+                </div>
               </div>
             </div>
         </section>
