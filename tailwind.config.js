@@ -17,7 +17,9 @@ export default {
     },
     extend: {
       screens:{
-        'sm-custom':{'max':'470px'},
+        'sm-custom':{'max':'480px'},
+        'sm-custom2' :{'max':'550px'},
+        'sm-custom3' :{'max':'639px','min':'550px'},
       }
     },
   },

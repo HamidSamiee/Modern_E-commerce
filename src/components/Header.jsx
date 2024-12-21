@@ -44,7 +44,7 @@ const Header = () => {
             </div>
         </section>
       </header>
-      <header className="hidden md:block bg-[var(--color-131921)] border-b border-solid border-[var(--color-3b4149)] py-3">
+      <header className="hidden lg:block bg-[var(--color-131921)] border-b border-solid border-[var(--color-3b4149)] py-3">
         <section className="container xl:max-w-screen-xl ">
             <div className="grid grid-cols-12 place-items-center ">
               <div className="col-span-6 sm:col-span-2 w-full">
@@ -102,7 +102,7 @@ const Header = () => {
             </div>
         </section>
       </header>
-      <header className="hidden md:block  bg-[var(--color-232f3e)] border-b border-solid border-[var(--color-3b4149)] ">
+      <header className="hidden lg:block  bg-[var(--color-232f3e)] border-b border-solid border-[var(--color-3b4149)] ">
         <section className="container xl:max-w-screen-xl ">
             <div className=" text-white">
               <div className="grid grid-cols-12 ">
@@ -111,7 +111,7 @@ const Header = () => {
                         <button className=" w-full bg-[var(--color-232f3e)] font-semibold py-2 px-4 rounded inline-flex items-center justify-between">
                           <span className=" flex items-center gap-6">
                               <BiCategory className="w-6 h-6" />
-                              <span>دسته بندی فروشگاه</span>
+                              <span className="">دسته بندی فروشگاه</span>
                           </span>
                           <FaChevronDown className="w-4 h-4 group-hover:rotate-180 transition-all ease-in-out duration-300"  />
                         </button>
@@ -157,12 +157,12 @@ const Header = () => {
         </section>
       </header>
 {/* for mobile */}
-      <div className="md:hidden flex  items-center justify-between">
+      <div className="lg:hidden flex  items-center justify-between bg-[var(--color-131921)] border-b border-solid border-[var(--color-3b4149)] py-2">
           <div className="drawer drawer-start z-50">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content m-2">
               {/* Page content here */}
-              <label htmlFor="my-drawer-4" className="w-12 drawer-button btn  text-white hover:opacity-80 hover:bg-[var(--color-232f3e)] bg-[var(--color-232f3e)] p-0"><FiMenu  className="w-6 h-6" /></label>
+              <label htmlFor="my-drawer-4" className="w-12 drawer-button cursor-pointer text-white hover:opacity-80  p-0"><FiMenu  className="w-6 h-6" /></label>
             </div>
             <div className="drawer-side">
               <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -268,7 +268,7 @@ const Header = () => {
           {/* brand */}
           <img src={brandImg} alt="brand" className="w-20 ml-1" />
       </div>
-      <div className="md:hidden flex items-center justify-center">
+      <div className="lg:hidden flex items-center justify-center  bg-[var(--color-232f3e)] border-b border-solid border-[var(--color-3b4149)] py-1">
                 <div className="relative w-4/5 mx-auto ">
                     <input className="w-full py-1 px-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="محصول رو اینجا جستجو کن" />
                     <button className="absolute inset-y-0 left-0 flex items-center p-1.5 text-gray-700 bg-[var(--color-febd69)] border border-gray-300 rounded-l-md hover:bg-[var(--color-131921)] hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">

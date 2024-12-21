@@ -12,7 +12,7 @@ const ForgetPassword = () => {
        <BreadCrumb title=" فراموشی رمز عبور" /> 
        <Container class1="py-5 bg-[var(--color-f5f5f7)]">
             <div className="h-80 grid grid-cols-12 place-items-center">
-                  <div className="w-1/3 col-span-12 bg-white rounded-lg">
+                  <div className=" sm-custom:w-full w-3/5  md:w-1/2  lg:w-1/3  col-span-12 bg-white rounded-lg">
                     <div className="p-5 space-y-5">
                         <h3 className="text-xl text-center font-bold">بازنشانی رمز عبور</h3>
                         <p className="text-xs text-[var(--color-777777)]"> ما برای شما یک ایمیل ارسال خواهیم کرد تا رمز عبور خود را بازنشانی کنید .</p>

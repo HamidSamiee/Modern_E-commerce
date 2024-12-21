@@ -28,74 +28,92 @@ const Cart = () => {
         <Container class1="py-5 bg-[var(--color-f5f5f7)]">
             <div className="grid grid-cols-12">
                 <div className="col-span-12">
-                  <div className="border-b border-b-[var(--color-888888)] py-3 flex items-center justify-between">
-                    <h4 className='text-sm text-[var(--color-777777)] w-2/5'>محصولات</h4>
-                    <h4 className='text-sm text-[var(--color-777777)] w-[10%]'>قیمت</h4>
-                    <h4 className='text-sm text-[var(--color-777777)] w-[15%] text-center'>تعداد</h4>
-                    <h4 className='text-sm text-[var(--color-777777)] w-[15%]'>قیمت کل</h4>
+                                    <Link to='/shop' className='w-fit flex items-center gap-1  p-2 shadow-inner text-xs rounded-xl text-black  shadow-[var(--color-febd69)] animate-pulse'> <TiArrowBack className='w-4 h-4 scale-x-[-1]' /> بازگشت به فروشگاه  </Link>
+                </div>
+                <div className="col-span-12">
+                  <div className="grid grid-cols-12 border-b border-b-[var(--color-888888)] py-3 ">
+                    <h4 className='col-span-9 md:col-span-6 text-sm text-[var(--color-777777)]'>محصولات</h4>
+                    <h4 className='col-span-2 place-self-center text-sm text-[var(--color-777777)] hidden md:block '>قیمت</h4>
+                    <h4 className='col-span-2 place-self-center text-sm text-[var(--color-777777)] hidden md:block  text-center'>تعداد</h4>
+                    <h4 className='sm-custom2:hidden col-span-3 md:col-span-2 place-self-center text-sm text-[var(--color-777777)] '>قیمت کل</h4>
                   </div>
                   {
                   cart.map(p=>{ 
-                    return <div key={p.id} className="relative mb-2 border-b border-b-[var(--color-999999)] py-3 flex items-center justify-between">
-                          <div onClick={()=>dispatch(removeFromCart(p))} className="absolute left-2 top-2 ">
-                            <AiOutlineClose className='text-red-500 cursor-pointer'/>
+                    return <div key={p.id} >
+                                <div  className="grid grid-cols-12 gap-5 relative mb-2 border-b border-b-[var(--color-999999)] py-3  ">
+                                {/* image */}
+                                      <div className="sm-custom2:col-span-3 col-span-2 flex items-center justify-center">
+                                               <img src={p.img} alt="" className=" md:w-[80%]" />
+                                      </div>
+                                {/* title and color */}      
+                                      <div  className="sm-custom2:col-span-9 col-span-7 md:col-span-8 grid grid-cols-8 ">
+                                                <div className="col-span-8 md:col-span-4 flex flex-col justify-center gap-2  ">
+                                                  <h5 className="font-extrabold text-justify text-black sm-custom2:text-sm">{p.name}</h5>
+                                                  <p className="sm-custom2:text-sm">رنگ : {p.color == 'silver' ? "نقره ای" :
+                                                                                  p.color == 'blue' ? "آبی" :
+                                                                                  p.color == 'green' ? "سبز" :
+                                                                                  p.color == 'red' ? "قرمز" :
+                                                                                  p.color == 'white' ? "سفید" :
+                                                                                  p.color == 'black' ? "مشکی" :
+                                                                                  p.color == 'pink' ? "صورتی" : "--"
+                                                                        }
+                                                  </p>
+                                                  
+                                                </div>
+                                    {/* price */}
+                                                <div className='col-span-8 md:col-span-2 flex  items-center justify-between pl-2 py-1 md:p-0  md:justify-center text-nowrap text-sm  text-[var(--color-777777)]'>
+                                                  <p className=" md:hidden">قیمت :</p>
+                                                  <h5 className="text-base text-[var(--color-1c1c1b)]">{toPersianDigitsWithComma(p.price)} تومان</h5>
+                                                </div>
+                                    {/* quantity */}
+                                                <div className='col-span-8 md:col-span-2 text-sm text-[var(--color-777777)]  flex items-center justify-between pl-2 py-1 md:p-0  md:justify-center gap-4'>
+                                                    <p className=" md:hidden">تعداد :</p>
+                                                    <div className="flex items-center border border-[var(--color-eaeaea)]">
+                                                                <button onClick={()=>dispatch(increaseQuantity(p))} className="cursor-pointer px-1 border-l">
+                                                                    <FiPlus className='text-black' />
+                                                                </button>
+                                                                <input  type="text" value={toPersianDigits(p.quantity)}  min={1} className="w-10 py-0 text-center text-[13px] mb-0 text-[var(--color-777777)] border-none "/>
+                                                                {
+                                                                  p.quantity == 1 ? 
+                                                                  <button onClick={()=>dispatch(removeFromCart(p))}  className={` px-1 border-r `}>
+                                                                        <FiTrash className='text-red-500' /> 
+                                                                  </button>
+                                                                  :
+                                                                  <button onClick={()=>dispatch(decreaseQuantity(p))}  className={` px-1 border-r `}>
+                                                                        <FiMinus className={`text-black`}/> 
+                                                                  </button>
+                                                                  
+                                                                }          
+                                                    </div>         
+                                                </div>
+                                      </div>
+                                {/* total price */}
+                                      <div className='sm-custom2:col-span-12 sm-custom2:border-t-2 sm-custom2:border-t-[var(--color-febd69)] sm-custom2:pt-3 sm-custom2:mt-2 col-span-3  md:col-span-2 font-extrabold text-sm text-nowrap text-[var(--color-777777)] sm-custom2:px-5 flex items-center  sm-custom2:justify-between justify-center'>
+                                                <p className="sm-custom2:block  hidden">قیمت کل :</p>
+                                                {toPersianDigitsWithComma(p.totalPrice)} تومان
+                                      </div>
+                                {/* close btn */}
+                                      <div onClick={()=>dispatch(removeFromCart(p))} className=" absolute left-2 top-2 sm-custom2:right-2">
+                                              <AiOutlineClose className='text-red-500 cursor-pointer'/>
+                                      </div>
+                                </div>
+                              
                           </div>
-                        <div className='text-sm text-[var(--color-777777)] w-2/5 flex items-center gap-4'>
-                          <div className="w-[25%] ">
-                            <img src={p.img} alt="" className="" />
-                          </div>
-                          <div className="flex flex-col gap-2 w-[75%] ">
-                            <h5 className="font-extrabold  text-black">{p.name}</h5>
-                            <p className="">رنگ : {p.color == 'silver' ? "نقره ای" :
-                                                            p.color == 'blue' ? "آبی" :
-                                                            p.color == 'green' ? "سبز" :
-                                                            p.color == 'red' ? "قرمز" :
-                                                            p.color == 'white' ? "سفید" :
-                                                            p.color == 'black' ? "مشکی" :
-                                                            p.color == 'pink' ? "صورتی" : "--"
-                                                  }
-                            </p>
-                            <p className="">سایز : {p.size}</p>
-                          </div>
-                        </div>
-                        <div className='text-sm text-[var(--color-777777)] w-[10%]'><h5 className="text-base text-[var(--color-1c1c1b)]">{toPersianDigitsWithComma(p.price)} تومان</h5></div>
-                        <div className='text-sm text-[var(--color-777777)] w-[15%] flex items-center justify-center gap-4'>
-                            <div className="flex items-center border border-[var(--color-eaeaea)]">
-                                        <button onClick={()=>dispatch(increaseQuantity(p))} className="cursor-pointer px-1 border-l">
-                                            <FiPlus className='text-black' />
-                                        </button>
-                                        <input  type="text" value={toPersianDigits(p.quantity)}  min={1} className="w-10 py-0 text-center text-[13px] mb-0 text-[var(--color-777777)] border-none "/>
-                                        {
-                                          p.quantity == 1 ? 
-                                          <button onClick={()=>dispatch(removeFromCart(p))}  className={` px-1 border-r `}>
-                                                <FiTrash className='text-red-500' /> 
-                                          </button>
-                                          :
-                                          <button onClick={()=>dispatch(decreaseQuantity(p))}  className={` px-1 border-r `}>
-                                                <FiMinus className={`text-black`}/> 
-                                          </button>
-                                          
-                                        }          
-                            </div>         
-                        </div>
-                        <div className='text-sm text-[var(--color-777777)] w-[15%]'>{toPersianDigitsWithComma(p.totalPrice)} تومان</div>
-                    </div>
                   })
                   }
                 </div>
                 <div className=" col-span-12 py-2 mt-2">
                         <div className="grid grid-cols-12 place-items-center">
-                            <div className="col-span-12 w-full  flex justify-between">
-                                <div className="">
-                                    <Link to='/shop' className='flex items-center gap-1  p-2 shadow-inner text-xs rounded-xl text-black  shadow-[var(--color-febd69)] animate-pulse'> <TiArrowBack className='w-4 h-4 scale-x-[-1]' /> بازگشت به فروشگاه و ادامه خرید  </Link>
+                            <div className="col-span-12 w-full  flex flex-col justify-between">
+                                
+                                <div className="w-full flex items-center gap-2 justify-evenly font-extrabold">
+                                  <h4 className="text-base "> جمع سبد خرید  : </h4>
+                                  <p className="">{toPersianDigitsWithComma(totalPrice)} تومان</p>
+                                  
                                 </div>
-                                <div className="flex flex-col gap-2 justify-between">
-                                  <h4 className="text-xs"> جمع سبد خرید  : </h4>
-                                  <p className="self-end">{toPersianDigitsWithComma(totalPrice)} تومان</p>
-                                  <Link to='/checkout' className=" self-end w-full bg-[var(--color-febd69)] text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white text-center px-2 py-1 rounded-xl transition-all duration-300 ease-in-out">
+                                <Link to='/checkout' className="sm-custom:w-[80%] sm-custom:mx-2 sm-custom:self-center mt-5 self-end w-fit bg-[var(--color-febd69)] text-nowrap text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white text-center px-2 py-1 rounded-xl transition-all duration-300 ease-in-out">
                                           تایید و تکمیل سفارش
                                   </Link>
-                                </div>
                             </div>
                         </div>
                 </div>

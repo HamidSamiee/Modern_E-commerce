@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
 import {
+      banner1,banner2,
       sbanner1,sbanner2,
       sbanner3,sbanner4,gift,
       discount,service1,service2,
@@ -9,10 +9,9 @@ import {
       brand2,brand3,brand4,brand5,
       brand6,brand7,brand8,
       brand9,brand10,brand11,
-} from "@/utils/myimages"
+} from "@/utils/myimages";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { MdPayment } from "react-icons/md";
-import { BsArrowLeft } from "react-icons/bs"
 import {  BiSupport } from "react-icons/bi"
 import { toPersianDigits } from "@/utils/toPersianDigits"
 import Marquee from "react-fast-marquee";
@@ -24,16 +23,22 @@ import FamousProduct from "@/components/FamousProduct";
 import Meta from "@/components/Meta";
 import Container from "@/components/Container";
 import gsap from "gsap";
-
+import { Carousel } from 'antd';
 import { useRef } from "react";
 import {useGSAP} from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 
 gsap.registerPlugin(useGSAP,ScrollTrigger);
 ``
 
 const Home = () => {
 
+  
+  const slides=[
+    banner1,
+    banner2,
+  ]
   const container=useRef();
 
   useGSAP(() => {
@@ -74,96 +79,92 @@ const Home = () => {
     <main ref={container}>
       <Meta title=" فروشگاه اینترنتی دیجی مارکت " />
   {/* Hero Section */}
-      <Container class1="py-5">
-          <div className="grid grid-cols-12 gap-5 px-5">
-              <div className="hero1 relative col-span-6 ">
+      {/* desktop */}
+      <Container class1="hidden md:block py-5">
+          <div className=" grid grid-cols-12 gap-5 px-5 ">
+              <div className="hero1 col-span-12 sm:col-span-6 ">
                   <div className="main-hero w-full h-full rounded-md ">
                   </div>
-                  <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
-                    <h4 className="text-6xl text-center">
-                        Samsung 
-                    </h4>
-                    <h5 className="text-3xl text-center mb-10 ">
-                      Galexy S24 Ultra
-                    </h5>
-                    <Link className="flex items-center gap-2 mx-20 text-center text-xl bg-[var(--color-febd69)] rounded-full px-2 py-1 animate-pulse" >
-                            خرید کنید <BsArrowLeft  className="bg-white rounded-full font-medium"/> 
-                    </Link>
-                  </div>
               </div>
-              <div className="hero2 col-span-6 ">
+              <div className="hero2 col-span-12 sm:col-span-6 ">
                   <div className=" grid grid-cols-12 gap-5 w-full h-full">
                       <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                          <div className="">
+                          
                               <img src={sbanner1} alt="" className=" rounded-md shadow-lg " />
-                          </div>
-                          <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
-                            <h4 className=" text-center text-rose-800">
-                                بهترین قیمت ها 
-                            </h4>
-                            <p className=" text-center ">
-                              لپ تاپ های 
-                            </p>
-                            <p className="text-center text-lg">
-                              ASUS
-                            </p>
-                          </div>
+                         
                       </div>
                       <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                          <div className="">
+                          
                               <img src={sbanner2} alt="" className=" rounded-md shadow-lg" />
-                          </div>
-                          <div className=" absolute top-[20%] left-[10%] font-extrabold flex flex-col gap-5">
-                            <h4 className=" text-center text-rose-800">
-                                محصول جدید
-                            </h4>
-                            <p className=" text-center ">
-                              تبلت {toPersianDigits(11)} اینچی اپل
-                            </p>
-                            <p className="text-center text-lg">
-                              iPad Air 2024 M2
-                            </p>
-                          </div>
+                          
                       </div>
                       <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                          <div className="">
+                          
                               <img src={sbanner3} alt="" className=" rounded-md shadow-lg" />
-                          </div>
-                          <div className=" absolute top-[20%] left-[7%] font-extrabold flex flex-col gap-5">
-                            <h4 className=" text-center text-rose-800">
-                                تجربه ای خاص و دلپذیر
-                            </h4>
-                            <p className=" text-center ">
-                              هدفون بلوتوثی اپل 
-                            </p>
-                            <p className="text-center text-lg">
-                              AirPods Max
-                            </p>
-                          </div>
+                          
                       </div>
                       <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
-                          <div className="">
+                          
                               <img src={sbanner4} alt="" className=" rounded-md shadow-lg" />
-                          </div>
-                          <div className=" absolute top-[20%] left-[7%] font-extrabold flex flex-col gap-5">
-                          <h4 className=" text-center text-rose-800">
-                                %{toPersianDigits(15)} تخفیف
-                            </h4>
-                            <p className=" text-center ">
-                              ساعت هوشمند اپل
-                            </p>
-                            <p className="text-center text-lg">
-                              Series 7
-                            </p>
-                          </div>
+                          
                       </div>
                   </div>
               </div>
           </div>
       </Container>
+      {/* mobile */}
+      <Container class1="py-5 md:hidden">
+          <div className="flex flex-col items-center justify-center gap-5 px-5 ">
+              <div className=" w-full h-full  ">
+              <Carousel autoplay>
+                {slides.map((src, index) => (
+                  <div key={index} >
+                    <img
+                      src={src}
+                      alt={`Slide ${index + 1}`}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        objectFit: 'contain',
+                        marginBottom:'20px',
+                        borderRadius:'6px',
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+              <div className="">
+                  <div className=" grid grid-cols-12 gap-5 w-full h-full">
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                         
+                              <img src={sbanner1} alt="" className=" rounded-md shadow-lg " />
+                         
+                      </div>
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                          
+                              <img src={sbanner2} alt="" className=" rounded-md shadow-lg" />
+                         
+                      </div>
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                          
+                              <img src={sbanner3} alt="" className=" rounded-md shadow-lg" />
+                          
+                          
+                      </div>
+                      <div className=" relative col-span-6  hover:scale-105 transition-all duration-300 ease-in-out">
+                          
+                              <img src={sbanner4} alt="" className=" rounded-md shadow-lg" />
+                        
+                      </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+      </Container>
   {/* khadmat Section */} 
       <Container class1="py-5 bg-[var(--color-f5f5f7)]">
-          <div className="w-full flex items-center justify-between px-5 py-12">
+          {/* desktop */}
+          <div className="hidden w-full md:flex items-center justify-between px-5 py-12">
                 <div className="flex items-center gap-5">
                   <LiaShippingFastSolid className="w-14 h-14" />
                   <div className="flex flex-col gap-3">
@@ -220,10 +221,73 @@ const Home = () => {
                   </div>
                 </div>
           </div>
+          {/* mobile */}
+          <div className="block mx-5 md:hidden ">
+                <Marquee className=" flex items-center justify-center  " direction="right" pauseOnHover>
+                        
+                        <div className="ml-14 flex items-center gap-5">
+                          <LiaShippingFastSolid className="w-10 h-10" />
+                          <div className="flex flex-col gap-3">
+                            <h6 className="font-bold text-base text-nowrap">
+                                ارسال رایگان
+                            </h6>
+                            <p className="text-nowrap text-sm">
+                                  سفارش بالای {toPersianDigits(1)} میلیون 
+                            </p>
+                          </div>
+                        </div>
+                        <div className="ml-14 flex items-center gap-3">
+                          <img src={gift} alt="" className="w-8 h-8" />
+                          <div className="flex flex-col gap-3">
+                            <h6 className="font-bold text-base text-nowrap">
+                              تخفیف شگفت انگیز 
+                            </h6>
+                            <p className="text-nowrap text-sm">
+                                      تا {toPersianDigits(25)}% تخفیف بگیرید
+                            </p>
+                          </div>
+                        </div>
+                        <div className="ml-14 flex items-center gap-3">
+                          <BiSupport className="w-8 h-8" />
+                          <div className="flex flex-col gap-3">
+                            <h6 className="font-bold text-base text-nowrap">
+                                {toPersianDigits(24)} / {toPersianDigits(7)}  
+                            </h6>
+                            <p className="text-nowrap text-sm">
+                                    کارشناس آنلاین
+                            </p>
+                          </div>
+                        </div>
+                        <div className="ml-14 flex items-center gap-3">
+                          <img src={discount} alt=""  className="w-8 h-8" />
+                          <div className="flex flex-col gap-3">
+                            <h6 className="font-bold text-base text-nowrap">
+                              قیمت مناسب
+                            </h6>
+                            <p className="text-nowrap text-sm">
+                                قیمت کارخانه
+                            </p>
+                          </div>
+                        </div>
+                        <div className="ml-14 flex items-center gap-3">
+                          <MdPayment className="w-8 h-8" />
+                          <div className="flex flex-col gap-3">
+                            <h6 className="font-bold text-base text-nowrap">
+                                پرداخت امن
+                            </h6>
+                            <p className="text-nowrap text-sm">
+                            {toPersianDigits(100)}% ایمن
+                            </p>
+                          </div>
+                        </div>
+                  
+              </Marquee>
+          </div>
       </Container>
   {/* Category Section */}
       <Container class1="bg-[var(--color-f5f5f7)] py-5">
-          <div className="w-full flex items-center justify-between px-5">
+          {/* desktop */}
+          <div className="w-full hidden md:flex items-center justify-between px-5">
               <div className="bg-white w-full shadow-md p-3 rounded-lg">
                 <div className="flex items-center flex-wrap">
                     <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center justify-center gap-4">
@@ -359,6 +423,62 @@ const Home = () => {
                 </div>
               </div> 
           </div>
+          {/* mobile */}
+          <div className="w-full md:hidden flex items-center justify-between px-5   ">
+                <div className="w-max flex items-center justify-between flex-wrap ">
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5 tooltip tooltip-bottom" data-tip="کامپیوتر و لپ تاپ">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                        <img src={service1} alt="" className="w-16 sm-custom:w-14  h-auto" />
+                      </div>                
+                   </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip="دوربین">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                         <img src={service2} alt="" className="w-16 sm-custom:w-14 h-auto" />
+                      </div>                
+                   </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip="تلویزیون هوشمند">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                         <img src={service3} alt="" className="w-16 sm-custom:w-14 h-auto" />
+                      </div>                
+                   </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip="ساعت هوشمند">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                       <img src={service4} alt="" className="w-20 sm-custom:w-16 h-auto" />
+                      </div>                
+                   </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip="لوازم جانبی بازی" >
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                        <img src={service5} alt="" className="w-16 sm-custom:w-14 h-auto " />
+                      </div>                
+                    </div>
+                    <div className="w-[20%] sm-custom:w-[25%]   p-2.5  tooltip tooltip-bottom" data-tip=" موبایل و تبلت ">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                        <img src={service6} alt="" className="w-10 sm-custom:w-8 h-auto" />
+                      </div>
+                    </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip="هدفون">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                       <img src={service7} alt="" className="w-14 sm-custom:w-12 h-auto" />
+                      </div>
+                    </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip=" لوازم جانبی موبایل">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                        <img src={service8} alt="" className="w-16 sm-custom:w-14 h-auto" />
+                      </div>
+                    </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip="اسپیکر">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                        <img src={service9} alt="" className="w-24 sm-custom:w-22 h-auto" />
+                      </div>
+                    </div>
+                    <div className="w-[20%] sm-custom:w-[25%]  p-2.5  tooltip tooltip-bottom" data-tip="لوازم خانگی">
+                      <div className="h-20 w-20  sm-custom:h-14 sm-custom:w-14 sm-custom2:h-16 sm-custom2:w-16 bg-white hover:scale-125 transition-all duration-200 ease-linear cursor-pointer shadow-md border-2 border-[var(--color-febd69)] rounded-full flex items-center justify-center">
+                        <img src={service10} alt="" className="w-12 h-auto" />
+                      </div>
+                    </div>
+                
+                </div>
+          </div>
       </Container>
   {/* Featured Section */}
       <Container class1="bg-[var(--color-f5f5f7)]  py-5">
@@ -394,40 +514,40 @@ const Home = () => {
           </div>
       </Container>
   {/* Marquee Section */}
-      <Container class1="bg-[var(--color-f5f5f7)] py-5">
-          <div className="bg-white shadow-xl p-4 mx-5 rounded-md my-3 ">
+      <Container class1="bg-[var(--color-f5f5f7)] sm-custom:py-2 py-5">
+          <div className="bg-white shadow-xl p-4 sm-custom:py-1 mx-5 rounded-md my-3 ">
             <Marquee className="flex items-center justify-center" direction="right" pauseOnHover>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand1} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand2} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand3} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand4} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand5} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand6} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand7} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand8} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-24">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-16 sm:w-20 md:w-24">
                 <img src={brand9} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand10} alt="brand" className="" />
               </div>
-              <div className="mx-10 w-32">
+              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
                 <img src={brand11} alt="brand" className="" />
               </div>
             </Marquee>
@@ -440,7 +560,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-12 gap-5 px-5">
             {
-              blogs.map((blog,i)=><BlogCart key={i} dataBlog={blog} grid="3" />)
+              blogs.map((blog,i)=><BlogCart key={i} dataBlog={blog}  />)
             }
           </div> 
       </Container>     

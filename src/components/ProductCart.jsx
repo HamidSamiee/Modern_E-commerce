@@ -13,14 +13,15 @@ const ProductCart = (Props) => {
     const {dataSelection,grid}=Props;
     const {id,imgA,imgB,brand,title,description,price}=dataSelection;
 
+    console.log(window.innerWidth)
     const location=useLocation();
     
     const dispatch=useDispatch();
 
        
   return (
-    <section className={` ${location.pathname == '/shop' ? `col-span-${grid}` : "col-span-2" } `} >
-        <div className={`product_cart  relative bg-white shadow-lg overflow-hidden rounded-lg ${grid == 12 && 'flex px-8'}`}>
+    <section className={` ${location.pathname == '/shop' && window.innerWidth >= 1024 ? `${grid === 4 ? 'col-span-4' : `col-span-${grid}`} ` : location.pathname == '/shop' ? 'sm-custom:col-span-12 col-span-6 sm:col-span-4 ': "sm-custom:col-span-12 col-span-6 sm:col-span-4 lg:col-span-2" } `} >
+        <div className={`product_cart  relative bg-white shadow-lg overflow-hidden rounded-lg ${grid == 12 && window.innerWidth >= 1024 && 'flex px-8'}`}>
             <button className="absolute top-[2%] right-2 "  onClick={()=>dispatch(addToWishList(id))} >
                      <CiHeart className="hover:text-red-500" />
             </button>

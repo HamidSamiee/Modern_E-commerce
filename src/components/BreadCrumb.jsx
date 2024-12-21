@@ -8,14 +8,16 @@ const BreadCrumb = (Props) => {
         <div className="container xl:max-w-screen-xl">
             <div className="grid grid-cols-12">
                 <div className="col-span-12">
-                    <p className="flex items-center gap-3">
+                    <p className="flex items-center gap-3 ">
                         <Link to='/' className="">
                            خانه 
                         </Link>
                         <span className="">
                         / 
                         </span>
-                        {title}
+                        <p className="line-clamp-1">
+                          {title}
+                        </p>
                     </p>
                 </div>
             </div>

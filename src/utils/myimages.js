@@ -1,4 +1,5 @@
 export {default as banner1 } from "@assets/images/main-banner1.webp"
+export {default as banner2 } from "@assets/images/main-banner2.webp"
 export {default as sbanner1} from "@assets/images/small-banner1.webp"
 export {default as sbanner2} from "@assets/images/small-banner2.webp"
 export {default as sbanner3} from "@assets/images/small-banner3.webp"

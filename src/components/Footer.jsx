@@ -27,7 +27,7 @@ const Footer = () => {
     <footer className=" px-5 bg-[var(--color-232f3e)] py-4 border-t border-t-[var(--color-3b4149)]">
         <section className="container xl:max-w-screen-xl">
             <div className="grid grid-cols-12 gap-4 sm:gap-10 text-white justify-center">
-              <div className="hidden md:block md:col-span-3">
+              <div className="hidden lg:block lg:col-span-3">
                 <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                       اپلیکیشن ما
                 </h2>
@@ -35,7 +35,7 @@ const Footer = () => {
 
                 </ul>
               </div>
-              <div className="col-span-6 sm:col-span-4 md:col-span-2">
+              <div className="col-span-6 sm:col-span-4 lg:col-span-2">
                 <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                       دسترسی سریع
                 </h2>
@@ -67,7 +67,7 @@ const Footer = () => {
                     </li>
                 </ul>
               </div>
-              <div className="col-span-6 sm:col-span-4 md:col-span-2">
+              <div className="col-span-6 sm:col-span-4 lg:col-span-2">
                 <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                       اکانت
                 </h2>
@@ -89,7 +89,7 @@ const Footer = () => {
                     </li>
                 </ul>
               </div>
-              <div className="col-span-6 sm:col-span-4 md:col-span-2">
+              <div className="col-span-6 sm:col-span-4 lg:col-span-2">
                 <h2 className="mb-4 font-extrabold text-lg md:text-xl">
                      اطلاعات   
                 </h2>
@@ -121,7 +121,7 @@ const Footer = () => {
                     </li>
                 </ul>
               </div>
-              <div className=" col-span-12 sm-custom:place-self-center  md:col-span-3 ">
+              <div className=" col-span-12 sm-custom:place-self-center md:col-span-6 lg:col-span-3 ">
                 <h2 className=" mb-4 font-extrabold text-lg md:text-xl"> 
                         تماس با ما                
                 </h2>

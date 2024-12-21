@@ -43,7 +43,7 @@ const Login = () => {
        <BreadCrumb title=" ورود - ثبت نام " /> 
        <Container class1="py-5 bg-[var(--color-f5f5f7)]">
             <div className="h-80 grid grid-cols-12 place-items-center">
-                  <div className="animate__animated animate__zoomIn w-1/3 col-span-12 bg-white rounded-lg">
+                  <div className="animate__animated animate__zoomIn  sm-custom:w-full w-3/5  md:w-1/2  lg:w-1/3 col-span-12 bg-white rounded-lg">
                     <div className="p-5 space-y-5">
                         <h3 className="text-xl text-center font-bold">ورود</h3>
                         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-3">

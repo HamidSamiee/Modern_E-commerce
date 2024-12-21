@@ -8,14 +8,14 @@ const Reviews = (Props) => {
   return (
     <section  className="">
                         <div className="grid grid-cols-12">
-                            <div className="col-span-12 px-5">
-                                <div className=" rounded-md flex flex-col items-center gap-5 ">
-                                    <div className={`w-full pb-3 ${ordereddProduct && "border-b border-b-black/25"}`}>
-                                        <h4 className="mb-2 text-lg font-bold text-[var(--color-1c1c1b)]">
+                            <div className="col-span-12 sm-custom3:-mx-8 px-5">
+                                <div className=" rounded-md flex flex-col items-center gap-5">
+                                    <div className={`w-full ${ordereddProduct && "border-b border-b-black/25"}`}>
+                                        <h4 className="mb-2 sm-custom:text-base text-lg font-bold text-[var(--color-1c1c1b)]">
                                                 نظرات مشتریان
                                         </h4>
                                         <div  className="w-full flex items-center justify-between ">
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex  items-center gap-2">
                                                 <StarRating /> 
                                                 <p className="text-xs text-[var(--color-777777)]">
                                                     ( {toPersianDigits(2)} نظر )
@@ -52,11 +52,11 @@ const Reviews = (Props) => {
                                                   <StarRating />
                                                 </div>
                                           </div>
-                                          <p className="mt-3 text-sm text-[var(--color-777777)">
+                                          <p className="mt-3 text-sm text-justify text-[var(--color-777777)">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores praesentium autem natus expedita iusto similique esse saepe nulla placeat et nemo vitae iure unde excepturi nobis, tenetur, omnis obcaecati reiciendis!
                                           </p>
                                     </div>
-                                    <div className="w-full py-2 border-t border-t-[var(--color-ededed)] ">
+                                    <div className="w-full pt-2 border-t border-t-[var(--color-ededed)] ">
                                           <div className="flex items-center justify-start gap-2">
                                                 <h6 className="  font-bold text-base text-[var(--color-777777)">
                                                 محسن 
@@ -65,7 +65,7 @@ const Reviews = (Props) => {
                                                     <StarRating />
                                                 </div>
                                           </div>
-                                          <p className="mt-3 text-sm text-[var(--color-777777)">
+                                          <p className="mt-3 text-sm text-justify text-[var(--color-777777)">
                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores praesentium autem natus expedita iusto similique esse saepe nulla placeat et nemo vitae iure unde excepturi nobis, tenetur, omnis obcaecati reiciendis!
                                           </p>
                                     </div>

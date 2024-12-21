@@ -66,6 +66,7 @@ export const authSlice=createSlice({
         user:getUserFromLocalStorage || '',
         customers:[],
         orders:[],
+        wishList:[],
         isError:false,
         isSuccess:false,
         isLoading:false,
