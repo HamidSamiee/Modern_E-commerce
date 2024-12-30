@@ -8,7 +8,7 @@ import {
       service9,service10,brand1,
       brand2,brand3,brand4,brand5,
       brand6,brand7,brand8,
-      brand9,brand10,brand11,
+      brand9,brand10,brand11,brand12,
 } from "@/utils/myimages";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { MdPayment } from "react-icons/md";
@@ -16,7 +16,7 @@ import {  BiSupport } from "react-icons/bi"
 import { toPersianDigits } from "@/utils/toPersianDigits"
 import Marquee from "react-fast-marquee";
 import BlogCart from "@/components/BlogCart";
-import {blogs, famousProduct, selectionProduct} from "@/assets/data/data";
+import {famousProduct, selectionProduct} from "@/assets/data/data";
 import ProductCart from "@/components/ProductCart";
 import SpecialProduct from "@/components/SpecialProduct";
 import FamousProduct from "@/components/FamousProduct";
@@ -24,23 +24,20 @@ import Meta from "@/components/Meta";
 import Container from "@/components/Container";
 import gsap from "gsap";
 import { Carousel } from 'antd';
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {useGSAP} from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useDispatch, useSelector } from "react-redux";
+import { getBlogs } from "@/features/BlogsSlice/blogSlice";
 
-
+const brands=[brand1,brand2,brand3,brand4,brand5,brand6,brand7,brand8,brand9,brand10,brand11,brand12];
 gsap.registerPlugin(useGSAP,ScrollTrigger);
 ``
 
 const Home = () => {
-
-  
-  const slides=[
-    banner1,
-    banner2,
-  ]
+ 
+  const slides=[banner1,banner2 ];
   const container=useRef();
-
   useGSAP(() => {
     // gsap code here...
     gsap.fromTo(
@@ -74,6 +71,13 @@ const Home = () => {
       }
     );
   }, { scope: container });
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBlogs())
+  }, [dispatch]) 
+  const {blogs}=useSelector(state=>state.blog)
+
 
   return (
     <main ref={container}>
@@ -517,39 +521,13 @@ const Home = () => {
       <Container class1="bg-[var(--color-f5f5f7)] sm-custom:py-2 py-5">
           <div className="bg-white shadow-xl p-4 sm-custom:py-1 mx-5 rounded-md my-3 ">
             <Marquee className="flex items-center justify-center" direction="right" pauseOnHover>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand1} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand2} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand3} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand4} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand5} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand6} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand7} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand8} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-16 sm:w-20 md:w-24">
-                <img src={brand9} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand10} alt="brand" className="" />
-              </div>
-              <div className="mx-6 sm-custom:mx-4 sm:mx-10 w-24 sm:w-26 md:w-32">
-                <img src={brand11} alt="brand" className="" />
-              </div>
+                {
+                  brands.map((brand)=>{
+                    return  <div key={brand} className="mx-6 sm-custom:mx-4 sm:mx-10 w-24  sm:w-26 md:w-32">
+                              <img src={brand} alt="brand" className="" />
+                            </div>
+                  })
+                }
             </Marquee>
           </div>
       </Container>

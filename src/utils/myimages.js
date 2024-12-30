@@ -27,6 +27,7 @@ export {default as brand8} from "@assets/images/brand-8.png"
 export {default as brand9} from "@assets/images/brand-9.png"
 export {default as brand10} from "@assets/images/brand-10.png"
 export {default as brand11} from "@assets/images/brand-11.png"
+export {default as brand12} from "@assets/images/brand-12.png"
 
 export {default as zephyrus} from "@assets/images/imgBlog/zephyrus-g14-2024.webp"
 export {default as samsungWatch} from "@assets/images/imgBlog/samsung-galaxy-watch-ultra.webp"

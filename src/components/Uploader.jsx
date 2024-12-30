@@ -209,8 +209,6 @@ const removeFileFromImages = async (file) => {
     }
   };
   
-  
-
 
   return (
     <Upload

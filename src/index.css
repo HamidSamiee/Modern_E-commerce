@@ -130,6 +130,17 @@ html,body{
       animation: rotate 1s infinite linear;
     }
     
+    .menu-search{
+     background-color: white;
+     padding: 4px ;
+     border-width: 1px;
+     border-bottom: #eaeaea;
+    
+    }
+    .menu-search:hover{
+      background-color:var(--color-febd69);
+    }
+
     @keyframes slider {
       0%{background-image:url(./assets/images/main-banner1.webp) ;}
       100%{background-image:url(./assets/images/main-banner2.webp) ;}

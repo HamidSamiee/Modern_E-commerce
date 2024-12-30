@@ -243,7 +243,7 @@ const Checkout = () => {
                                     {/* دکمه تایید و بازگشت به فروشگاه */}
                                         <div className=" md:w-full lg:w-[90%] flex items-center justify-center md:justify-between md:gap-5 lg:gap-10">
                                             <Link to='/cart' className='hidden md:flex items-center gap-1 p-2 text-xs  text-black text-nowrap'> <TiArrowBack className='w-4 h-4 scale-x-[-1]' /> بازگشت به سبد خرید   </Link>
-                                            <Link to='/checkout' className="sm-custom2:w-full sm-custom3:w-[70%] sm-custom3:mt-5 self-end w-52 bg-[var(--color-febd69)] text-nowrap text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white text-center px-2 py-1 rounded-xl transition-all duration-300 ease-in-out">
+                                            <Link to='/sendMethod' className="sm-custom2:w-full sm-custom3:w-[70%] sm-custom3:mt-5 self-end w-52 bg-[var(--color-febd69)] text-nowrap text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white text-center px-2 py-1 rounded-xl transition-all duration-300 ease-in-out">
                                                         ادامه ثبت سفارش
                                             </Link>
                                         </div>
@@ -299,14 +299,10 @@ const Checkout = () => {
                                                 <p className="text-base font-bold">جمع سبد خرید</p>
                                                 <p className="text-base font-semibold"> {toPersianDigitsWithComma(totalPrice)} تومان</p>
                                             </div>
-                                            <div className="flex  items-center justify-between gap-5">
-                                                <p className="text-base font-bold">هزینه ارسال</p>
-                                                <p className="text-base font-semibold">{toPersianDigitsWithComma(45000)} تومان</p>
-                                            </div>
                                         </div>
                                         <div className="flex  items-center justify-between gap-5">
                                             <p className="text-base font-bold">مجموع : </p>
-                                            <p className="text-base font-semibold">{toPersianDigitsWithComma(totalPrice + 45000)} تومان</p>
+                                            <p className="text-base font-semibold">{toPersianDigitsWithComma(totalPrice)} تومان</p>
                                         </div>        
                                     </>
                         } 

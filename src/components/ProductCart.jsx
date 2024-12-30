@@ -13,7 +13,7 @@ const ProductCart = (Props) => {
     const {dataSelection,grid}=Props;
     const {id,imgA,imgB,brand,title,description,price}=dataSelection;
 
-    console.log(window.innerWidth)
+    // console.log(window.innerWidth)
     const location=useLocation();
     
     const dispatch=useDispatch();

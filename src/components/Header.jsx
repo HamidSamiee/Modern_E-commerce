@@ -1,21 +1,30 @@
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import {BsCart4, BsSearch} from 'react-icons/bs'
 import { FaChevronDown, FaRegHeart , FaRegUser, FaRotate } from "react-icons/fa6";
 import { BiCategory } from "react-icons/bi";
 import { toPersianDigits } from "@/utils/toPersianDigits";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FiHome, FiMenu } from "react-icons/fi";
 import { LuStore } from "react-icons/lu";
 import { TbBrandBlogger } from "react-icons/tb";
 import { MdOutlineConnectWithoutContact } from "react-icons/md";
 import brandImg from "@assets/images/imgBlog/brand.png"
 import { IoClose } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Typeahead } from "react-bootstrap-typeahead";
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { getAllProducts } from "@/features/ProductsSlice/productSlice";
 
 const Header = () => {
+
+
+
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
   const {cart}=useSelector(state=>state.cart)
   const {user}=useSelector(state=>state.auth)
-
+  const productState=useSelector(state=>state?.product?.products)
+  console.log(productState)
   const [openSections, setOpenSections] = useState({});
 
   const toggleSection = (section) => {
@@ -24,6 +33,28 @@ const Header = () => {
       [section]: !prev[section],
     }));
   };
+
+  const [paginate, setPaginate] = useState(true);
+  const [productOption, setProductOption] = useState([]);
+
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [dispatch])
+
+  useEffect(() => {
+
+    let data=[];
+    for (let index = 0; index < productState.length; index++) {
+      const element = productState[index];
+      data.push({
+        id:index,
+        prod:element?._id,
+        name:element?.title
+      })
+    }    
+    setProductOption(data)
+  }, [productState])
+  
 
   return (
     <>
@@ -55,11 +86,31 @@ const Header = () => {
                   </h2>
               </div>
               <div className="pl-10  hidden  sm:col-span-8 md:col-span-6 sm:block w-full">
-                <div className="relative w-full mx-auto ">
-                    <input className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="محصول رو اینجا جستجو کن" />
-                    <button className="absolute inset-y-0 left-0 flex items-center p-3 text-gray-700 bg-[var(--color-febd69)] border border-gray-300 rounded-l-md hover:bg-[var(--color-131921)] hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                      <BsSearch className="font-bold w-4 h-4 md:w-6 md:h-6"/>
-                    </button>
+                <div className="relative w-full mx-auto">
+                  <Typeahead
+                    className="w-full bg-white z-40 text-black  hover:bg-blue-200  border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    id="pagination-example"
+                    onPaginate={() => console.log('Results paginated')}
+                    onChange={(selected) => {
+                      navigate(`/product/${selected[0].prod}`)
+                    }}
+                    options={productOption}
+                    paginate={paginate}
+                    labelKey={"name"}
+                    minLength={2}
+                    placeholder="محصول رو اینجا جستجو کن"
+                    align="justify"
+                    inputProps={{ style: { width: '100%', padding: '8px', outline: "none" } }}
+                    renderMenuItemChildren={(option) => (
+                      <div className="menu-search line-clamp-2">
+                        {option.name}
+                      </div>
+                    )}
+                    
+                  />
+                  <button className="absolute inset-y-0 left-0 flex items-center p-3 z-40 ">
+                      <BsSearch className="font-bold w-4 h-4 md:w-6 md:h-6 text-[var(--color-febd69)] "/>
+                  </button>
                 </div>
               </div>
               <div className="pr-10 col-span-6 sm:col-span-2 md:col-span-4 justify-end  w-full flex items-center md:justify-between gap-2 text-white">
@@ -270,10 +321,30 @@ const Header = () => {
       </div>
       <div className="lg:hidden flex items-center justify-center  bg-[var(--color-232f3e)] border-b border-solid border-[var(--color-3b4149)] py-1">
                 <div className="relative w-4/5 mx-auto ">
-                    <input className="w-full py-1 px-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="محصول رو اینجا جستجو کن" />
-                    <button className="absolute inset-y-0 left-0 flex items-center p-1.5 text-gray-700 bg-[var(--color-febd69)] border border-gray-300 rounded-l-md hover:bg-[var(--color-131921)] hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                      <BsSearch className="font-bold w-4 h-4 md:w-6 md:h-6"/>
-                    </button>
+                <Typeahead
+                    className="w-full bg-white z-40 text-black  hover:bg-blue-200  border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    id="pagination-example"
+                    onPaginate={() => console.log('Results paginated')}
+                    onChange={(selected) => {
+                      navigate(`/product/${selected[0].prod}`)
+                    }}
+                    options={productOption}
+                    paginate={paginate}
+                    labelKey={"name"}
+                    minLength={2}
+                    placeholder="محصول رو اینجا جستجو کن"
+                    align="justify"
+                    inputProps={{ style: { width: '100%', padding: '8px', outline: "none" } }}
+                    renderMenuItemChildren={(option) => (
+                      <div className="menu-search line-clamp-2">
+                        {option.name}
+                      </div>
+                    )}
+                    
+                  />
+                  <button className="absolute inset-y-0 left-0 flex items-center p-3 z-40 ">
+                      <BsSearch className="font-bold w-4 h-4 md:w-6 md:h-6 text-[var(--color-febd69)] "/>
+                  </button>
                 </div>                          
       </div>
     </> 

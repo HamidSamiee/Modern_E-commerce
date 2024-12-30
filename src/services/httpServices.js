@@ -13,7 +13,7 @@ const app = axios.create({
         Authorization : `Bearer ${ getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""}`,
     },
     accept: "application/json",
-    // withCredentials: true,
+    withCredentials: true,
 })
 
 // app.interceptors.request.use(

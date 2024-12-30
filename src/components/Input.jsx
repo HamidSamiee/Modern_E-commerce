@@ -2,7 +2,7 @@ import React from "react";
 
 const Input =React.memo((Props) => {
 
-    const {name,id,type,className,placeholder,value,onChange,onBlur,onInput,pattern,class2}=Props;
+    const {name,id,type,className,placeholder,value,onChange,onBlur,onInput,pattern,class2,disabled}=Props;
 
   return (
     <div className={class2}>
@@ -17,6 +17,7 @@ const Input =React.memo((Props) => {
             onBlur={onBlur}
             onInput={onInput}
             pattern={pattern}
+            disabled={disabled}
         />
     </div>
   )

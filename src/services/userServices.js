@@ -46,4 +46,47 @@ const getOrders = async()=>{
     }  
 }
 
-export const authRegister={register,login,getUserWishlist,getUsers,getOrders}
+const getUserOrder = async()=>{
+    
+    const response = await http.get('user/get-orders');
+    // console.log(response)
+    if (response.data) {
+        return response.data
+    }  
+}
+
+const logout = async()=>{
+    
+    const response = await http.get('user/logout');
+    // console.log(response)
+    if (response.data) {
+        return response.data
+    }  
+}
+
+const updateUser = async(data)=>{
+    const response = await http.put('user/edit-user',data);
+    // console.log(response)
+    if (response.data) {
+        return response.data
+    }  
+}
+
+const forgetPasswordToken = async(data)=>{
+    const response = await http.post('user/forgot-password-token',data);
+    console.log(response)
+    if (response.data) {
+        return response.data
+    }  
+}
+
+const resetPassword = async(data)=>{
+    console.log(data)
+    const response = await http.put(`user/reset-password/${data?.token}`,{password:data?.password});
+    console.log(response)
+    if (response.data) {
+        return response.data
+    }  
+}
+
+export const authRegister={register,login,getUserWishlist,resetPassword,getUsers,forgetPasswordToken,updateUser,getOrders,getUserOrder,logout}

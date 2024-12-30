@@ -1,14 +1,23 @@
-import { blogs } from "@/assets/data/data"
+// import { blogs } from "@/assets/data/data"
 import BreadCrumb from "../components/BreadCrumb"
 import Meta from "../components/Meta"
 import BlogCart from "@/components/BlogCart"
 import Container from "@/components/Container"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getBlogs } from "@/features/BlogsSlice/blogSlice"
 
 
 const Blogs = () => {
 
   const [openSections, setOpenSections] = useState({});
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBlogs())
+  }, [dispatch])
+  
+  const {blogs}=useSelector(state=>state.blog)
 
   const toggleSection = (section) => {
     setOpenSections((prev) => ({
@@ -45,7 +54,7 @@ const Blogs = () => {
                     </div>
                     <div className="px-5 col-span-12 lg:col-span-9">
                       <div className="grid grid-cols-12 gap-5">
-                        {
+                        {blogs &&
                           blogs.map((blog,i)=><BlogCart key={i} dataBlog={blog} grid="6" />)
                         }
                       </div>
@@ -57,3 +66,5 @@ const Blogs = () => {
 }
 
 export default Blogs
+
+

@@ -37,6 +37,7 @@ import AddProduct from "@/pages/admin/AddProduct";
 import Profile from "@/pages/Profile";
 import AddCoupon from "@/pages/admin/AddCoupon";
 import CouponList from "@/pages/admin/couponList/CouponList";
+import SendMethod from "@/pages/SendMethod";
 // import LoginAdmin from "@/pages/admin/Login";
 // import ForgetPasswordAdmin from "@/pages/admin/ForgetPassword";
 // import ResetPasswordAdmin from "@/pages/admin/ResetPassword";
@@ -55,9 +56,10 @@ const routes=[
     {path:"signUp" ,element:<SignUp />},
     {path:"cart" ,element:<Cart />},
     {path:"checkout" ,element:<Checkout />},
+    {path:"sendMethod" ,element:<SendMethod />},
     {path:"wishList" ,element:<WishList />},
     {path:"forget-password" ,element:<ForgetPassword />},
-    {path:"reset-password" ,element:<ResetPassword />},
+    {path:"reset-password/:token" ,element:<ResetPassword />},
     {path:"blog/:id" ,element:<SingleBlog />},
     {path:"privacy-policy" ,element:<PrivacyPolicy />},
     {path:"refund-policy" ,element:<RefundPolicy />},
