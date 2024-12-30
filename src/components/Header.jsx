@@ -24,7 +24,7 @@ const Header = () => {
   const {cart}=useSelector(state=>state.cart)
   const {user}=useSelector(state=>state.auth)
   const productState=useSelector(state=>state?.product?.products)
-  console.log(productState)
+  // console.log(productState)
   const [openSections, setOpenSections] = useState({});
 
   const toggleSection = (section) => {

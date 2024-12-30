@@ -29,6 +29,7 @@ import {useGSAP} from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "@/features/BlogsSlice/blogSlice";
+import { getAllProducts } from "@/features/ProductsSlice/productSlice";
 
 const brands=[brand1,brand2,brand3,brand4,brand5,brand6,brand7,brand8,brand9,brand10,brand11,brand12];
 gsap.registerPlugin(useGSAP,ScrollTrigger);
@@ -75,8 +76,11 @@ const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBlogs())
+    dispatch(getAllProducts())
   }, [dispatch]) 
-  const {blogs}=useSelector(state=>state.blog)
+
+  const {blogs}=useSelector(state=>state?.blog)
+  const productState=useSelector(state=>state?.product?.products)
 
 
   return (
@@ -491,7 +495,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-12 gap-5 px-5">
             {
-              selectionProduct.slice(0,6).map((p,i)=><ProductCart key={i} dataSelection={p} />)
+               productState.filter(product => product.tags.includes('popular')).map((p,i)=><ProductCart key={i} dataSelection={p} />)
             }
           </div>
       </Container>

@@ -6,17 +6,27 @@ import compare from "@assets/images/comparing.png"
 import cart from "@assets/images/cart.png"
 import { toPersianDigitsWithComma } from "@/utils/toPersianDigits";
 import StarRating from "./StarRating";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToWishList } from "@/features/ProductsSlice/productSlice";
+import { useEffect, useState } from "react";
+import { getAllbrands } from "@/features/BrandSlice/brandSlice";
 
 const ProductCart = (Props) => {
+
+    const dispatch=useDispatch();
     const {dataSelection,grid}=Props;
-    const {id,imgA,imgB,brand,title,description,price}=dataSelection;
+    const {id,images,brand,title,description,price}=dataSelection;
+   
+    useEffect(() => {
+      dispatch(getAllbrands());
+      }, [dispatch])
+
+    const {brands}=useSelector((state)=>state.brand);
 
     // console.log(window.innerWidth)
     const location=useLocation();
     
-    const dispatch=useDispatch();
+    
 
        
   return (
@@ -25,12 +35,13 @@ const ProductCart = (Props) => {
             <button className="absolute top-[2%] right-2 "  onClick={()=>dispatch(addToWishList(id))} >
                      <CiHeart className="hover:text-red-500" />
             </button>
-            <div className=" flex items-center justify-center pt-10 pb-7 ">
-                <img src={imgA} alt={title} className="imgA w-36 transition-all ease-in-out duration-500" />
-                <img src={imgB} alt={title} className="imgB scale-0 hidden w-36 transition-all ease-in-out duration-500" />
-            </div>
+            <ImageHover images={images} title={title} />
             <div className=" w-full flex flex-col gap-2 p-4">
-                <h6 className="text-xs text-[var(--color-bf4800)]">{brand} </h6>
+                <h6 className="text-xs text-[var(--color-bf4800)]">
+                {
+                  brands.find(b=>b._id == brand)?.title
+                } 
+                </h6>
                 <Link to={`/product/${id}`} className={`${grid == 12 ? "" : "h-12"} font-extrabold text-[var(--color-131921)] text-base line-clamp-2`}>{title}</Link>
                 <div className=" flex flex-col items-end ">
                         <StarRating />
@@ -58,3 +69,35 @@ const ProductCart = (Props) => {
 }
 
 export default ProductCart
+
+
+export const ImageHover = (Props) => { 
+  
+  const { images, title } = Props;
+  const [isHovered, setIsHovered] = useState(false);  
+
+  return (  
+    <div  
+      className="flex items-center justify-center pt-10 pb-7"  
+      onMouseEnter={() => setIsHovered(true)} // زمانی که نشانگر ماوس روی عکس است  
+      onMouseLeave={() => setIsHovered(false)} // زمانی که نشانگر ماوس خارج می‌شود  
+    >  
+      <img  
+        src={images[0]?.url}  
+        alt={title}  
+        className={`images w-36 transition-all ease-in-out duration-500 ${  
+          isHovered == false ? 'scale-100' : 'scale-0 hidden'  
+        }`}  
+      />  
+      <img  
+        src={images[1]?.url}  
+        alt={title}  
+        className={`images w-36 transition-all ease-in-out duration-500 ${  
+          isHovered ? 'scale-100' : 'scale-0 hidden'  
+        }`}  
+      />  
+    </div>  
+  );  
+};  
+
+ 
