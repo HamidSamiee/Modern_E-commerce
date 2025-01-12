@@ -20,6 +20,8 @@ const login = async(userData)=>{
     }  
 }
 
+
+
 const getUserWishlist = async()=>{
     
     const response = await http.get('user/wishlist');
@@ -32,7 +34,6 @@ const getUserWishlist = async()=>{
 
 const getUsers = async()=>{
     const response = await http.get('user/all-users');
-    console.log(response.data)
     if (response.data) {
         return response.data
     }  
@@ -74,16 +75,16 @@ const updateUser = async(data)=>{
 
 const forgetPasswordToken = async(data)=>{
     const response = await http.post('user/forgot-password-token',data);
-    console.log(response)
+    // console.log(response)
     if (response.data) {
         return response.data
     }  
 }
 
 const resetPassword = async(data)=>{
-    console.log(data)
+    // console.log(data)
     const response = await http.put(`user/reset-password/${data?.token}`,{password:data?.password});
-    console.log(response)
+    // console.log(response)
     if (response.data) {
         return response.data
     }  

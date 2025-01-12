@@ -6,14 +6,14 @@ const baseURL='http://localhost:5000/api';
 const getTokenFromLocalStorage = localStorage.getItem("user") ?
 JSON.parse(localStorage.getItem("user")) : null ;
 
-
 const app = axios.create({
     baseURL: baseURL,
     headers:{
-        Authorization : `Bearer ${ getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""}`,
+        Authorization : `Bearer ${ getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token && getTokenFromLocalStorage.token.replace('"', ""): ""}`,
     },
     accept: "application/json",
     withCredentials: true,
+    timeout:5000,
 })
 
 // app.interceptors.request.use(

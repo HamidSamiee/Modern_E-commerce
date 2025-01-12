@@ -2,7 +2,6 @@
   "name": "modern-e-commerce",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -21,6 +20,7 @@
     "framer-motion": "^11.5.4",
     "gsap": "^3.12.5",
     "prop-types": "^15.8.1",
+    "qs": "^6.13.1",
     "react": "^18.3.1",
     "react-bootstrap-typeahead": "^6.3.4",
     "react-date-object": "^2.1.9",
@@ -43,6 +43,7 @@
     "styled-components": "^6.1.13",
     "swiper": "^11.1.12",
     "tailwind-merge": "^2.5.2",
+    "tailwind-scrollbar": "^4.0.0-beta.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

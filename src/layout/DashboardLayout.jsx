@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 import { AiOutlineBgColors, AiOutlineDashboard, AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai';
 import { SiBrandfolder } from 'react-icons/si';
@@ -17,7 +17,8 @@ import { ToastContainer } from 'react-toastify';
 
 
 const DashboardLayout = () => {
-
+  
+    const location=useLocation();
     const navigate=useNavigate();
     const {user}=useSelector(state =>state.auth)   
   // console.log(user.firstname)
@@ -46,12 +47,13 @@ const DashboardLayout = () => {
             }}
             theme="dark"
             mode="inline"
+            selectedKeys={[location.pathname]}
             defaultSelectedKeys={['/admin/dashboard']}
             onClick={({ key }) => {
               if (key == "signout") {
                 console.log("signout")
               } else {
-                navigate(key);
+                navigate(key.startsWith("/admin") ? key : `/admin/${key}`);
               }
             }}
             items={[

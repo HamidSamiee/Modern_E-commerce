@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './styles.css';
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import UpdateBrand from "../UpdateBrand";
+import { getProductsCategory } from "@/features/pCategorySlice/pCategorySlice";
 
 
 const columns = [
@@ -17,6 +18,10 @@ const columns = [
   {
     title: ' نام برند',
     dataIndex: 'name',
+  },
+  {
+    title: ' محصولات این برند ',
+    dataIndex: 'category',
   },
   {
     title: 'عملیات',
@@ -34,16 +39,18 @@ ModalInput.displayName = 'ModalInput'; // اضافه کردن نام نمایش�
 const BrandList = () => {
 
   const dispatch=useDispatch();
+  const {pCategories}=useSelector(state=>state?.pCategory)
+
   const [selectedBrandId, setSelectedBrandId] = useState(null)
   const modalRef = useRef(null);
 
   useEffect(() => {
   dispatch(getAllbrands());
+  dispatch(getProductsCategory())
   }, [dispatch])
   
   const {brands}=useSelector((state)=>state.brand);
 
-  // console.log(brands)
   
   useEffect(() => {
     console.log('Brands updated:', brands); // بررسی به‌روزرسانی brands
@@ -69,6 +76,10 @@ const BrandList = () => {
   ? brands.map((brand, index) => ({
       key: `${toPersianDigits(index + 1)}`,
       name: `${brand.title}`,
+      category: brand.category.map(catId => {  
+        const category = pCategories.find(pc => pc._id === catId);  
+        return category ? category.title : '';  
+      }).join(', '),
       action: (
         <div className="flex items-center justify-center gap-5">
           <label className="btn bg-white" onClick={() => handleOpenModal(brand._id)}>
@@ -138,7 +149,7 @@ const BrandList = () => {
           >
             ✕
           </button>     
-          {selectedBrandId && <UpdateBrand brandId={selectedBrandId} />}
+          {selectedBrandId && <UpdateBrand brandId={selectedBrandId} onClose={handleCloseModal} />}
         </div>
         <label className="modal-backdrop" onClick={handleCloseModal}>Close</label>
       </div>

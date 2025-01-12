@@ -19,6 +19,7 @@ const createBlog = async(data)=>{
 const getBlog = async(id)=>{
     
     const response = await http.get(`blog/${id}`);
+    // console.log(response.data)
     if (response.data) {
         return response.data
     }  

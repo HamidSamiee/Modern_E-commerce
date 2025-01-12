@@ -52,6 +52,7 @@ export const logoutUser = createAsyncThunk(
     }
 })
 
+
 export const getUserProductWishlist = createAsyncThunk(
     "user/wishlist",
     async(thunkAPI)=>{
@@ -174,7 +175,7 @@ export const authSlice=createSlice({
             state.isLoading=false;
             state.isError=false;
             state.isSuccess=true;
-            console.log(action)
+            // console.log(action)
             state.user=action.payload;
             if (state.isSuccess === true) {
                 localStorage.setItem("token",action.payload.token)

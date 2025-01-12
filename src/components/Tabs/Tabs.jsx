@@ -5,7 +5,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 const Tabs = forwardRef((Props , ref)=>{
 
-    const {description,details,ordereddProduct,setOrdereddProduct}={...Props};
+    const {description,details,ordereddProduct,setOrdereddProduct,productId}={...Props};
 
     const [activeIndex,setActiveIndex]=useState();
 
@@ -56,7 +56,7 @@ const Tabs = forwardRef((Props , ref)=>{
                                 )
                             } 
                         </div>
-                        d
+                        
                 </div>
                 <div className="grid grid-cols-12 gap-1 lg:hidden">
                       {
@@ -100,7 +100,7 @@ const Tabs = forwardRef((Props , ref)=>{
 {/* Reviws Tab */}
             <input ref={ref}  type="radio" name="my_tabs_2" role="tab" className="tab  w-fit  [--tab-bg:var(--color-f5f5f7)] [--tab-border-color:var(--color-7777777)]  text-nowrap" aria-label="دیدگاه ها" />
             <div role="tabpanel" className="tab-content bg-base-100 border-[var(--color-777777)] rounded-box p-6">
-                <Reviews ordereddProduct={ordereddProduct} setOrdereddProduct={setOrdereddProduct} />
+                <Reviews ordereddProduct={ordereddProduct} setOrdereddProduct={setOrdereddProduct} productId={productId} />
             </div>
     </div>
   )

@@ -32,7 +32,8 @@ const Login = () => {
       if(user.role == "Admin"){
         navigate("/admin");
       }else{
-        navigate("/");
+        navigate(sessionStorage.getItem('redirectPath') || "/");
+        sessionStorage.removeItem('redirectPath');
       } 
     },
   })

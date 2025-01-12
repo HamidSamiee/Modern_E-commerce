@@ -156,11 +156,12 @@ const dbImg = useMemo(() =>
     },
     validationSchema: AddBlogSchema,
     onSubmit: (values) => {
-      console.log(values);
+      // console.log(values);
       const preparedValues = {
         ...values,
         description: JSON.stringify(values.description), // تبدیل به رشته JSON
       };
+      // console.log(preparedValues)
       dispatch(createBlog(preparedValues))
       formik.resetForm({ 
         values: {

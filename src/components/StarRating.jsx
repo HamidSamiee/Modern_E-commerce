@@ -1,25 +1,22 @@
+import { Rate } from 'antd';
 
+const StarRating = (Props) => {
+    const { star, setStar } = Props;
 
-const StarRating = () => {
-  return (
-    <div className="rating rating-xs rating-half mb-2">
-        <input type="radio" name="rating-10" className="rating-hidden" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-300" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-300" />
-        <input
-            type="radio"
-            name="rating-10"
-            className="mask mask-star-2 mask-half-1 bg-yellow-300"
-            defaultChecked />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-300" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-300" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-300" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-300" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-300" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-300" />
-        <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-300" />
-    </div>
-  )
-}
+    const handleRating = (value) => {
+        setStar(value);
+    };
 
-export default StarRating
+    return (
+        <Rate 
+            allowHalf 
+            defaultValue={star}
+            onChange={handleRating} // تنظیم عملکرد تغییر امتیاز
+            disabled={setStar == null}
+            style={{ fontSize: '15px' }} // اندازه ستاره‌ها را تنظیم می‌کند
+            className="custom-rate" 
+        />
+    );
+};
+
+export default StarRating;

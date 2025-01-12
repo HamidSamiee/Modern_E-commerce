@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import { toPersianDigits, toPersianDigitsWithComma } from "@/utils/toPersianDigits";
 import { useEffect, useState } from "react";
-import { MdDashboard } from "react-icons/md";
+import { MdAdminPanelSettings, MdDashboard } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { ImExit, ImProfile } from "react-icons/im";
 import { getOrderByUser, logoutUser, updateProfile } from "@/features/userSlice/userSlice";
@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import Input from "@/components/Input";
 import { FaRegEdit } from "react-icons/fa";
 import { VscListOrdered } from "react-icons/vsc";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const signUpSchema = Yup.object({
   firstname: Yup.string().required('ورود نام الزامیست'),
@@ -50,13 +50,18 @@ const Profile = () => {
     dispatch(getOrderByUser())
   }, [dispatch, user]);
 
+  if (!user) {
+    return <Navigate to="/unauthorized" />
+  }
+
+
   return (
     <div>
       <Container class1="py-5 bg-[var(--color-f5f5f7)]">
         <div className="flex h-[70vh]">
           {/* Sidebar */}
           <div className="sm-custom2:w-2/12 w-1/12 md:w-1/4 bg-gray-200 p-4 flex flex-col items-center md:items-start">
-            <h2 className="w-full hidden md:block text-xl font-bold mb-4  pb-2 border-b border-b-black">پنل کاربری</h2>
+            <h2 className="w-full hidden md:block text-xl font-bold mb-4  pb-2 border-b border-b-black">پنل کاربری {user?.role == "Admin" && "( کاربر ادمین )"}</h2>
             <ImProfile className="w-8 md:hidden self-center mb-2" />
             <ul className="flex flex-col gap-3 md:gap-2 w-full border-t border-t-black md:border-t-0 pt-5 md:pt-0">
               <li>
@@ -70,6 +75,19 @@ const Profile = () => {
                   <span className="hidden md:block">داشبورد</span>
                 </button>
               </li>
+              { user?.role == "Admin" &&
+                <li>
+                <button 
+                  className="sm-custom2:justify-center flex items-center gap-2 text-nowrap w-full md:p-2 hover:bg-gray-300 text-lg transition-all duration-300 ease-linear"
+                  onClick={() => setActiveSection('dashboard')}
+                >
+                  <span className={`tooltip ${window.innerWidth < 768 ? 'hover:tooltip-open hover:tooltip-left' : ''}`} data-tip="داشبورد">
+                  <MdAdminPanelSettings />
+                  </span>
+                  <Link to="/admin" className="hidden md:block">مدیریت سایت</Link>
+                </button>
+              </li>
+              }
               <li>
                 <button 
                   className="sm-custom2:justify-center flex items-center gap-2 text-nowrap w-full md:p-2 hover:bg-gray-300 text-lg transition-all duration-300 ease-linear"

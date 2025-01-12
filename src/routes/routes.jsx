@@ -38,6 +38,8 @@ import Profile from "@/pages/Profile";
 import AddCoupon from "@/pages/admin/AddCoupon";
 import CouponList from "@/pages/admin/couponList/CouponList";
 import SendMethod from "@/pages/SendMethod";
+import Unauthorized from "@/components/Unauthorized";
+import DashboardLayout from "@/layout/DashboardLayout";
 // import LoginAdmin from "@/pages/admin/Login";
 // import ForgetPasswordAdmin from "@/pages/admin/ForgetPassword";
 // import ResetPasswordAdmin from "@/pages/admin/ResetPassword";
@@ -46,9 +48,8 @@ import SendMethod from "@/pages/SendMethod";
 const routes=[
     {path:"about" ,element:<About />},
     {path:"contact" ,element:<Contact />},
-    {path:"admin" ,element:<AdminRouter />},
     {path:"profile" ,element:<Profile />},
-    {path:"shop" ,element:<Shop />},
+    {path:"product" ,element:<Shop />},
     {path:"blogs" ,element:<Blogs />},
     {path:"product/:productId" ,element:<SingleProduct />},
     {path:"compare-product" ,element:<CompareProducts />},
@@ -65,31 +66,35 @@ const routes=[
     {path:"refund-policy" ,element:<RefundPolicy />},
     {path:"shipping-policy" ,element:<ShippingPolicy />},
     {path:"term-conditons" ,element:<TermAndConditons />},
+    {path:"unauthorized" ,element:<Unauthorized />},
     {path:"*" ,element:<NotFound />},
 ]
 export const dashboardRoutes=[
-    {path:"/enquiries" ,element:<Enquiries />},
-    {path:"/dashboard" ,element:<Dashboard />},
-    {path:"/blog-list" ,element:<BlogList />},
-    {path:"/blog-category-list" ,element:<BlogCatgorylist />},
-    {path:"/orders" ,element:<Orders />},
-    {path:"/customers" ,element:<Customers />},
-    {path:"/color-list" ,element:<ColorList />},
-    {path:"/category-list" ,element:<CategoryList />},
-    {path:"/brand-list" ,element:<BrandList />},
-    {path:"/product-list" ,element:<ProductList />},
-    {path:"/coupon" ,element:<AddCoupon />},
-    {path:"/coupon-list" ,element:<CouponList/>},
-    {path:"/add-blog" ,element:<AddBlog />},
-    {path:"/add-blog-category" ,element:<AddBlogCategory />},
-    {path:"/add-color" ,element:<AddColor />},
-    {path:"/add-category" ,element:<AddCategory />},
-    {path:"/add-brand" ,element:<AddBrand />},
-    {path:"/add-product" ,element:<AddProduct />},
+    {path:"admin" ,element:<DashboardLayout />},
+    {path:"enquiries" ,element:<Enquiries />},
+    {path:"dashboard" ,element:<Dashboard />},
+    {path:"blog-list" ,element:<BlogList />},
+    {path:"blog-category-list" ,element:<BlogCatgorylist />},
+    {path:"orders" ,element:<Orders />},
+    {path:"customers" ,element:<Customers />},
+    {path:"color-list" ,element:<ColorList />},
+    {path:"category-list" ,element:<CategoryList />},
+    {path:"brand-list" ,element:<BrandList />},
+    {path:"product-list" ,element:<ProductList />},
+    {path:"coupon" ,element:<AddCoupon />},
+    {path:"coupon-list" ,element:<CouponList/>},
+    {path:"add-blog" ,element:<AddBlog />},
+    {path:"add-blog-category" ,element:<AddBlogCategory />},
+    {path:"add-color" ,element:<AddColor />},
+    {path:"add-category" ,element:<AddCategory />},
+    {path:"add-brand" ,element:<AddBrand />},
+    {path:"add-product" ,element:<AddProduct />},
+    {path:"unauthorized" ,element:<Unauthorized />},
+    {path:"*" ,element:<NotFound />},
     // {path:"login" ,element:<LoginAdmin />},
     // {path:"forget-password" ,element:<ForgetPasswordAdmin />},
     // {path:"reset-password" ,element:<ResetPasswordAdmin />},
-    {path:"*" ,element:<NotFound />},
+    
 ]
 
 export default routes;

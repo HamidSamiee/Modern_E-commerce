@@ -21,12 +21,27 @@ export function toPersianDigitsWithComma2(num) {
     return formattedNumber.replace(/\d/g,(x) => persianNumbers[x]);
 }
 
+// export function removeCommasAndPersianDigits(value) {
+//     const englishDigits = '0123456789';
+//     const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
+//     const cleanValue = value.replace(/,/g, '').replace(/[۰-۹]/g, (digit)=>englishDigits[persianDigits.indexOf(digit)]);
+//     return cleanValue;
+// }
+
 export function removeCommasAndPersianDigits(value) {
+    if (value == null) return ''; // مدیریت مقادیر null یا undefined
+    if (typeof value !== 'string') {
+      value = String(value); // تبدیل مقدار به رشته اگر عدد یا نوع دیگری باشد
+    }
+  
     const englishDigits = '0123456789';
     const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
-    const cleanValue = value.replace(/,/g, '').replace(/[۰-۹]/g, (digit)=>englishDigits[persianDigits.indexOf(digit)]);
+    const cleanValue = value
+      .replace(/,/g, '') // حذف کاماها
+      .replace(/[۰-۹]/g, (digit) => englishDigits[persianDigits.indexOf(digit)]); // جایگزینی اعداد فارسی با انگلیسی
+  
     return cleanValue;
-}
+  }
 
 export function toRial(value) {
     let str = value.replace(/,/g, '');

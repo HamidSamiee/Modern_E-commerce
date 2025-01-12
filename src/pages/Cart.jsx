@@ -28,7 +28,7 @@ const Cart = () => {
         <Container class1="py-5 bg-[var(--color-f5f5f7)]">
             <div className="grid grid-cols-12">
                 <div className="col-span-12">
-                                    <Link to='/shop' className='w-fit flex items-center gap-1  p-2 shadow-inner text-xs rounded-xl text-black  shadow-[var(--color-febd69)] animate-pulse'> <TiArrowBack className='w-4 h-4 scale-x-[-1]' /> بازگشت به فروشگاه  </Link>
+                                    <Link to='/product' className='w-fit flex items-center gap-1  p-2 shadow-inner text-xs rounded-xl text-black  shadow-[var(--color-febd69)] animate-pulse'> <TiArrowBack className='w-4 h-4 scale-x-[-1]' /> بازگشت به فروشگاه  </Link>
                 </div>
                 <div className="col-span-12">
                   <div className="grid grid-cols-12 border-b border-b-[var(--color-888888)] py-3 ">
@@ -127,7 +127,7 @@ const Cart = () => {
                           سبد خرید شما <span className="text-red-500">خالی</span> است 
                         </p>
                         <p className="font-medium text-sm">
-                          برای رفتن به فروشگاه <Link to='/shop' className="text-sky-500 animate-pulse text-lg font-bold">کلیک</Link> کنید
+                          برای رفتن به فروشگاه <Link to='/product' className="text-sky-500 animate-pulse text-lg font-bold">کلیک</Link> کنید
                         </p>
                     </div>
                 </div>

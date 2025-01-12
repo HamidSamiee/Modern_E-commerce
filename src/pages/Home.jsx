@@ -81,6 +81,7 @@ const Home = () => {
 
   const {blogs}=useSelector(state=>state?.blog)
   const productState=useSelector(state=>state?.product?.products)
+// console.log(productState)
 
 
   return (
@@ -289,7 +290,7 @@ const Home = () => {
                           </div>
                         </div>
                   
-              </Marquee>
+                </Marquee>
           </div>
       </Container>
   {/* Category Section */}

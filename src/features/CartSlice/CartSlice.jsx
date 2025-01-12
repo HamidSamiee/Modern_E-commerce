@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 
 export const CartSlice=createSlice({
@@ -32,7 +33,8 @@ export const CartSlice=createSlice({
                         totalPrice: product.totalPrice,
                     })
                     state.totalAmount++;
-                    state.totalPrice += product.totalPrice; 
+                    state.totalPrice += product.totalPrice;
+                    toast.success("محصول با موفقیت به سبد خرید اضافه شد") 
                 }
             } catch (error) {
                 return error

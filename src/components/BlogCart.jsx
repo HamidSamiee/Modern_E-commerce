@@ -55,7 +55,7 @@ const BlogCart = (Props) => {
 export default BlogCart;
 
 // RenderContent remains the same
-const RenderContent = ({ content }) => {
+export const RenderContent = ({ content }) => {
   return content.map((block, index) => {
     const { type, align, children } = block;
 

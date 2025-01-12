@@ -66,6 +66,7 @@ export const blogSlice=createSlice({
     name:'blog',
     initialState:{
         blogs:[],
+        blog:[],
         isError:false,
         isSuccess:false,
         isLoading:false,
@@ -112,7 +113,7 @@ export const blogSlice=createSlice({
             state.isLoading=false;
             state.isError=false;
             state.isSuccess=true;
-            state.blog=state.blogs.filter(blog => blog._id === action.payload._id);
+            state.blog=state.blogs.filter(blo => blo._id === action.payload._id);
         }).addCase(getBlog.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;

@@ -22,11 +22,11 @@ const AddProductSchema =Yup.object({
   color:Yup.array().min(1,'حداقل یک رنگ رو وارد کنید').required('ورود  رنگ  الزامیست'),
   tags:Yup.array().required('ورود  تگ الزامیست'),
   details: Yup.mixed().required('Details are required'),
-  price:Yup.string().required('ورود قیمت محصول الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
+  price:Yup.number().required('ورود قیمت محصول الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
     const cleanNumber=removeCommasAndPersianDigits(value);
     return !isNaN(Number(cleanNumber));
   }),
-  quantity:Yup.string().required('ورود  تعداد  الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
+  quantity:Yup.number().required('ورود  تعداد  الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
     const cleanNumber=removeCommasAndPersianDigits(value);
     return !isNaN(Number(cleanNumber));
   }),
@@ -266,7 +266,7 @@ const AddProduct = () => {
                       <input
                         id="price"
                         name="price" 
-                        type="text"
+                        type="number"
                         value={displayValue}
                         onChange={handleInput}
                         onBlur={handleBlur}
@@ -287,7 +287,7 @@ const AddProduct = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         name="quantity"
-                        type="text"
+                        type="number"
                         className="w-full p-1 bg-white border rounded-lg border-secondary-900  focus:ring-secondary-900"
                         placeholder="تعداد محصول"
                         class2="w-full"

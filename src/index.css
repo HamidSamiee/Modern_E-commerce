@@ -63,7 +63,13 @@ html,body{
       background:var(--color-febd69);
       width: fit-content;
     }
-
+    .custom-rate .ant-rate-star {
+      margin-right: 0; /* فاصله بین ستاره‌ها را به 5 پیکسل کاهش می‌دهد */
+  }
+  
+  .custom-rate .ant-rate-star:last-child {
+      margin-right: 0; /* برای آخرین ستاره فاصله نداشته باشد */
+  }
     .image-container {
       @apply relative inline-block;
     }
@@ -141,6 +147,29 @@ html,body{
       background-color:var(--color-febd69);
     }
 
+    .blink {
+      animation: blinker 1s linear infinite;
+    }
+    
+    .heart-animation {
+      animation: heartBeat 0.7s forwards;
+  }
+  
+  @keyframes heartBeat {
+      0% {
+          transform: scale(1);
+      }
+      50% {
+          transform: scale(1.5); /* افزایش اندازه قلب */
+      }
+      100% {
+          transform: scale(1); /* بازگشت به اندازه اصلی */
+      }
+  }
+
+    @keyframes blinker {
+      50% { opacity: 0.5; }
+    }
     @keyframes slider {
       0%{background-image:url(./assets/images/main-banner1.webp) ;}
       100%{background-image:url(./assets/images/main-banner2.webp) ;}
