@@ -185,7 +185,7 @@ const toggleDropdownMobile = () => {
           {/* brand */}
           <img src={brandImg} alt="brand" className="w-20 ml-1" />
       </div>
-      <div className="lg:hidden flex items-center justify-center  bg-[var(--color-232f3e)] border-b border-solid border-[var(--color-3b4149)] py-1">
+      <div className="lg:hidden flex items-center justify-evenly  bg-[var(--color-232f3e)] border-b border-solid border-[var(--color-3b4149)] py-1">
                 <div className="relative w-4/5 mx-auto ">
                 <Typeahead
                     className="w-full bg-white z-40 text-black  hover:bg-blue-200  border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -211,7 +211,22 @@ const toggleDropdownMobile = () => {
                   <button className="absolute inset-y-0 left-0 flex items-center p-3 z-40 ">
                       <BsSearch className="font-bold w-4 h-4 md:w-6 md:h-6 text-[var(--color-febd69)] "/>
                   </button>
-                </div>                          
+                </div> 
+                <div className="pl-5 relative flex items-center justify-between gap-1 " >
+                    <div className="tooltip hover:tooltip-open tooltip-bottom" data-tip=" ثبت نام / ورود">
+                        <Link to={`${user ? "/profile":"/login"}`} className="flex items-center gap-1">
+                            <FaRegUser   className={` w-4 h-4  md:w-8 md:h-8 ${user ? "text-[var(--color-febd69)] animate-pulse":"text-white"} `} />
+                        </Link>
+                    </div>
+
+                    <Link to='/cart' className="">
+                        <BsCart4  className=" w-4 h-4  md:w-8 md:h-8 z-20 text-white"  />
+                        <div className="z-10 absolute  -top-3 right-10 bg-[var(--color-febd69)] py-0.5 px-1 md:py-1 md:px-2 text-black text-xs font-medium rounded-full ">
+                        {cart ? toPersianDigits(cart.length) : toPersianDigits(0)} 
+                        </div>
+                    </Link>
+
+                </div>  
       </div>     
  {/* for desktop     */}     
       <header className="hidden lg:block bg-[var(--color-131921)] border-b border-solid border-[var(--color-3b4149)] py-3">
@@ -293,12 +308,13 @@ const toggleDropdownMobile = () => {
                     </Link>
                   </div>
                   <div className="relative">
-                  <Link to='/cart' className="">
-                      <BsCart4  className=" w-4 h-4  md:w-8 md:h-8 z-20 "  />
-                      <div className="z-10 absolute  -top-3 right-1 bg-[var(--color-febd69)] py-0.5 px-1 md:py-1 md:px-2 text-black text-xs font-medium rounded-full ">
-                      {toPersianDigits(cart.length)}
-                      </div>
-                  </Link></div>  
+                    <Link to='/cart' className="">
+                        <BsCart4  className=" w-4 h-4  md:w-8 md:h-8 z-20 "  />
+                        <div className="z-10 absolute  -top-3 right-1 bg-[var(--color-febd69)] py-0.5 px-1 md:py-1 md:px-2 text-black text-xs font-medium rounded-full ">
+                        {cart && toPersianDigits(cart.length)} 
+                        </div>
+                    </Link>
+                  </div>  
               </div>
             </div>
         </section>

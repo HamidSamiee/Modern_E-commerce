@@ -73,6 +73,27 @@ export const getAllUsers = createAsyncThunk(
     }
 })
 
+export const getaUser = createAsyncThunk(
+    "user/getUser",
+    async(data,thunkAPI)=>{
+        const {id} = data;
+    try {
+        return await authRegister.getaUser(id)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const saveAddress = createAsyncThunk(
+    "user/saveAddress",
+    async(data,thunkAPI)=>{
+    try {
+        return await authRegister.saveAddress(data)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
 export const getOrders = createAsyncThunk(
     "order/all-orders",
     async(thunkAPI)=>{
@@ -107,6 +128,16 @@ export const resetPassword = createAsyncThunk(
     async(data,thunkAPI)=>{
     try {
         return await authRegister.resetPassword(data)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const payment = createAsyncThunk(
+    "user/payment",
+    async(data,thunkAPI)=>{
+    try {
+        return await authRegister.payment(data)
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
     }
@@ -177,8 +208,14 @@ export const authSlice=createSlice({
             state.isSuccess=true;
             // console.log(action)
             state.user=action.payload;
+            console.log(action.payload); 
+            console.log('Token Expiry:', action.payload.tokenExpiry);
             if (state.isSuccess === true) {
-                localStorage.setItem("token",action.payload.token)
+                console.log('Storing token in localStorage');
+                localStorage.setItem("token", action.payload.token);
+                localStorage.setItem("tokenExpiry", action.payload.tokenExpiry);
+                console.log('Token from localStorage:', localStorage.getItem("token"));
+                console.log('Token Expiry from localStorage:', localStorage.getItem("tokenExpiry"));
                 toast.success(`${state.user.firstname } ${state.user.lastname} عزیز خوش آمدید`)
             }
         }).addCase(loginUser.rejected,(state,action)=>{
@@ -198,6 +235,7 @@ export const authSlice=createSlice({
             state.isError=false;
             state.isSuccess=true;
             state.user=null;
+            localStorage.clear();
             if (state.isSuccess === true) {
                 localStorage.clear()
                 toast.success('شما از حساب کاربری خود خارج شدید')
@@ -222,7 +260,7 @@ export const authSlice=createSlice({
             state.isLoading=false;
             state.isError=true;
             state.isSuccess=false;
-            state.message=action.payload.error;
+            state.message=action.payload?.error;
         })
         // get all users
         .addCase(getAllUsers.pending,(state)=>{
@@ -233,6 +271,24 @@ export const authSlice=createSlice({
             state.isSuccess=true;
             state.customers=action.payload;
         }).addCase(getAllUsers.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.error;
+        })
+        // get a user
+        .addCase(getaUser.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(getaUser.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.user.address = action.payload.address ;
+            state.user.city = action.payload.city ;
+            state.user.province = action.payload. province ;
+            state.user.postalCode = action.payload.postalCode ;
+            localStorage.setItem("user",JSON.stringify(state.user))
+        }).addCase(getaUser.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;
             state.isSuccess=false;
@@ -259,13 +315,13 @@ export const authSlice=createSlice({
             state.isLoading=false;
             state.isError=false;
             state.isSuccess=true;
-            // console.log(action.payload)
+            console.log(action.payload)
             state.getOrderedProduct=action.payload;
         }).addCase(getOrderByUser.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;
             state.isSuccess=false;
-            state.message=action.payload.error;
+            state.message=action.payload?.error;
         })
         // forget password token
         .addCase(forgetPassword.pending,(state)=>{
@@ -303,6 +359,46 @@ export const authSlice=createSlice({
             if (state.isError === true) {
                 toast.error(state.message)
             }
+        })
+        // save User Address 
+        .addCase(saveAddress.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(saveAddress.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.user.address = action.payload.address ;
+            state.user.city = action.payload.city ;
+            state.user.province = action.payload.province ;
+            state.user.postalCode = action.payload.postalCode ;
+            localStorage.setItem("user",JSON.stringify(state.user))
+            if (state.isSuccess === true) {
+                toast.success('آدرس شما ثبت شد')
+            }
+        }).addCase(saveAddress.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.response?.data?.message;
+            if (state.isError === true) {
+                toast.error(state.message)
+            }
+        })
+         // payment 
+         .addCase(payment.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(payment.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            console.log(action.payload)
+            window.location.href = action.payload.url;
+        }).addCase(payment.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload.response?.data?.message;
+
         })
     }   
 })

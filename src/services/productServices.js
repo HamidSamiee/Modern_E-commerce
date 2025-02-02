@@ -57,7 +57,7 @@ import http from "./httpServices";
 //     }
 //   };
 const getProducts = async (data) => {
-    console.log(data);
+    // console.log(data);
     
     const queryParams = {
         inStock:data?.inStock,

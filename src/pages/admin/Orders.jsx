@@ -56,7 +56,7 @@ const Orders = () => {
     name: <div className="flex items-center text-justify">{order.orderby.firstname +" " +order.orderby.lastname}</div>,
     product:<ul className="list-disc space-y-2">
               {order.products.map(p=>
-                  <li key={p} className="">{p.product.title}</li>
+                  <li key={p.product._id} className="">{p.product.title}</li>
             )}
             </ul>, 
     amount:<ul className=" space-y-2 text-nowrap">

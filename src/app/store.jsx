@@ -10,6 +10,8 @@ import bCategoryReducer from '@features/bCategorySlice/bCategorySlice'
 import enquiryReducer from '@features/enquirySlice/enquirySlice'
 import uploadReducer from '@features/uploadSlice/uploadSlice'
 import couponReducer from '@features/couponSlice/couponSlice'
+import newsletterReducer from "@features/newsSlice/newsletterReducer";
+import localStorageMiddleware from '@/middleware/localStorageMiddleware'
 
 export const store = configureStore({
   reducer: {
@@ -24,5 +26,9 @@ export const store = configureStore({
     enquiry:enquiryReducer,
     upload:uploadReducer,
     coupon:couponReducer,
+    newsletter: newsletterReducer,
   },
+  middleware:(getDefaultMiddleware)=>{
+    return getDefaultMiddleware().concat(localStorageMiddleware)
+  }
 })

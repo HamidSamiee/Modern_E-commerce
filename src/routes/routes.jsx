@@ -40,6 +40,8 @@ import CouponList from "@/pages/admin/couponList/CouponList";
 import SendMethod from "@/pages/SendMethod";
 import Unauthorized from "@/components/Unauthorized";
 import DashboardLayout from "@/layout/DashboardLayout";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import PaymentCallback from "@/pages/PaymentCallback";
 // import LoginAdmin from "@/pages/admin/Login";
 // import ForgetPasswordAdmin from "@/pages/admin/ForgetPassword";
 // import ResetPasswordAdmin from "@/pages/admin/ResetPassword";
@@ -56,7 +58,7 @@ const routes=[
     {path:"login" ,element:<Login />},
     {path:"signUp" ,element:<SignUp />},
     {path:"cart" ,element:<Cart />},
-    {path:"checkout" ,element:<Checkout />},
+    {path:"checkout" ,element:<ProtectedRoute><Checkout /></ProtectedRoute>},
     {path:"sendMethod" ,element:<SendMethod />},
     {path:"wishList" ,element:<WishList />},
     {path:"forget-password" ,element:<ForgetPassword />},
@@ -66,6 +68,7 @@ const routes=[
     {path:"refund-policy" ,element:<RefundPolicy />},
     {path:"shipping-policy" ,element:<ShippingPolicy />},
     {path:"term-conditons" ,element:<TermAndConditons />},
+    {path:"PaymentCallback" ,element:<PaymentCallback />},
     {path:"unauthorized" ,element:<Unauthorized />},
     {path:"*" ,element:<NotFound />},
 ]

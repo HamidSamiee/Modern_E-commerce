@@ -40,4 +40,6 @@ const updateCoupon = async(id,data)=>{
     }  
 }
 
+
+
 export const couponServices={getCoupons,createCoupon,getCoupon,updateCoupon,deleteCoupon}

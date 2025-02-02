@@ -66,7 +66,7 @@ const ProductList = () => {
     dispatch(getProductsCategory())
   }, [dispatch]);
 
-  const { products } = useSelector((state) => state.product);
+  const { products=[] } = useSelector((state) => state.product);
   const {brands}=useSelector((state)=>state.brand);
   const {pCategories}=useSelector((state)=>state.pCategory);
   
@@ -88,7 +88,7 @@ const ProductList = () => {
     dispatch(getAllProducts());
   };
 
-  const dataTable = products.map((product, index) => ({
+  const dataTable = Array.isArray(products) ? products.map((product, index) => ({
     key: `${toPersianDigits(index + 1)}`,
     name: <div className="flex items-center text-justify">{product.title}</div>,
     brand: <div className="flex items-center text-justify">{brands.filter(brand =>brand._id === product.brand)[0]?.title}</div>,
@@ -105,7 +105,7 @@ const ProductList = () => {
         </button>
       </div>
     )
-  }));
+  })) : [];
 
   const paginationConfig = {
     prevIcon: '<',
@@ -121,6 +121,7 @@ const ProductList = () => {
     className: 'ant-font',
   };
 
+
   return (
     <>
       <div className="my-3 font-sans w-full"
@@ -133,7 +134,7 @@ const ProductList = () => {
       >
         <h3 className="text-xl font-bold mb-8">لیست محصولات</h3>
         {
-          products ?
+          Array.isArray(products) && products ?
             <Table
               className="ant-font border-2 border-black/50 rounded-lg"
               rowClassName="ant-font"
@@ -159,7 +160,7 @@ const ProductList = () => {
           >
             ✕
           </button>     
-          {selectedProductId && <UpdateProduct productId={selectedProductId} />}
+          {selectedProductId && <UpdateProduct productId={selectedProductId} handleCloseModal={handleCloseModal} />}
         </div>
         <label className="modal-backdrop" onClick={handleCloseModal}>Close</label>
       </div>

@@ -27,7 +27,7 @@ const sendMethods = [
 ];
 
 const SendMethod = () => {
-    const { cart, totalPrice } = useSelector((state) => state.cart);
+    const { cart, cartTotal } = useSelector((state) => state.cart);
     const [grid, setGrid] = useState(8);
     const clacGrid = 12 - grid;
 
@@ -56,7 +56,7 @@ const SendMethod = () => {
             : 0;
 
     // محاسبه مجموع نهایی
-    const finalTotalPrice = totalPrice + shippingCost;
+    const finalTotalPrice = cartTotal + shippingCost;
 
     return (
         <>
@@ -217,7 +217,7 @@ const SendMethod = () => {
                                     <div className="flex items-center justify-between gap-5">
                                         <p className="text-base font-bold">جمع سبد خرید</p>
                                         <p className="text-base font-semibold">
-                                            {toPersianDigitsWithComma(totalPrice)} تومان
+                                            {toPersianDigitsWithComma(cartTotal)} تومان
                                         </p>
                                     </div>
                                     <div className="flex items-center justify-between gap-5">

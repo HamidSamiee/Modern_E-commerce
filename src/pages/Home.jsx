@@ -24,12 +24,13 @@ import Meta from "@/components/Meta";
 import Container from "@/components/Container";
 import gsap from "gsap";
 import { Carousel } from 'antd';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {useGSAP} from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useDispatch, useSelector } from "react-redux";
 import { getBlogs } from "@/features/BlogsSlice/blogSlice";
 import { getAllProducts } from "@/features/ProductsSlice/productSlice";
+import { useNavigate } from "react-router-dom";
 
 const brands=[brand1,brand2,brand3,brand4,brand5,brand6,brand7,brand8,brand9,brand10,brand11,brand12];
 gsap.registerPlugin(useGSAP,ScrollTrigger);
@@ -37,6 +38,7 @@ gsap.registerPlugin(useGSAP,ScrollTrigger);
 
 const Home = () => {
  
+  const navigate=useNavigate();
   const slides=[banner1,banner2 ];
   const container=useRef();
   useGSAP(() => {
@@ -72,6 +74,28 @@ const Home = () => {
       }
     );
   }, { scope: container });
+
+  const [isShaking, setIsShaking] = useState({  
+    computer: false,  
+    camera: false,  
+    tv: false,  
+    smartwatch: false,  
+    accessories: false,  
+    phone: false,  
+    headset: false,  
+    mobileAccessories: false,  
+    speakers: false,  
+    tablet: false,  
+});  
+
+const handleMouseEnter = (type) => {  
+    setIsShaking(prev => ({ ...prev, [type]: true }));  
+};  
+
+const handleMouseLeave = (type) => {  
+    setIsShaking(prev => ({ ...prev, [type]: false }));  
+};  
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -298,139 +322,108 @@ const Home = () => {
           {/* desktop */}
           <div className="w-full hidden md:flex items-center justify-between px-5">
               <div className="bg-white w-full shadow-md p-3 rounded-lg">
-                <div className="flex items-center flex-wrap">
-                    <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              کامپیوتر و لپ تاپ
-                        </h6>
-                        <p className="text-gray-400">
-                             {toPersianDigits(8)}  مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service1} alt="" className="w-16 h-auto" />
-                      </div>                
-                   </div>
-                    <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              دوربین
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(10)} مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service2} alt="" className="w-16 h-auto" />
-                      </div>                
-                   </div>
-                    <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              تلویزیون هوشمند
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(13)} مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service3} alt="" className="w-16 h-auto" />
-                      </div>                
-                   </div>
-                    <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              ساعت هوشمند
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(12)} مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service4} alt="" className="w-20 h-auto" />
-                      </div>                
-                   </div>
-                    <div className="w-[20%] px-2.5 py-2.5   border-b border-b-[var(--color-ededed] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              لوازم جانبی بازی 
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(4)}  مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service5} alt="" className="w-16 h-auto " />
-                      </div>                
-                    </div>
-                    <div className="w-[20%]  px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center  justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              موبایل و تبلت
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(5)}  مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service6} alt="" className="w-10 h-auto" />
-                      </div>
-                    </div>
-                    <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              هدفون
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(6)}  مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service7} alt="" className="w-14 h-auto" />
-                      </div>
-                    </div>
-                    <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              لوازم جانبی موبایل
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(10)}  مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service8} alt="" className="w-16 h-auto" />
-                      </div>
-                    </div>
-                    <div className="w-[20%] px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              اسپیکر
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(8)}  مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service9} alt="" className="w-24 h-auto" />
-                      </div>
-                    </div>
-                    <div className="w-[20%] px-2.5 py-2.5   flex items-center justify-center gap-4">
-                      <div className="w-[60%] flex flex-col gap-2">
-                        <h6 className="font-extrabold">
-                              لوازم خانگی
-                        </h6>
-                        <p className="text-gray-400">
-                        {toPersianDigits(6)}  مورد
-                        </p>
-                      </div>
-                      <div className="h-20 flex items-center justify-center">
-                        <img src={service10} alt="" className="w-14 h-auto" />
-                      </div>
-                    </div>
-                </div>
-              </div> 
+                  <div className="flex items-center flex-wrap">  
+                    {/* کامپیوتر و لپ تاپ */}  
+                            <div className="w-[20%]  px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center justify-between gap-4" onMouseEnter={() => handleMouseEnter('computer')} onMouseLeave={() => handleMouseLeave('computer')}>  
+                                <div onClick={()=>navigate(`/product`, { state: { category: '67293dbb05bb2a23b912de8e' } })  }>  
+                                    <h6 className="cursor-pointer font-extrabold" >کامپیوتر و لپ تاپ</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service1} alt="" className={`w-16 h-auto ${isShaking.computer ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* دوربین */}  
+                            <div className="w-[20%]  px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('camera')} onMouseLeave={() => handleMouseLeave('camera')}>  
+                                <div onClick={()=>navigate(`/product`, { state: { category: '67293d5d05bb2a23b912de7e' } })  }>  
+                                    <h6 className="cursor-pointer font-extrabold">دوربین</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service2} alt="" className={`w-16 h-auto ${isShaking.camera ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* تلویزیون هوشمند */}  
+                            <div className="w-[20%]  px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('tv')} onMouseLeave={() => handleMouseLeave('tv')}>  
+                                <div>  
+                                    <h6 className="cursor-pointer font-extrabold">تلویزیون هوشمند</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service3} alt="" className={`w-16 h-auto ${isShaking.tv ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* ساعت هوشمند */}  
+                            <div className="w-[20%]  px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] border-b border-b-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('smartwatch')} onMouseLeave={() => handleMouseLeave('smartwatch')}>  
+                                <div onClick={()=>navigate(`/product`, { state: { category: '67293dea05bb2a23b912de92' } })  }>  
+                                    <h6 className="cursor-pointer font-extrabold">ساعت هوشمند</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service4} alt="" className={`w-20 h-auto ${isShaking.smartwatch ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* لوازم جانبی بازی */}  
+                            <div className="w-[20%]  px-2.5 py-2.5   border-b border-b-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('accessories')} onMouseLeave={() => handleMouseLeave('accessories')}>  
+                                <div>  
+                                    <h6 className="cursor-pointer font-extrabold">لوازم جانبی بازی</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service5} alt="" className={`w-16 h-auto ${isShaking.accessories ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* موبایل */}  
+                            <div className="w-[20%]   px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('phone')} onMouseLeave={() => handleMouseLeave('phone')}>  
+                                <div onClick={()=>navigate(`/product`, { state: { category: '67293c8205bb2a23b912de72' } })  }>  
+                                    <h6 className="cursor-pointer font-extrabold">موبایل</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service6} alt="" className={`w-10 h-auto ${isShaking.phone ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* هدفون */}  
+                            <div className="w-[20%]   px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('headset')} onMouseLeave={() => handleMouseLeave('headset')}>  
+                                <div onClick={()=>navigate(`/product`, { state: { category: '67293d2305bb2a23b912de76' } })  }>  
+                                    <h6 className="cursor-pointer font-extrabold">هدفون</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service7} alt="" className={`w-14 h-auto ${isShaking.headset ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* لوازم جانبی موبایل */}  
+                            <div className="w-[20%]   px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('mobileAccessories')} onMouseLeave={() => handleMouseLeave('mobileAccessories')}>  
+                                <div>  
+                                    <h6 className="cursor-pointer font-extrabold">لوازم جانبی موبایل</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service8} alt="" className={`w-16 h-auto ${isShaking.mobileAccessories ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* اسپیکر */}  
+                            <div className="w-[20%]   px-2.5 py-2.5  border-l border-l-[var(--color-ededed)] flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('speakers')} onMouseLeave={() => handleMouseLeave('speakers')}>  
+                                <div onClick={()=>navigate(`/product`, { state: { category: '67293d6d05bb2a23b912de82' } })  }>  
+                                    <h6 className="cursor-pointer font-extrabold">اسپیکر</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service9} alt="" className={`w-24 h-auto ${isShaking.speakers ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+
+                            {/* تبلت */}  
+                            <div className="w-[20%]   px-2.5 py-2.5  flex items-center  justify-between gap-4" onMouseEnter={() => handleMouseEnter('tablet')} onMouseLeave={() => handleMouseLeave('tablet')}>  
+                                <div onClick={()=>navigate(`/product`, { state: { category: '67293d7a05bb2a23b912de86' } })  }>  
+                                    <h6 className="cursor-pointer font-extrabold">تبلت</h6>  
+                                </div>  
+                                <div className="h-20 flex items-center justify-center">  
+                                    <img src={service10} alt="" className={`w-14 h-auto ${isShaking.tablet ? 'shake' : ''}`} />  
+                                </div>  
+                            </div>  
+                  </div>  
+              </div>
           </div>
           {/* mobile */}
           <div className="w-full md:hidden flex items-center justify-between px-5   ">

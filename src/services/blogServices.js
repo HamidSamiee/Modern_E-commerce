@@ -49,4 +49,20 @@ const uploadImageBlog = async(id,image)=>{
     }  
 }
 
-export const blogServices={getBlogs,getBlog,deleteBlog,updateBlog,uploadImageBlog,createBlog}
+const liketheBlog = async(blogData)=>{
+    
+    const response = await http.put("blog/likes",blogData);
+    if (response.data) {
+        return response.data
+    }  
+}
+
+const disliketheBlog = async(blogData)=>{
+    
+    const response = await http.put("blog/dislikes",blogData);
+    if (response.data) {
+        return response.data
+    }  
+}
+
+export const blogServices={getBlogs,getBlog,deleteBlog,updateBlog,uploadImageBlog,createBlog,liketheBlog,disliketheBlog}

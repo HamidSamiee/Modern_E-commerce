@@ -2,6 +2,7 @@ import BreadCrumb from "@/components/BreadCrumb"
 import Container from "@/components/Container"
 import Input from "@/components/Input"
 import Meta from "@/components/Meta"
+import { addProductToCart } from "@/features/CartSlice/CartSlice"
 import { loginUser } from "@/features/userSlice/userSlice"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
@@ -19,22 +20,26 @@ const Login = () => {
 
   const dispatch=useDispatch();
   const navigate=useNavigate();
-  const {user}=useSelector(state =>state.auth)
-// console.log(user.role)
+  const {cart}=useSelector(state=>state.cart)
+
+// console.log(cart)
   const formik = useFormik({
     initialValues:{
           email:'',
           password:'',
     },
     validationSchema:loginSchema,
-    onSubmit:values=>{
-      dispatch(loginUser(values))
-      if(user.role == "Admin"){
-        navigate("/admin");
-      }else{
-        navigate(sessionStorage.getItem('redirectPath') || "/");
-        sessionStorage.removeItem('redirectPath');
-      } 
+    onSubmit: values => {
+      dispatch(loginUser(values)).then(() => { // استفاده از then برای انتظار به پایان رسیدن لاگین
+        if (cart.length > 0) {
+          dispatch(addProductToCart(cart));
+          navigate('/checkout', { replace: true });
+        } else {
+          const redirectPath = sessionStorage.getItem('redirectPath') || '/'; // بازیابی مسیر از sessionStorage
+          navigate(redirectPath, { replace: true });
+          sessionStorage.removeItem('redirectPath'); // پاک کردن مسیر ذخیره‌شده
+        }
+      });
     },
   })
 
@@ -55,7 +60,7 @@ const Login = () => {
                             placeholder="آدرس پست الکترونیکی شما" 
                             class2="w-full"
                             value={formik.values.email}
-                            onChange={formik.handleChange('')}
+                            onChange={formik.handleChange}
                             onBlur={formik.handleBlur('email')}
                           /> 
                           <div className="text-rose-500 text-xs">
@@ -70,7 +75,7 @@ const Login = () => {
                             placeholder="پسورد شما" 
                             class2="w-full"
                             value={formik.values.password}
-                            onChange={formik.handleChange('')}
+                            onChange={formik.handleChange}
                             onBlur={formik.handleBlur('password')}
                           />
                           <div className="text-rose-500 text-xs">

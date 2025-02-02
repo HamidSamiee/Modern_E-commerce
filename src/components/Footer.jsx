@@ -1,9 +1,27 @@
+import { subscribeToNewsletter } from "@/features/newsSlice/newsletterReducer";
 import { toPersianDigits } from "@/utils/toPersianDigits"
+import { useState } from "react";
 import { BsGithub, BsInstagram, BsLinkedin, BsSend, BsYoutube } from "react-icons/bs"
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 
 
 const Footer = () => {
+
+  const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.newsletter);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email.trim() !== "") {
+      dispatch(subscribeToNewsletter(email));
+      setEmail(""); // Clear input after dispatch
+    }
+  };
+
+  
+
   return (
     <>
     <footer className="bg-[var(--color-232f3e)] py-4">
@@ -14,13 +32,40 @@ const Footer = () => {
                   <h2 className="text-xl md:text-2xl font-extrabold">عضویت در خبرنامه</h2>
               </div>
               <div className="px-5 mt-2 md:mt-0 md:pl-10 col-span-12 md:col-span-6 w-full">
-                <div className="relative w-full mx-auto ">
-                    <input className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="search" placeholder="ایمیل تان را وارد کنید" />
-                    <button className="absolute inset-y-0 left-0 flex items-center p-3 text-gray-700 bg-[var(--color-febd69)]   border border-gray-300 rounded-l-md hover:bg-[var(--color-febd69)] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                      اشتراک
-                    </button>
+                  <div className="relative w-full mx-auto">
+                    {/* Form for email subscription */}
+                    <form onSubmit={handleSubmit} className="w-full">
+                      <input
+                        className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        type="email"
+                        placeholder="ایمیل تان را وارد کنید"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        // required
+                      />
+                      <button
+                        type="submit"
+                        className={`absolute inset-y-0 left-0 flex items-center p-3 text-gray-700 bg-[var(--color-febd69)] border border-gray-300 rounded-l-md hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                          loading ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
+                        disabled={loading} // Disable button while loading
+                      >
+                        {loading ? "در حال ارسال..." : "اشتراک"}
+                      </button>
+                    </form>
+                  </div>
+                  {/* Feedback messages */}
+                  {/* {error && (
+                    <p className="text-red-500 mt-2 cursor-pointer" onClick={clearFeedback}>
+                      {error}
+                    </p>
+                  )} */}
+                  {/* {successMessage && (
+                    <p className="text-green-500 mt-2 cursor-pointer" onClick={clearFeedback}>
+                      {successMessage}
+                    </p>
+                  )} */}
                 </div>
-              </div>
             </div>
         </section>
     </footer>

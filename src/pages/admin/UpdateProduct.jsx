@@ -5,12 +5,12 @@ import Input from '@/components/Input';
 // import Uploader from '@/components/Uploader';
 import Editor from "@/components/Editor";
 import { useDispatch , useSelector } from "react-redux";
-import {  useEffect, useMemo, useState } from "react";
+import {  useCallback, useEffect, useMemo, useState } from "react";
 import { getAllbrands } from "@/features/BrandSlice/brandSlice";
 import Spinner from "@/ui/Spinner";
 import { getProductsCategory } from "@/features/pCategorySlice/pCategorySlice";
 import { getColors } from "@/features/ColorSlice/colorSlice";
-import { removeCommasAndPersianDigits, toPersianDigitsWithComma2 } from "@/utils/toPersianDigits";
+import { removeCommasAndPersianDigits, toEnglishDigits, toPersianDigits, toPersianDigitsWithComma2 } from "@/utils/toPersianDigits";
 import 'react-widgets/styles.css'; 
 import { Multiselect } from "react-widgets";
 import { getProductById, updateProduct } from "@/features/ProductsSlice/productSlice";
@@ -24,11 +24,16 @@ const AddProductSchema =Yup.object({
   color:Yup.array().min(1,'حداقل یک رنگ رو وارد کنید').required('ورود  رنگ  الزامیست'),
   tags:Yup.array().required('ورود  تگ الزامیست'),
   details: Yup.mixed().required('Details are required'),
-  price:Yup.number().required('ورود قیمت محصول الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
-    const cleanNumber=removeCommasAndPersianDigits(value);
-    return !isNaN(Number(cleanNumber));
-  }),
-  quantity:Yup.number().required('ورود  تعداد  الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
+  price: Yup.string()
+    .required('ورود قیمت محصول الزامیست')
+    .test('is-valid-number', 'لطفا یک عدد معتبر وارد کنید', (value) => {
+        const cleanNumber = removeCommasAndPersianDigits(value);
+        // باید از parseFloat استفاده کنید تا اعداد غیر مناسب را بررسی کنید
+        const parsedNumber = parseFloat(cleanNumber);
+        // بررسی کنید که آیا parseFloat نتیجه قابل قبول است
+        return !isNaN(parsedNumber) && parsedNumber > 0;
+    }),
+  quantity:Yup.string().required('ورود  تعداد  الزامیست').test('is-valid-number','لطفا یک کاراکتر معتبر وارد کنید',(value)=>{
     const cleanNumber=removeCommasAndPersianDigits(value);
     return !isNaN(Number(cleanNumber));
   }),
@@ -39,7 +44,7 @@ const AddProductSchema =Yup.object({
 
 const UpdateProduct = (Props) => {
 
-  const {productId}=Props;
+  const {productId,handleCloseModal}=Props;
   // console.log(productId);
 
   const [displayValue, setDisplayValue] = useState('');
@@ -106,8 +111,8 @@ const initialValues = useMemo(() => ({
   color: product[0]?.color || [],
   tags: product[0]?.tags || [],
   details: JSON.stringify(product[0]?.details || {}),
-  price: product[0]?.price || '',
-  quantity: product[0]?.quantity || '',
+  price: toPersianDigitsWithComma2(product[0]?.price) || '', 
+  quantity: toPersianDigits(product[0]?.quantity) || '', 
   images: images || [],
 }), [product, images]);
 
@@ -117,15 +122,20 @@ const formik = useFormik({
     validationSchema:AddProductSchema,
     onSubmit:async (values)=>{
       console.log(productId,values);
-
-      try { 
-        values.details = JSON.parse(values.details); 
+      try {
+        // تبدیل مقادیر فارسی به انگلیسی برای ارسال به سرور
+        values.price = removeCommasAndPersianDigits(values.price);
+        values.quantity = toEnglishDigits(values.quantity);
+    
+        // بررسی صحت JSON در `details`
+        values.details = JSON.parse(values.details);
         dispatch(updateProduct({ id: productId, data: values }));
+        handleCloseModal();
       } catch (error) {
-         console.error('Invalid JSON format for details:', error); 
-         alert('فرمت JSON معتبر نیست');
-         return; 
-      };
+        console.error('Invalid JSON format for details:', error);
+        alert('فرمت JSON معتبر نیست');
+        return;
+      }
     },
   })
 
@@ -144,33 +154,28 @@ const formik = useFormik({
 
 
   useEffect(() => {
-     setDisplayValue(formik.values.price);
+     setDisplayValue(toPersianDigitsWithComma2(formik.values.price));
       // همگام‌سازی مقدار نمایش داده شده با مقدار formik 
   }, [formik.values.price]);
 
 
-  // handels foe product price
 
-  const handleInput=(e) => {
-    const rawValue = e.target.value.replace(/[^0-9]/g, ''); // فقط اعداد
-    const formattedValue = toPersianDigitsWithComma2(rawValue); // تبدیل به فرمت مناسب
-    formik.setFieldValue('price', rawValue); // مقدار خام برای فرم
-    setDisplayValue(formattedValue); // نمایش مقدار فرمت‌شده
-  };
+  const handlePriceInput = useCallback((e) => {
+    const value = e.target.value.trim(); // مقدار ورودی
+    const englishValue = toEnglishDigits(value).replace(/,/g, ''); // تبدیل به انگلیسی
+    formik.setFieldValue('price', englishValue); // مقدار انگلیسی برای ذخیره در فرم
+    const formattedValue = toPersianDigitsWithComma2(englishValue); // تبدیل به فارسی با کاما
+    setDisplayValue(formattedValue); // مقدار فارسی برای نمایش
+  }, [formik]);
+  
+  
 
-  const handleBlur=()=>{
-    const value = toPersianDigitsWithComma2(formik.values.price);
-    if (formik.values.price) {
-      setDisplayValue(value);
-    }
-  }
-
-  const handleFocus=()=>{
-    if (formik.values.price) {
-            setDisplayValue(formik.values.price);
-    }
-  }
-  // handles end for price  
+// در هندلر برای ورودی تعداد
+const handleQuantityInput = useCallback((e) => {
+  const value = e.target.value.trim(); // مقدار ورودی
+  const englishValue = toEnglishDigits(value); // تبدیل به انگلیسی
+  formik.setFieldValue('quantity', englishValue); // مقدار انگلیسی برای ذخیره در فرم
+}, [formik]);
 
     
 
@@ -291,11 +296,9 @@ const formik = useFormik({
                       <input
                         id="price"
                         name="price" 
-                        type="number"
+                        type="text"
                         value={displayValue || formik.values.price}
-                        onChange={handleInput}
-                        onBlur={handleBlur}
-                        onFocus={handleFocus}
+                        onChange={handlePriceInput}
                         className="w-full p-1 bg-white border rounded-lg border-secondary-900  focus:ring-secondary-900"
                         placeholder="قیمت محصول"
                       />
@@ -308,11 +311,11 @@ const formik = useFormik({
                   <div className="col-span-12 md:col-span-6  space-y-2">
                       <label>تعداد محصول</label>
                       <Input 
-                        value={formik.values.quantity}
-                        onChange={formik.handleChange}
+                        value={toPersianDigits(formik.values.quantity)}
+                        onChange={handleQuantityInput}
                         onBlur={formik.handleBlur}
                         name="quantity"
-                        type="number"
+                        type="text"
                         className="w-full p-1 bg-white border rounded-lg border-secondary-900  focus:ring-secondary-900"
                         placeholder="تعداد محصول"
                         class2="w-full"

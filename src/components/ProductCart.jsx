@@ -7,19 +7,26 @@ import { toPersianDigitsWithComma } from "@/utils/toPersianDigits";
 import StarRating from "./StarRating";
 import { useDispatch, useSelector } from "react-redux";
 import { addCompareProduct, addToWishList, getAllProducts, removeFromWishList } from "@/features/ProductsSlice/productSlice";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { getAllbrands } from "@/features/BrandSlice/brandSlice";
-import { addToCart } from "@/features/CartSlice/CartSlice";
+import { addProductToCart, } from "@/features/CartSlice/CartSlice";
 import { getUserProductWishlist } from "@/features/userSlice/userSlice";
+import ProductCartModal from "./ProductCartModal";
+
+// اضافه کردن نام نمایشی برای forwardRef
+const ModalInput = forwardRef((props, ref) => (
+  <input type="checkbox" id="my_modal_7" className="modal-toggle" ref={ref} />
+));
+ModalInput.displayName = 'ModalInput'; 
 
 const ProductCart = (Props) => {
 
     const dispatch=useDispatch();
     const {user}=useSelector(state=>state.auth)
-
+    const modalRef = useRef(null);
     const {dataSelection,grid}=Props;
     const {_id,images,brand,title,color,description,price,totalrating}=dataSelection;
-   
+
     useEffect(() => {
       dispatch(getAllbrands());
 
@@ -60,7 +67,17 @@ const ProductCart = (Props) => {
     
   };
  
+  const handleOpenModal = () => {
+    if (modalRef.current) {
+      modalRef.current.checked = true;
+    }
+  };
 
+  const handleCloseModal = () => {
+    if (modalRef.current) {
+      modalRef.current.checked = false;
+    }
+  };
  
        
   return (
@@ -109,20 +126,10 @@ const ProductCart = (Props) => {
                         <IoEyeOutline className="hover:text-sky-500"/>
                       </Link>
                   </div>
-                  <div className="tooltip hover:tooltip-open tooltip-left" data-tip="افزودن به سبد خرید">
+                  <div className="tooltip hover:tooltip-open tooltip-left" data-tip="خرید">
                         <button 
-                        onClick={()=>{dispatch(addToCart(
-                            {
-                            id: _id,
-                            name: title,
-                            color:color && color[0],
-                            img: images && images[0].url,
-                            text: description,
-                            price: price,
-                            quantity: 1,
-                            totalPrice: 1 * price
-                            }
-                        )), dispatch(getAllProducts())}
+                        onClick={()=>{ handleOpenModal(_id)
+                         dispatch(getAllProducts())}
                         }
                         className="hover:scale-150"
                         >
@@ -130,6 +137,20 @@ const ProductCart = (Props) => {
                         </button>
                   </div> 
                 </div>
+            </div>
+            {/* Modal part */}
+            <ModalInput ref={modalRef} />
+            <div className="modal modal-bottom sm:modal-middle">
+              <div className="modal-box">
+                <button 
+                  className="btn btn-sm btn-circle btn-ghost absolute left-2 top-2 z-50" 
+                  onClick={handleCloseModal}
+                >
+                  ✕
+                </button>     
+                {_id && <ProductCartModal product={dataSelection} handleCloseModal={handleCloseModal} />}
+              </div>
+              <label className="modal-backdrop" onClick={handleCloseModal}>Close</label>
             </div>
         </div>
     </section>

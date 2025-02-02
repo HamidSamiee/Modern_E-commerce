@@ -9,7 +9,7 @@ import { FiMinus, FiPlus } from "react-icons/fi"
 import { FaCodeCompare } from "react-icons/fa6"
 import Tabs from "@/components/Tabs/Tabs"
 import { useDispatch, useSelector } from "react-redux"
-import { addToCart } from "@/features/CartSlice/CartSlice"
+import { addProductToCart, addToCart } from "@/features/CartSlice/CartSlice"
 import Container from "@/components/Container"
 import StarRating from "@/components/StarRating"
 // import ImageMagnifier from "@/components/ImageMagnifier"
@@ -23,6 +23,7 @@ import { addToWishList, getAllProducts, removeFromWishList } from "@/features/Pr
 import { getProductsCategory } from "@/features/pCategorySlice/pCategorySlice"
 import { getAllbrands } from "@/features/BrandSlice/brandSlice"
 import { getUserProductWishlist } from "@/features/userSlice/userSlice"
+import { toast } from "react-toastify"
 
 const SingleProduct = () => {
 
@@ -130,6 +131,38 @@ const SingleProduct = () => {
               </div>;  
     }  
 
+    const handleAddtoCart = ()=>{
+        if (addedProduct.color =="") {
+            toast.error("لطفا رنگ مورد نظرتون رو وارد کنید");
+            return false;
+        }
+        if (user) {
+            dispatch(addProductToCart(
+            {
+                id: productId,
+                name: title,
+                color: addedProduct.color,
+                img: images[0].url,
+                desc: description,
+                price: price,
+                quantity: addedProduct.quantity,
+                totalPrice: addedProduct.quantity * price
+            }))
+        }else{
+            dispatch(addToCart(
+                {
+                    id: productId,
+                    name: title,
+                    color: addedProduct.color,
+                    img: images[0].url,
+                    desc: description,
+                    price: price,
+                    quantity: addedProduct.quantity,
+                    totalPrice: addedProduct.quantity * price
+                }
+            ))
+        }
+    }
 
 
     
@@ -277,7 +310,7 @@ const SingleProduct = () => {
                                         <div className="flex items-center gap-2">
                                             <h3 className="text-sm mb-0 text-[var(--color-1c1c1b)]"> تعداد :</h3>
                                             <div className="flex items-center border border-[var(--color-ededed)]">
-                                                <button onClick={()=>setAddedProduct((prev)=>({...prev,quantity:addedProduct.quantity+1}))} className="cursor-pointer px-1 border-l">
+                                                <button onClick={()=>setAddedProduct({...addedProduct,quantity:addedProduct.quantity+1})} className="cursor-pointer px-1 border-l">
                                                     <FiPlus />
                                                 </button>
                                                 <input  type="text" readOnly value={toPersianDigits(addedProduct.quantity)}  min={1} className="w-10 py-0 text-center text-[13px] mb-0 text-[var(--color-777777)] border-none "/>
@@ -318,19 +351,7 @@ const SingleProduct = () => {
                                                 </button>
                                             </div>
                                         </div>
-                                        <button onClick={()=>dispatch(addToCart(
-                                            {
-                                            id: productId,
-                                            name: title,
-                                            color: addedProduct.color,
-                                            img: images[0].url,
-                                            text: description,
-                                            price: price,
-                                            quantity: addedProduct.quantity,
-                                            totalPrice: addedProduct.quantity * price
-                                            }
-                                            ))} 
-                                            type="submit" className=" sm-custom:w-full w-fit sm-custom2:mt-5 text-nowrap bg-[var(--color-febd69)] text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white px-2 py-1 rounded-xl">
+                                        <button onClick={handleAddtoCart} type="submit" className=" sm-custom:w-full w-fit sm-custom2:mt-5 text-nowrap bg-[var(--color-febd69)] text-[var(--color-131921)] hover:bg-[var(--color-131921)] hover:text-white px-2 py-1 rounded-xl">
                                         افزودن به سبد خرید
                                         </button>
                                 </div>

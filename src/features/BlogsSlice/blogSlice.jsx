@@ -62,6 +62,26 @@ export const uploadImageBlog = createAsyncThunk(
     }
 })
 
+export const liketheBlog = createAsyncThunk(
+    "blog/like-blog",
+    async(blogData,thunkAPI)=>{
+    try {
+        return await blogServices.liketheBlog(blogData)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+export const disliketheBlog = createAsyncThunk(
+    "blog/dislike-blog",
+    async(blogData,thunkAPI)=>{
+    try {
+        return await blogServices.disliketheBlog(blogData)
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
 export const blogSlice=createSlice({
     name:'blog',
     initialState:{
@@ -171,6 +191,45 @@ export const blogSlice=createSlice({
             state.isSuccess=false;
             state.message=action.error;
         })
+        // like blog
+        .addCase(liketheBlog.pending,(state)=>{
+            state.isLoading=true;
+        }).addCase(liketheBlog.fulfilled,(state,action)=>{
+            state.isLoading=false;
+            state.isError=false;
+            state.isSuccess=true;
+            state.blog= action.payload;
+            if (state.isSuccess) {
+                toast.success("👍 ممنون بابت لایک")
+            }
+        }).addCase(liketheBlog.rejected,(state,action)=>{
+            state.isLoading=false;
+            state.isError=true;
+            state.isSuccess=false;
+            state.message=action.payload?.response?.data?.message;
+            if (state.isError === true) {
+                toast.error(state.message)
+            }
+        })
+        // dislike blog
+        .addCase(disliketheBlog.pending,(state)=>{
+           state.isLoading=true;
+       }).addCase(disliketheBlog.fulfilled,(state,action)=>{
+           state.isLoading=false;
+           state.isError=false;
+           state.isSuccess=true;
+           state.blog= action.payload;
+           if (state.isSuccess) {
+               toast.info("ممنونم ، سعی می کنم محتوای بهتری ارائه بدم ")
+           }
+       }).addCase(disliketheBlog.rejected,(state,action)=>{
+           state.isLoading=false;
+           state.isError=true;
+           state.isSuccess=false;
+           state.message=action.payload?.response?.data?.message;
+           if (state.isError === true) {
+               toast.error(state.message)
+           }       })
     }   
 })
 

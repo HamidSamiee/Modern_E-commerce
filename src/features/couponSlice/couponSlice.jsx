@@ -52,6 +52,7 @@ export const deleteCoupon = createAsyncThunk(
     }
 })
 
+
 export const resetState = createAction("Reset_all");
 
 export const couponSlice=createSlice({
@@ -156,6 +157,7 @@ export const couponSlice=createSlice({
             state.isSuccess=false;
             state.message=action.payload.error;
         })
+        
     }   
 })
 
